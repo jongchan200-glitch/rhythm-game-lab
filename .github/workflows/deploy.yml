@@ -51,12 +51,21 @@ jobs:
           python3 -c "import json; p=json.load(open('_site/assets/charts/moonlight-hard.json')); a=p['notes']; assert p['schemaVersion']==1 and len(a)==535 and sum(n['kind']=='flick' for n in a)==21"
           mv _site/assets/audio/moonlight-easy-epic-rock.mp3 _site/assets/audio/moonlight-easy-piano-mix-v5.mp3
           mv _site/assets/audio/moonlight-hard-epic-rock.mp3 _site/assets/audio/moonlight-hard-piano-mix-v5.mp3
+          # V6: dynamic phrase-following mix with audible bass, softer percussion, and a resolved final chord.
+          cat overrides/dynamic-mix-v6/part-*.b64 | tr -d '\n\r' | base64 --decode > /tmp/moonlight-dynamic-v6.zip
+          echo '215580a473e2886d3224e1cbe2248694284eec4b06bc8347b40418feb5ed27e0  /tmp/moonlight-dynamic-v6.zip' | sha256sum -c -
+          unzip -o -q /tmp/moonlight-dynamic-v6.zip -d _site
+          echo '2c24cdf3cb3d167eeaa8313cf3f537a008c6e1ec2fc0b1d062c78e7eeb62de69  _site/assets/audio/moonlight-easy-dynamic-v6.mp3' | sha256sum -c -
+          echo '349fcf18f4c0887e8aaacdcb1c5c0310c21aa81a42246ab9b076b247a690172a  _site/assets/audio/moonlight-hard-dynamic-v6.mp3' | sha256sum -c -
+          # Auto demo should only highlight the visual beat, not add a competing kick to every note.
+          python3 -c "from pathlib import Path; p=Path('_site/scripts/main.js'); s=p.read_text(); old='registerSuccess(n,0,true);if(n.pitch<50)playHit(n.pitch,n.kind);'; assert old in s; s=s.replace(old,'registerSuccess(n,0,true);'); assert 'offset=0,fxVol=.45,songVol=.85' in s; s=s.replace('offset=0,fxVol=.45,songVol=.85','offset=0,fxVol=.28,songVol=.88'); p.write_text(s)"
+          python3 -c "from pathlib import Path; p=Path('_site/index.html'); s=p.read_text(); assert 'id=\"fxText\">45%' in s; s=s.replace('id=\"fxText\">45%','id=\"fxText\">28%'); assert 'id=\"fxVolume\"' in s; s=s.replace('id=\"fxVolume\" max=\"100\" min=\"0\" type=\"range\" value=\"45\"','id=\"fxVolume\" max=\"100\" min=\"0\" type=\"range\" value=\"28\"'); s=s.replace('id=\"songText\">85%','id=\"songText\">88%'); s=s.replace('id=\"songVolume\" max=\"100\" min=\"0\" type=\"range\" value=\"85\"','id=\"songVolume\" max=\"100\" min=\"0\" type=\"range\" value=\"88\"'); p.write_text(s)"
           # Invalidate stale browser-local chart overrides; versioned filenames avoid cached old music.
-          python3 -c "import json; from pathlib import Path; p=Path('_site/assets/manifest.json'); m=json.loads(p.read_text()); m['version']='1.2.0'; t=[x for x in m['tracks'] if x.get('status')=='ready']; assert len(t)==2; t[0]['audio']='assets/audio/moonlight-easy-piano-mix-v5.mp3'; t[1]['audio']='assets/audio/moonlight-hard-piano-mix-v5.mp3'; [x.update(subtitle=x['subtitle']+' · PIANO MIX V5') for x in t]; p.write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')"
+          python3 -c "import json; from pathlib import Path; p=Path('_site/assets/manifest.json'); m=json.loads(p.read_text()); m['version']='1.3.0'; t=[x for x in m['tracks'] if x.get('status')=='ready']; assert len(t)==2; t[0]['audio']='assets/audio/moonlight-easy-dynamic-v6.mp3'; t[1]['audio']='assets/audio/moonlight-hard-dynamic-v6.mp3'; [x.update(subtitle=x['subtitle']+' · DYNAMIC MIX V6') for x in t]; p.write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')"
           test -f _site/index.html
           test -f _site/scripts/main.js
-          test -f _site/assets/audio/moonlight-easy-piano-mix-v5.mp3
-          test -f _site/assets/audio/moonlight-hard-piano-mix-v5.mp3
+          test -f _site/assets/audio/moonlight-easy-dynamic-v6.mp3
+          test -f _site/assets/audio/moonlight-hard-dynamic-v6.mp3
           test -f _site/assets/charts/moonlight-easy.json
           test -f _site/assets/charts/moonlight-hard.json
           touch _site/.nojekyll
