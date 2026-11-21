@@ -34,13 +34,15 @@ jobs:
           # Apply chart-only overrides; keep both recorded audio tracks unchanged.
           base64 --decode overrides/charts/moonlight-hard-piano-groove-v2.json.gz.b64 | gzip -dc > _site/assets/charts/moonlight-hard.json
           echo '834b4eb8fa4d43822dd287bab1b7fd9581f1ca6c6624d1b6aaa0260612f5eb97  _site/assets/charts/moonlight-hard.json' | sha256sum -c -
-          # EASY follows real piano-right-hand onsets in the existing 124 BPM arranged MIDI.
-          base64 --decode overrides/charts/moonlight-easy-piano-main-v2.json.gz.b64 | gzip -dc > _site/assets/charts/moonlight-easy.json
-          echo '19e00a1a0ad542fd8dc8420005de03eaa7034291affa83009803de5a4b8b6355  _site/assets/charts/moonlight-easy.json' | sha256sum -c -
-          python3 -c "import json; p=json.load(open('_site/assets/charts/moonlight-easy.json')); a=p['notes']; assert p['schemaVersion']==1 and len(a)==248 and all(n['kind']!='flick' or n['lane'] in (0,3) for n in a)"
+          # EASY emphasizes 15 recurring arpeggio-to-two-accent motifs from the 124 BPM arranged MIDI.
+          base64 --decode overrides/charts/moonlight-easy-signature-motif-v3.json.gz.b64 | gzip -dc > _site/assets/charts/moonlight-easy.json
+          echo 'e6789fc545e283a980cd8a36e54bbf8396ed2e88295d62d8666aeaac687d06af  _site/assets/charts/moonlight-easy.json' | sha256sum -c -
+          python3 -c "import json; p=json.load(open('_site/assets/charts/moonlight-easy.json')); a=p['notes']; assert p['schemaVersion']==1 and len(a)==334 and all(n['kind']!='flick' or n['lane'] in (0,3) for n in a)"
           # During auto-demo, do not mask piano phrases with a low-frequency thump on every note.
           python3 -c "from pathlib import Path; p=Path('_site/scripts/main.js'); s=p.read_text(); old='registerSuccess(n,0,true);playHit(n.pitch,n.kind);'; assert old in s; p.write_text(s.replace(old,'registerSuccess(n,0,true);if(n.pitch<50)playHit(n.pitch,n.kind);'))"
           python3 -c "import json; p=json.load(open('_site/assets/charts/moonlight-hard.json')); assert p['schemaVersion']==1 and len(p['notes'])==463"
+          # Invalidate stale browser-local chart overrides from earlier lab versions.
+          python3 -c "import json; from pathlib import Path; p=Path('_site/assets/manifest.json'); m=json.loads(p.read_text()); m['version']='1.1.0'; p.write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')"
           test -f _site/index.html
           test -f _site/scripts/main.js
           test -f _site/assets/audio/moonlight-easy-epic-rock.mp3
