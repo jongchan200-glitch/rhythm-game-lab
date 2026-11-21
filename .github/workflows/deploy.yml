@@ -41,12 +41,22 @@ jobs:
           # During auto-demo, do not mask piano phrases with a low-frequency thump on every note.
           python3 -c "from pathlib import Path; p=Path('_site/scripts/main.js'); s=p.read_text(); old='registerSuccess(n,0,true);playHit(n.pitch,n.kind);'; assert old in s; p.write_text(s.replace(old,'registerSuccess(n,0,true);if(n.pitch<50)playHit(n.pitch,n.kind);'))"
           python3 -c "import json; p=json.load(open('_site/assets/charts/moonlight-hard.json')); assert p['schemaVersion']==1 and len(p['notes'])==463"
-          # Invalidate stale browser-local chart overrides from earlier lab versions.
-          python3 -c "import json; from pathlib import Path; p=Path('_site/assets/manifest.json'); m=json.loads(p.read_text()); m['version']='1.1.0'; p.write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')"
+          # Install new 224 kbps audio mixes and the motif-aware HARD 50:50 chart, preserving MIDI-aligned timing.
+          cat overrides/audio-piano-forward-v2/part-*.b64 | tr -d '\n\r' | base64 --decode > /tmp/moonlight-piano-forward-v5.zip
+          echo '1c97e68f4ef77d15060eee91e52bb9dff3aa758f38374a64ea68b69f17fcf57c  /tmp/moonlight-piano-forward-v5.zip' | sha256sum -c -
+          unzip -o -q /tmp/moonlight-piano-forward-v5.zip -d _site
+          echo '1de0c62dfec782880b5dbcf519d595cc3ea8f56e17a7d5f5101de839af4e446b  _site/assets/audio/moonlight-easy-epic-rock.mp3' | sha256sum -c -
+          echo 'c615aa603e59cc7a1a325edd90932982752d1c0830bd3b711fea9ed5b1828fec  _site/assets/audio/moonlight-hard-epic-rock.mp3' | sha256sum -c -
+          echo '6022ecf36e3f3d6fce912b197afecddb41c070128829b15df7358a52a0737319  _site/assets/charts/moonlight-hard.json' | sha256sum -c -
+          python3 -c "import json; p=json.load(open('_site/assets/charts/moonlight-hard.json')); a=p['notes']; assert p['schemaVersion']==1 and len(a)==535 and sum(n['kind']=='flick' for n in a)==21"
+          mv _site/assets/audio/moonlight-easy-epic-rock.mp3 _site/assets/audio/moonlight-easy-piano-mix-v5.mp3
+          mv _site/assets/audio/moonlight-hard-epic-rock.mp3 _site/assets/audio/moonlight-hard-piano-mix-v5.mp3
+          # Invalidate stale browser-local chart overrides; versioned filenames avoid cached old music.
+          python3 -c "import json; from pathlib import Path; p=Path('_site/assets/manifest.json'); m=json.loads(p.read_text()); m['version']='1.2.0'; t=[x for x in m['tracks'] if x.get('status')=='ready']; assert len(t)==2; t[0]['audio']='assets/audio/moonlight-easy-piano-mix-v5.mp3'; t[1]['audio']='assets/audio/moonlight-hard-piano-mix-v5.mp3'; [x.update(subtitle=x['subtitle']+' · PIANO MIX V5') for x in t]; p.write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')"
           test -f _site/index.html
           test -f _site/scripts/main.js
-          test -f _site/assets/audio/moonlight-easy-epic-rock.mp3
-          test -f _site/assets/audio/moonlight-hard-epic-rock.mp3
+          test -f _site/assets/audio/moonlight-easy-piano-mix-v5.mp3
+          test -f _site/assets/audio/moonlight-hard-piano-mix-v5.mp3
           test -f _site/assets/charts/moonlight-easy.json
           test -f _site/assets/charts/moonlight-hard.json
           touch _site/.nojekyll
