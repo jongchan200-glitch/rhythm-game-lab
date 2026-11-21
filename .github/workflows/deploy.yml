@@ -1,4 +1,5 @@
 name: Deploy Rhythm Game Lab
+# Trigger deployment after enabling GitHub Pages Actions source.
 on:
   push:
     branches: [main]
