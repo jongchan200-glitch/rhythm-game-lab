@@ -69,7 +69,7 @@ jobs:
           test -f _site/assets/charts/moonlight-easy.json
           test -f _site/assets/charts/moonlight-hard.json
           touch _site/.nojekyll
-          # EASY V7 is a separate preview. Production EASY/HARD remain untouched.
+          # Keep a separate EASY V7 preview as a fallback; main site's EASY also receives V7.
           mkdir -p /tmp/rhythm-easy-v7
           cat overrides/easy-v7/patch.zip.b64 | tr -d '\n\r' | base64 --decode > /tmp/rhythm-easy-v7.zip
           echo 'd7503f4d0f0ec3af7eded76dfa0eabe696022e085f1089562e187edb96f1c75e  /tmp/rhythm-easy-v7.zip' | sha256sum -c -
@@ -111,6 +111,26 @@ jobs:
           PY
           test -f _site/preview/easy-v7/scripts/easy-v7-addon.js
           test -f _site/preview/easy-v7/assets/manifest.json
+          # Main shortcut URL: apply V7 only to EASY while keeping the existing HARD engine.
+          cp /tmp/rhythm-easy-v7/easy-v7-theme.css _site/scripts/easy-v7-theme.css
+          python3 overrides/easy-v7/root_adapter_patch.py /tmp/rhythm-easy-v7/easy-v7-addon.js _site/scripts/easy-v7-addon.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('_site/index.html')
+          s=p.read_text(encoding='utf-8')
+          script='<script defer="" src="scripts/main.js"></script>'
+          assert s.count('</style>')==1 and s.count(script)==1
+          s=s.replace('</style>','</style><link id="v7Theme" rel="stylesheet" href="scripts/easy-v7-theme.css" disabled/>',1)
+          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js"></script>',1)
+          p.write_text(s,encoding='utf-8')
+          m=json.loads(Path('_site/assets/manifest.json').read_text(encoding='utf-8'))
+          ready=[t for t in m['tracks'] if t.get('status')=='ready']
+          assert len(ready)==2 and [t['difficulty'] for t in ready]==[3,5]
+          assert 'easy-v7-addon.js' in s and 'v7Theme' in s
+          PY
+          test -s _site/scripts/easy-v7-addon.js
+          test -s _site/scripts/easy-v7-theme.css
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
