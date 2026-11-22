@@ -179,7 +179,7 @@ jobs:
           PY
           # V12: original Deathmatch, ONE uninterrupted 57-second passage.
           # Add this third ready track after all two-track V8-V11 regression tests.
-          cat overrides/deathmatch-v12/part-*.b64 | tr -d '\\n\\r' | base64 --decode > /tmp/rhythm-deathmatch-v12.zip
+          cat overrides/deathmatch-v12/part-*.b64 | base64 --decode > /tmp/rhythm-deathmatch-v12.zip
           echo '58ceb6f69761b1e46cbfabb5769ff5e2f51cda7c605140e39d6a38315979cd1a  /tmp/rhythm-deathmatch-v12.zip' | sha256sum -c -
           unzip -o -q /tmp/rhythm-deathmatch-v12.zip -d _site
           python3 overrides/deathmatch-v12/install_deathmatch.py
