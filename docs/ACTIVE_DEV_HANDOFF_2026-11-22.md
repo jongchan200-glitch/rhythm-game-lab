@@ -1,3 +1,14 @@
+# 2026-11-22 밤 — V9 얇은 에너지 게이지 배포
+
+- 사용자 2026-11-22 요청: 배경색 에너지 경고 효과는 만족하지만 남은 에너지 양이 직관적으로 보이지 않으므로 얇은 게이지가 필요. 처음 제안된 에너지 숫자와 ENERGY 글자도 사용자 거절: **수치·문자 없이 가느다란 막대만 표시**.
+- **배포 완료:** 기존 주소 https://jongchan200-glitch.github.io/rhythm-game-lab/ 에 GitHub Pages Actions **#54 성공**: https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45016201497 (배포 변경 커밋 ed46adcf5eb48332b422c98ee82017393f47753a). 빌드 로그 V9_ENERGY_METER_PATCHED / V9_HEALTH_BAR_INTEGRATION_VERIFIED 확인. 코드·배포 성공과 실제 갤럭시 화면 적합성 검증은 구별(후자는 사용자 확인 대기).
+- **기능:** EASY V7/8 showHealth 상태를 그대로 사용한 5px 가로 게이지, 점수 HUD 직후, 숫자/문자 없음. 체력 100%에서 가득 차고 BAD/MISS로 줄며 PERFECT/GREAT로 회복. 기존 안정/주의/위험 임계값(60/25)에 맞춰 청록/주황/빨강 그라데이션, 180ms 부드러운 길이 변화. 기존 화면 전체의 배경색 변화, V8 약 60초 음악·채보·난이도 규칙·진행바·자동 시연은 변경하지 않음.
+- **모드 분리:** EASY 전용. EASY↔HARD 전환에서 HARD 쪽 게이지는 hidden 처리하여 HARD 이전 화면/판정 규칙 유지.
+- **변경 소스:** overrides/easy-v7/add_energy_bar.py (V8 add-on에 showHealth 연동), overrides/easy-v7/energy-meter.css, overrides/easy-v7/root_adapter_patch.py (HARD 전환시 숨김), .github/workflows/deploy.yml (메인 및 preview 링크/자원 반영). V8 정상이던 기존 커밋 c41baa1d4b7c06acff9655f2ff5ec4b362ddeaaa를 backup/pre-v9-energy-meter-2026-11-22 브랜치에 보존.
+- **다음 사용자 검증:** 갤럭시 EASY에서 상단 게이지 시야/높이, 중간 체력 감소 시 길이 반영·회복, 배경색과 색상 일치, HARD 전환시 게이지 숨김 확인. 임의로 다른 UI나 게이지 숫자를 추가하지 말 것.
+
+---
+
 # 2026-11-22 저녁 — V8 60초 편집·에너지 강화 실제 배포 완료 (최신)
 
 - **승인:** 사용자의 "한번 수정해봐. 그리고 반영해봐." 지시로 난이도와 곡 길이 변경을 승인받아 반영. 추가 변경은 새 지시 필요.
