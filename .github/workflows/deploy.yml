@@ -419,6 +419,61 @@ jobs:
           print('V17_SINGLE_HARD_VOCAL_HOLD_AND_229_OTHER_EVENTS_UNCHANGED')
           print('V17_SHARED_POLISHED_TAP_FLICK_HOLD_VISUALS_AND_FIVE_SONGS_VERIFIED')
           PY
+          # V18: Corrected user quantity: EASY 5-6 / HARD 18-20 full gold coin
+          # notes per song; only PERFECT actually pays, on animation ARRIVAL.
+          # HARD 4/5* now uses the already-configured health algorithm.
+          mkdir -p /tmp/rhythm-pre-v18-charts
+          cp _site/assets/charts/*.json /tmp/rhythm-pre-v18-charts/
+          cp overrides/coin-v18/coin-v18.js _site/scripts/coin-v18.js
+          cp overrides/coin-v18/coin-v18.css _site/scripts/coin-v18.css
+          echo '9de71fee1bfddba9ce968295caa1ffe5bf4eae3d0700f0c106b484127a1906b1  _site/scripts/coin-v18.js' | sha256sum -c -
+          echo 'ce96847e1fab556a552f51c2e1e2ecf6f236752b291de237fccf108b7ca87ac8  _site/scripts/coin-v18.css' | sha256sum -c -
+          echo 'eb56d9ed5b64b7f2e1f6cdd6abc8e5bfb25c65ac343536250d165e36c868bd64  overrides/coin-v18/install_coin_v18.py' | sha256sum -c -
+          python3 overrides/coin-v18/install_coin_v18.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/easy-v7-addon.js
+          node --check _site/scripts/home-v14.js
+          node --check _site/scripts/coin-v18.js
+          cmp _site/assets/charts/deathmatch_easy_v12.json /tmp/rhythm-pre-v18-charts/deathmatch_easy_v12.json
+          cmp _site/assets/charts/moonlight-easy.json /tmp/rhythm-pre-v18-charts/moonlight-easy.json
+          cmp _site/assets/charts/moonlight-hard.json /tmp/rhythm-pre-v18-charts/moonlight-hard.json
+          cmp _site/assets/charts/tonight_easy_v16.json /tmp/rhythm-pre-v18-charts/tonight_easy_v16.json
+          cmp _site/assets/charts/tonight_hard_v16.json /tmp/rhythm-pre-v18-charts/tonight_hard_v16.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          site=Path('_site')
+          h=(site/'index.html').read_text(encoding='utf8')
+          js=(site/'scripts/coin-v18.js').read_text(encoding='utf8')
+          addon=(site/'scripts/easy-v7-addon.js').read_text(encoding='utf8')
+          main=(site/'scripts/main.js').read_text(encoding='utf8')
+          home=(site/'scripts/home-v14.js').read_text(encoding='utf8')
+          assert all(k in h for k in (
+             'scripts/main.js?v18','easy-v7-addon.js?v18',
+             'scripts/home-v14.js?v18','scripts/coin-v18.js?v18','scripts/coin-v18.css?v18',
+             'scripts/hold-v15.js?v15','scripts/tonight-home-v16.js?v16',
+             'scripts/note-style-v17.css?v17'))
+          assert js.count('registerSuccess=function(')==1
+          assert "const count=Number(current.difficulty)<=3?5+(hash(current.id)%2):18+(hash(current.id)%3);" in js
+          assert "grade(delta)[0]==='PERFECT'" in js and '!auto' in js
+          assert "pick.coin=true" in js and 'ctx.ellipse(0,-2,radius,12.7' in main
+          assert "if(meter)meter.hidden=false" in addon
+          assert "if(!current)return origProcessNotes()" in addon
+          assert "5~6개, HARD에는 18~20개" in home
+          assert 'data-rh-coin-total' in home
+          assert 'rhythm_lab_coins_v1' in js
+          assert 'V18:' in js and 'V17 unified premium note' in main
+          assert 'today' not in main[:12] # unchanged core start
+          m=json.loads((site/'assets/manifest.json').read_text(encoding='utf8'))
+          assert m['version']=='2.4.0-v15-hold-release-playtest'
+          ready=[t['id'] for t in m['tracks'] if t['status']=='ready']
+          assert ready==['deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5','tonight_easy_v16','tonight_hard_v16']
+          death=json.loads((site/'assets/charts/deathmatch_easy_v12.json').read_text(encoding='utf8'))
+          hard=json.loads((site/'assets/charts/tonight_hard_v16.json').read_text(encoding='utf8'))
+          assert len(death['notes'])==132 and len(hard['notes'])==231
+          print('V18_EASY_FIVE_SIX_HARD_EIGHTEEN_TWENTY_GOLD_COIN_NOTES_VERIFIED')
+          print('V18_PERFECT_ONLY_FLIGHT_WALLET_PERSISTENCE_AND_HARD_ENERGY_VERIFIED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site

@@ -1,0 +1,12 @@
+/* The same gold medallion travels from the hit line into the TOP wallet. */
+.v18-game-wallet{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-width:61px;height:35px;padding:0 7px;border:1px solid #f6c96094;border-radius:18px;background:linear-gradient(145deg,#3d3020ed,#1f2741ec);box-shadow:inset 0 1px #ffeed25e,0 4px 16px #070c1b;white-space:nowrap;color:#ffe7a0;z-index:6;font-size:13px;font-variant-numeric:tabular-nums}
+.v18-game-wallet b{font-size:13px;min-width:10px;text-align:right;font-weight:900}
+.v18-coin-mark{display:grid;place-items:center;font-size:11px;flex-shrink:0;width:22px;height:18px;border-radius:50%;transform:rotate(-17deg);color:#865016;text-shadow:0 1px #ffdb7d;box-shadow:0 2px 0 #99571b,inset 0 1px 3px #fff1a4;background:radial-gradient(ellipse at 34% 27%,#fff4b7,#ffd466 38%,#bd7721 90%);border:1px solid #ffdd89}
+.v18-plus{position:absolute;right:-3px;top:-5px;font-size:10px;width:13px;height:13px;display:grid;place-items:center;border-radius:50%;background:#cf9835;color:#fffad0;border:1px solid #f9dc8c}
+.v18-flying-coin{position:fixed;display:grid;place-items:center;z-index:200;pointer-events:none;width:59px;height:30px;border-radius:50%;font-size:22px;font-weight:950;color:#a76614;text-shadow:0 1px #ffe2a2;background:radial-gradient(ellipse at 31% 20%,#fff8d2 0%,#f5c65b 39%,#bf7420 78%,#905016 100%);border:2px solid #fff2ab;box-shadow:0 5px 0 #925015,inset 0 2px 4px #fff7bd,0 3px 20px #f6c44aac;will-change:transform,opacity}
+.v18-hit{animation:v18WalletHit .32s ease-out}@keyframes v18WalletHit{0%{filter:brightness(1);transform:scale(1)}40%{filter:brightness(1.6);transform:scale(1.14)}100%{filter:brightness(1);transform:scale(1)}}
+.v18-coin-popup{position:absolute;top:2px;right:0;color:#ffeeb0;font-size:13px;font-weight:950;text-shadow:0 0 8px #f8c23c;animation:v18Pop .8s both;pointer-events:none}@keyframes v18Pop{0%{opacity:0;transform:translateY(0)}20%{opacity:1;transform:translateY(-13px)}100%{opacity:0;transform:translateY(-27px)}}
+.headact{gap:4px}.headact .round{min-width:34px;min-height:34px}.head{gap:4px}
+@media(max-width:440px){.headact .minitag{display:none}.v18-game-wallet{min-width:60px;padding:0 6px}.headact .round{min-width:34px}}
+@media(max-width:360px){.headact .round{min-width:31px;padding:0 3px}.v18-game-wallet{min-width:53px}.headact{gap:3px}}
+@media(prefers-reduced-motion:reduce){.v18-flying-coin{animation:none}.v18-hit{animation:none}}
