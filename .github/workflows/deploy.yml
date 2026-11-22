@@ -130,6 +130,27 @@ jobs:
           assert 'easy-v7-addon.js' in s and 'v7Theme' in s
           PY
           test -s _site/scripts/easy-v7-addon.js
+          # Inspection-only diagnostic for next approved 60s build (remove after use).
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,subprocess
+          print('=== RHYTHM_INSPECT_BEGIN ===')
+          for name in ('moonlight-easy','moonlight-hard'):
+              p=Path('_site/assets/charts/'+name+'.json'); d=json.loads(p.read_text()); ns=d.get('notes',[])
+              print('CHART',name,'KEYS',list(d.keys()),'COUNT',len(ns),'FIRST_NOTES',ns[:5],'LAST_NOTES',ns[-4:])
+              for key in ('t','time','at','start','startTime','ms','beat'):
+                  vals=[n[key] for n in ns if key in n and isinstance(n[key],(int,float))]
+                  if vals: print('TIMING',name,key,min(vals),max(vals),'SAMPLE',vals[:8])
+              audio=Path('_site/assets/audio/'+name+'-dynamic-v6.mp3')
+              probe=subprocess.run(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',str(audio)],capture_output=True,text=True)
+              print('AUDIO',name,'DURATION',probe.stdout.strip(),'ERR',probe.stderr.strip()[:300])
+          addon=Path('/tmp/rhythm-easy-v7/easy-v7-addon.js').read_text()
+          print('ADDON_CHARS',len(addon),'LINES',len(addon.splitlines()))
+          for i,line in enumerate(addon.splitlines(),1):
+              if any(k in line.lower() for k in ('health','rules','energy','perfect','great','miss','bad','gameover','game over','function grade','registersuccess','registermiss','finishgame','initgame')):
+                  print('ADDON_LINE',i,line[:550])
+          print('=== RHYTHM_INSPECT_END ===')
+          PY
           test -s _site/scripts/easy-v7-theme.css
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
