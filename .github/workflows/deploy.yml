@@ -177,6 +177,24 @@ jobs:
           print('V10_HUD_OVERLAY_NO_REFLOW_VERIFIED')
           print('V11_SOUND_TAGS_AND_NOTE_PITCH_VERIFIED')
           PY
+          # V12: original Deathmatch, ONE uninterrupted 57-second passage.
+          # Add this third ready track after all two-track V8-V11 regression tests.
+          cat overrides/deathmatch-v12/part-*.b64 | tr -d '\\n\\r' | base64 --decode > /tmp/rhythm-deathmatch-v12.zip
+          echo '58ceb6f69761b1e46cbfabb5769ff5e2f51cda7c605140e39d6a38315979cd1a  /tmp/rhythm-deathmatch-v12.zip' | sha256sum -c -
+          unzip -o -q /tmp/rhythm-deathmatch-v12.zip -d _site
+          python3 overrides/deathmatch-v12/install_deathmatch.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('_site/assets/manifest.json').read_text(encoding='utf8'))
+          ready=[t for t in m['tracks'] if t.get('status')=='ready']
+          assert len(ready)==3 and ready[0]['id']=='deathmatch_one_take_v12'
+          assert [t['id'] for t in ready[1:]]==['moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5']
+          n=json.loads(Path('_site/assets/charts/deathmatch_easy_v12.json').read_text(encoding='utf8'))['notes']
+          assert len(n)==131 and all(x['sound']['midi']==x['pitch'] for x in n)
+          assert 'scripts/main.js?v12' in Path('_site/index.html').read_text(encoding='utf8')
+          print('DEATHMATCH_V12_PUBLISHED_AND_ORIGINAL_TRACKS_PRESERVED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
