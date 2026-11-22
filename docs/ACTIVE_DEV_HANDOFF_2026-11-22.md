@@ -1,3 +1,13 @@
+# 2026-11-22 사용자 스크린샷 — V10 모바일 레이아웃 공백 복구
+
+- 사용자 갤럭시 스크린샷에서 V9 얇은 에너지 게이지 아래에 큰 빈 공간이 2군데 생기고 게임 4레인 영역이 지나치게 아래로 내려가 작아짐. 사용자 평가: "뭔가 레이아웃이 망가졌어".
+- **원인:** overrides/easy-v7/add_energy_bar.py의 `hud.insertAdjacentElement('afterend', v9Meter)`가 5px 바를 기존 플레이 컨테이너의 새로운 형제 요소로 배치해 화면 공간 분배에 참여시킴.
+- **V10 수정:** 게이지를 `hud.appendChild(v9Meter)`로 점수 HUD 내부에 넣고 CSS에서 `.hud {position:relative;overflow:visible}`, `#v9HealthMeter {position:absolute;left:0;right:0;bottom:-13px;height:5px}`로 배치해 **플레이 레이아웃 공간을 더 이상 점유하지 않음**. 숫자/문자 표시 없음, 기존 에너지 연동/색상 변화 유지. HARD에서는 숨김. 음원/채보/난이도/판정은 이전 V8/V9 그대로 보존.
+- **반영:** 메인/미리보기 CSS·JS에 `?v10` 캐시 버전 적용. GitHub commit `7de58d3ae3ed03766f0630c766042017a06c3fce` / Actions **#57 성공**, 배포 작업의 `V10_HUD_OVERLAY_NO_REFLOW_VERIFIED` 검사 로그 확인. https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45016709984 . 모바일 사용자 재검증 전이므로 실기기 화면 정상 복구 확정이라고 말하지 않음.
+- 이전 정상 V8 백업 `backup/pre-v9-energy-meter-2026-11-22`도 유지. 배포된 본게임 주소는 계속 https://jongchan200-glitch.github.io/rhythm-game-lab/ .
+
+---
+
 # 2026-11-22 밤 — V9 얇은 에너지 게이지 배포
 
 - 사용자 2026-11-22 요청: 배경색 에너지 경고 효과는 만족하지만 남은 에너지 양이 직관적으로 보이지 않으므로 얇은 게이지가 필요. 처음 제안된 에너지 숫자와 ENERGY 글자도 사용자 거절: **수치·문자 없이 가느다란 막대만 표시**.
