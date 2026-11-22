@@ -9,14 +9,14 @@
 - 기존 기능·데이터·아이디어 및 정상 배포본을 보존한다.
 
 ## 실제 웹주소와 소스
-- 안정판: https://jongchan200-glitch.github.io/rhythm-game-lab/
-- EASY V7 전용 시험판: https://jongchan200-glitch.github.io/rhythm-game-lab/preview/easy-v7/
+- **기존 바로가기·기본 주소 (현재 EASY V7 통합, HARD 기존 V6 유지)**: https://jongchan200-glitch.github.io/rhythm-game-lab/
+- EASY V7 독립 시험판 백업 주소: https://jongchan200-glitch.github.io/rhythm-game-lab/preview/easy-v7/
 - GitHub 저장소: https://github.com/jongchan200-glitch/rhythm-game-lab
 - 작업 파이프라인: .github/workflows/deploy.yml
 - 원형 전체 게임: package/part-*.b64에 보관된 ZIP → 빌드 때 _site로 풀림.
 - 이후 승인된 음악·채보·효과/설정 패치: overrides/** (자동 빌드에 반영)
 - V7 시험판 추가 소스: overrides/easy-v7/patch.zip.b64 (base64로 인코딩한 ZIP: easy-v7-addon.js, easy-v7-theme.css, README_TEST.txt).
-- 배포된 시험판 웹소스는 Github Pages 산출물의 preview/easy-v7/ 아래에 있음. 이 폴더는 Actions 빌드 시 생성되므로 소스를 수정하려면 패치 압축 및 deploy.yml의 구성 방법을 함께 확인해야 한다.
+- GitHub Pages 빌드는 같은 V7 패치를 기본 경로 EASY에 적용한다. HARD는 원본 엔진·원본 CSS를 그대로 사용하도록 `overrides/easy-v7/root_adapter_patch.py`가 전환 가드를 만든다. 구형 미리보기는 preview/easy-v7/에 계속 보관. 빌드 상세는 `.github/workflows/deploy.yml` 참조.
 - 2026-11-22 02:26 UTC 부근 성공한 GitHub Actions 실행: https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/44976052175
 
 ## 현재 승인 또는 검증된 음악·채보
@@ -27,7 +27,7 @@
 - 특정 음악에서 반복되는 대표 선율(예: 빠른 피아노 아르페지오 뒤 두 강한 화음)은 같은 손가락 패턴으로 재등장하도록 만든다. 모든 악기의 모든 음표를 기계적으로 채보로 만들지 않는다.
 
 ## EASY V7 시험판 — 구현 및 미검증
-- 기존 안정판 변경 없이 별도 /preview/easy-v7/ 주소에 실험판 배포 성공.
+- **2026-11-22 변경**: 사용자 요구에 따라 별도 시험판에만 적용했던 EASY V7을 기존 기본 URL(`/`)에 통합 배포. 기존 바로가기를 다시 만들 필요가 없음. HARD V6/원본 535노트 및 음악은 보존.
 - 난이도별 5단계 판정 PERFECT/GREAT/GOOD/BAD/MISS.
 - 에너지 100 시작, PERFECT·GREAT 회복, GOOD 0, BAD·MISS 감소, 에너지 0이면 곡 중간 GAME OVER.
 - 별점별 에너지 규칙(+P,+G,GOOD,BAD,MISS):
@@ -36,7 +36,7 @@
 - 세로·가로·칸막이 에너지바를 사용하지 않음. 배경·무대색은 정상 청록 → 주의 주황 → 위험 빨강. 중앙 노트는 계속 보이도록 색을 약하게 입히며 BAD/MISS 때 가장자리 짧은 충격, 저에너지 때 점멸. 게임 전체 화면 흔들림 금지.
 - PERFECT 판정선: 얇고 선명한 코랄 빨강 중심선 + 중앙을 기준으로 넓어지는 반투명 밴드. 두께가 난이도에 따라 ★ 28px, ★★ 23px, ★★★ 18px, ★★★★ 12px, ★★★★★ 4px. 노트 본체 24px와 낙하속도(px/s)를 함께 고려해 PERFECT 시간 구간 계산. 실제 디스플레이 대비와 체감은 사용자 확인 필요.
 - 진행바 드래그로 앞으로/뒤로 듣기, 5초 뒤/앞 버튼. 일반 플레이에서 구간 이동하면 ‘연습’으로 전환해 점수 최고기록 저장 금지. 자동 시연은 자유롭게 이동하며 체력 감소·기록 저장 없음.
-- 모던 네오클래식 청록·차콜 디자인 시험판. 원래 음악·채보를 변경하지 않음. 모바일 브라우저 자동화는 환경 제한으로 실제 수행하지 못함: **Actions 패키지 생성 검증 ≠ 갤럭시 터치·시각·오디오 검증**.
+- 모던 네오클래식 청록·차콜 디자인은 기본 URL의 EASY에 적용하고 HARD에는 적용하지 않음. 원래 음악·채보를 변경하지 않음. 배포 작업 #46 성공(아래 링크). Playwright 정적 로컬 테스트로 EASY→HARD→EASY 전환 시 V7 기능/테마와 기존 HARD 판정의 분리를 검증. 실제 공개 페이지 직접 로딩·갤럭시 터치·음향 체감은 사용자 검증 필요.
 
 ## 아직 논의 중/향후 실험
 - 난이도/곡별 판정선 두께·퍼펙트 범위는 시험값. 특히 ★★★★★ 4px가 실제로 불가능하게 엄격하지 않은지 검증.
@@ -50,7 +50,7 @@
 ## 다음 수정 순서
 1. 갤럭시에서 EASY V7 시작·자동 시연·직접 플레이·GAME OVER·진행바·일시정지·재시작을 실제 시험.
 2. 에너지 소진 속도, BAD 판정, 화면 경고 효과, 판정선 타격감, 가로/세로 터치 안전을 사용자 평가로 수정.
-3. 사용자 승인 뒤 HARD/향후 곡에 단계별 규칙 및 디자인 이식. 안정판과 실험판 차이를 명확히 분리.
+3. HARD 및 향후 곡으로의 기능 이식은 사용자가 별도로 승인할 때 진행. 현재 HARD는 기존 판정·화면 그대로 유지.
 4. 작업 묶음 종료·채팅방 이동 때 Drive 최신 문서와 GitHub 코드·배포 상태를 동기화한다.
 
 ## 자료 및 인수인계
@@ -58,3 +58,10 @@
 - 과거 종합 기획: https://docs.google.com/document/d/19CFCHH6lIDJZZNbPDQcYaFY3jshchNvPzCOhU9hbgBI/edit
 - 이전 실패·평가: https://docs.google.com/document/d/1bqiLTs0aBNktH7zoLUN21SR8lvaQHBsbaoVJwLnk_5g/edit
 - 2026-11-22 배포 전체 스냅샷 ZIP: https://drive.google.com/file/d/1z2sECkorkZZGMcOC0cV7688FEs0_VUr6/view
+
+## 2026-11-22 기본 바로가기 업데이트
+- 사용자 요청: 새 EASY 기능이 별도 미리보기만이 아니라 **기존 홈 화면 바로가기의 원래 URL**에서 실행돼야 한다. 이전 미리보기 전용 배포는 잘못 해석한 것으로 정정.
+- 반영: `.github/workflows/deploy.yml`에서 `_site/index.html`에 V7 CSS·JS를 추가하고, `root_adapter_patch.py`로 EASY만 V7·HARD는 기존 기능을 사용하도록 조건부 활성화.
+- 승인 원본 커밋: `a1a67361542e2801d9898a50987203c294cd820e` / 빌드 성공: https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/44977138761
+- 일반 새로고침 후 기존 주소에서 EASY V7이 나타나야 한다. 브라우저 캐시로 오래된 파일이 보이면 페이지 새로고침/캐시 갱신을 안내. 사용자의 실제 휴대폰 확인은 미실시.
+- 최종 앱 완성 승인·Codex 인계는 아직 없음.
