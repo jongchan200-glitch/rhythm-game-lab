@@ -1,0 +1,25 @@
+/* A working HARD chapter for developer playtest, without changing the fixed footer. */
+#rhHome .rh-hard-page{background:radial-gradient(ellipse 78% 48% at 50% 47%,#3a91b86d 0%,#18406479 48%,transparent 85%),linear-gradient(163deg,#0b213c 0%,#06152c 70%,#06101c 100%)}
+#rhHome .rh-hard-brand p{color:#b6e2f9}
+#rhHome .rh-hard-lock-title{font-size:14px;color:#d4f1ff;letter-spacing:.10em}
+#rhHome .rh-hard-lock-title span{border-color:#6bdaeba0;color:#deffff;background:#205776}
+#rhHome .rh-cd-lock{display:none!important}
+#rhHome .rh-cd-stage{cursor:grab;touch-action:pan-y;outline-offset:8px;transform:translateX(var(--rh-hard-drag,0px));transition:transform .22s ease-out}
+#rhHome .rh-cd-stage:active{cursor:grabbing}
+#rhHome .rh-cd-stage:focus-visible{outline:2px solid #bdefff}
+#rhHome .rh-compact-disc{box-shadow:0 0 0 2px #ceeaff55,0 0 0 8px #356c9333,0 18px 42px #000c,0 0 65px #79ccf56a}
+#rhHome .rh-hard-moonlight .rh-compact-disc{filter:hue-rotate(28deg)}
+#rhHome .rh-hard-spin .rh-compact-disc{animation:rhRotate 3.2s linear infinite}
+#rhHome .rh-hard-status{display:none}
+#rhHome .rh-hard-stats{opacity:1}
+#rhHome .rh-hard-play{cursor:pointer!important;opacity:1!important;background:linear-gradient(115deg,#9fe7ff,#64acdb)!important;border:1px solid #e0f7ffab!important;color:#10243c!important;box-shadow:0 5px 0 #17395d!important}
+#rhHome .rh-hard-play small{color:#2c4568!important}
+#rhHome .rh-hard-play:disabled{opacity:.5!important;cursor:not-allowed!important}
+#rhHome .rh-hard-demo{border-color:#70a7c878;background:#153956;color:#d0f5ff}
+#rhHome .rh-hard-showcase .rh-record-info{margin-top:14px}
+#rhHome .rh-hard-showcase .rh-preview{margin-top:7px;border:1px solid #93d2ec70!important;background:#10324ba8!important;color:#cbeeff!important}
+#rhHome .rh-cd-printed strong{white-space:normal;word-break:keep-all;max-width:100%;line-height:1.16;text-align:center;font-size:clamp(14px,4.8vw,22px)}
+#rhHome .rh-cd-printed span{font-size:clamp(6px,1.8vw,9px)}
+@media(max-height:725px){#rhHome .rh-hard-showcase .rh-record-info{margin-top:7px;gap:2px}#rhHome .rh-hard-showcase .rh-preview{margin-top:5px;min-height:29px}}
+@media(max-height:590px){#rhHome .rh-hard-showcase .rh-preview{margin-top:2px}}
+@media(prefers-reduced-motion:reduce){#rhHome .rh-hard-spin .rh-compact-disc{animation:none}}

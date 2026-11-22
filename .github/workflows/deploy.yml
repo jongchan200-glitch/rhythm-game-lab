@@ -304,6 +304,65 @@ jobs:
           assert [n['id'] for n in m['tracks'] if n['status']=='ready']==['deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5']
           print('V15_DEATHMATCH_ONE_HOLD_RELEASE_AND_EXISTING_130_NOTES_PRESERVED')
           PY
+          # V16: '오늘밤도' user-provided original, two SEPARATE continuous musical excerpts.
+          # EASY 115.52-183.63s (68.11s); HARD 183.57-250.16s (66.59s).
+          # CD home becomes playable in TEST MODE, LP/EASY and fixed footer remain unchanged.
+          cat overrides/tonight-v16/part-*.b64 | tr -d '\n\r' | base64 --decode > /tmp/rhythm-tonight-v16.zip
+          echo '4933650f282922f6ea340678a4ed9443ead9191231bd011d24ba9fd7cca4a8b8  /tmp/rhythm-tonight-v16.zip' | sha256sum -c -
+          mkdir -p /tmp/tonight-v16
+          unzip -q /tmp/rhythm-tonight-v16.zip -d /tmp/tonight-v16
+          cp overrides/tonight-v16/tonight-home-v16.js _site/scripts/tonight-home-v16.js
+          cp overrides/tonight-v16/tonight-home-v16.css _site/scripts/tonight-home-v16.css
+          node --check _site/scripts/tonight-home-v16.js
+          python3 overrides/tonight-v16/install_tonight_v16.py
+          node --check _site/scripts/home-v14.js
+          node --check _site/scripts/main.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,subprocess,hashlib
+          site=Path('_site')
+          h=(site/'index.html').read_text(encoding='utf8')
+          assert h.count('scripts/home-v14.js?v16')==1
+          assert h.count('scripts/tonight-home-v16.js?v16')==1
+          assert h.count('scripts/tonight-home-v16.css?v16')==1
+          assert 'scripts/home-v14.js?v14' not in h
+          assert 'scripts/hold-v15.js?v15' in h and 'scripts/main.js?v12' in h
+          home=(site/'scripts/home-v14.js').read_text(encoding='utf8')
+          rt=(site/'scripts/tonight-home-v16.js').read_text(encoding='utf8')
+          assert 'rhHardDiscZone' in home and 'rhHardPlay' in home
+          assert 'id="rhHardPlay" type="button"' in home
+          assert 'rhHardPreview' in home and 'rhFixedFooter' in home
+          assert "activePage===0" in home and 'tonight_easy_v16' in home and '챨스' in home
+          assert all(x in rt for x in ('tonight_hard_v16','rhHardDemo','rhHardDiscZone','pointerdown','stopPropagation','click()'))
+          m=json.loads((site/'assets/manifest.json').read_text(encoding='utf8'))
+          assert m['version']=='2.4.0-v15-hold-release-playtest', 'user custom chart version must remain intact'
+          ready=[t for t in m['tracks'] if t.get('status')=='ready']
+          ids=[t['id'] for t in ready]
+          assert ids==['deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5','tonight_easy_v16','tonight_hard_v16'],ids
+          assert [t['difficulty'] for t in ready]==[3,3,5,3,5]
+          assert all(t['composer']=='챨스' and t['producer']=='한울' for t in ready[-2:])
+          for mode,n_expected,stars,source,duration in [
+              ('easy',136,3,[115.52,183.63],68.11),
+              ('hard',230,5,[183.57,250.16],66.59)]:
+              id=f'tonight_{mode}_v16'
+              j=json.loads((site/f'assets/charts/{id}.json').read_text(encoding='utf8'))
+              notes=j['notes']
+              assert len(notes)==n_expected and j['difficulty']==stars
+              assert j['sourceSliceSeconds']==source
+              assert all(x['kind'] in ('tap','flick') and 0<=x['lane']<4 for x in notes)
+              if mode=='easy':assert all(x['lane'] in (0,3) for x in notes if x['kind']=='flick')
+              for i in range(len(notes)-2):
+                  assert notes[i+2]['t']-notes[i]['t']>=.02-1e-7
+              assert all(n['sound']['midi']==n['pitch'] for n in notes)
+              audio=site/f'assets/audio/{id}.mp3'
+              assert audio.is_file() and audio.stat().st_size>1450000
+              sec=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',str(audio)]).decode().strip())
+              assert abs(sec-duration)<.12,(mode,sec)
+              print('V16_CHART_AUDIO_VERIFIED',mode,len(notes),round(sec,2),'secs')
+          old=json.loads((site/'assets/charts/deathmatch_easy_v12.json').read_text(encoding='utf8'))
+          assert len(old['notes'])==132 and sum(n['kind']=='hold' for n in old['notes'])==1
+          print('V16_TWO_MUSICAL_EXCERPTS_LP_AND_UNLOCKED_HARD_CAROUSEL_VERIFIED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
