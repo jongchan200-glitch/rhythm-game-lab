@@ -1,3 +1,15 @@
+# 2026-11-22 데스매치 V12 — 한 구간 연속 57초 리듬게임 실제 배포
+- 사용자 신규 지시: 기존 Moonlight의 여러 구간을 이어 붙인 편곡은 곡이 갑자기 바뀌는 짜깁기 느낌이 강해 불합격. 대신 구글 드라이브의 원곡 `데스매치_원본.wav`(220초, 48kHz 스테레오)을 가져다 EASY/HARD 중 적합한 모드 하나로 리듬게임을 실제 만들어 시험하고 싶음.
+- **원본**: 사용자 Google Drive 개인 원본 음원 https://drive.google.com/file/d/1VN49BEooqp8Vdi3Yp5S6PT2DiPfOP8Qp/view . 원본 WAV는 공개 GitHub에 올리지 않음. **새 게임용 음원**: 153.0~210.3초(2분33초~3분30.3초) 약 57.34초 원곡의 **한 구간을 연속 사용**, 0.35초 도입 페이드와 끝 2.1초 페이드. 중간 절단/점프/크로스페이드 연결 전혀 없음. 192 kbps MP3.
+- 새 채보는 오디오 타격 시점 자동 분석으로 131노트 추출(최초 2.2291초, 마지막 54.4972초). EASY ★★★, 4레인/탭 4+양끝 플릭 2(플릭 3회), 동시 3개 입력 없음, 기본 상한 15,000점. 상대적으로 낮은 음은 왼쪽, 높은 음은 오른쪽으로 보내는 음역별 레인 배치 시범 적용. 다성부 녹음에서 음높이/악기를 자동 추정한 것이라 정확한 멜로디 피치와 모든 채보가 귀로 검증된 것은 아니며 타격음의 음색도 합성 프로토타입임.
+- 메인 게임에서 데스매치를 **세 번째 실제 플레이 가능 곡**으로 추가하되 선택 목록 최상단 배치 및 최초 선택 기본값 적용. 기존 월광 소나타 EASY/HARD 두 곡, 원본 리소스·레인·점수·V11 음향·V10 에너지 게이지 유지. `validateNotes`가 `sound` 태그를 버리는 오래된 경로를 함께 수정해 새 곡의 개별 MIDI/악기 태그가 화면 로딩 시에도 유지됨.
+- GitHub `overrides/deathmatch-v12/part-001..005.b64` 는 새 MP3/채보 JSON/설명 ZIP의 base64 텍스트 분할본. `install_deathmatch.py`는 최종 V11 검증 후 언팩·검사·manifest 추가/타격음 태그 보존/캐시버전 V12 적용. ZIP SHA256 58ceb6f69761b1e46cbfabb5769ff5e2f51cda7c605140e39d6a38315979cd1a. 원본 WAV는 Drive에서만.
+- **배포 성공**: GitHub Pages Actions #71 https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45031738966 , 커밋 e1bb8d7e15f778596b780b658e581a89d76f2f94 . 로그 `DEATHMATCH_V12_INTEGRATION_VERIFIED 131 notes`, `DEATHMATCH_V12_PUBLISHED_AND_ORIGINAL_TRACKS_PRESERVED`. 기존 실행 URL https://jongchan200-glitch.github.io/rhythm-game-lab/ . 갤럭시 실기기에서 사용자의 음악성/자연스러운 끝맺음/노트 싱크/손맛 승인 전.
+- 시험·복구: 사전 정상판 `backup/pre-deathmatch-v12-2026-11-22`. 음악 MP3와 채보 JSON 및 ZIP은 Google Drive https://drive.google.com/drive/folders/1CAyMMV5xiKcQ2Pf7wtiPYkor5Vy9wAB6 에 실제 저장됨.
+- 주의: 사용자 제작곡의 공개 시험 배포만 시행한 상태이며 Suno 이용 조건·상업적 사용 권한·공개 범위를 정식 출시 전에 점검해야 함. 이번 버전에서 다른 곡과 기획은 임의 변경하지 않음.
+
+---
+
 # 2026-11-22 V11 노트별 음높이 사운드 + 상대음높이 레인 배치 설계
 - 사용자 확정: 4레인 게임의 조작 종류는 ★ 탭4, ★★~★★★ 탭4+양끝 플릭2=6, ★★★★~★★★★★ 탭4+플릭4=8. **고정된 6/8음 건반이 아님**. 실제 소리는 각 노트가 보유한 음높이·악기 태그로 정하고 레인 자체가 도레미에 대응하지 않음.
 - V11 실제 소스: `overrides/note-sound-v11/apply_note_sound.py`. 현재 V8 단축 EASY 118노트/HARD 205노트에 `sound:{instrument:'piano', midi:pitch, velocity:.75, length:.27}` 및 `soundSchemaVersion:1` 삽입, `scripts/main.js`의 고정 118/150Hz 타격 효과를 노트별 MIDI 주파수 악기(피아노/기타/현악/베이스/신스 합성 프로파일)로 교체. V7 EASY 별도 성공 함수도 실제 노트 소리를 전달하도록 수정했고 HARD 기존 성공 함수는 교체된 playHit 사용. 자동 시연 불필요한 타격음은 그대로 억제. 아직 합성 악기이지 고음질 실악기 녹음 샘플 아님.
