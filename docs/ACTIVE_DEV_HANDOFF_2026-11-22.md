@@ -1,3 +1,15 @@
+# 2026-11-23 V14 실제 배포 — EASY 레코드 / 잠긴 HARD CD 두 독립 홈
+- **최신 사용자 최종 확정 홈 규칙**: 스마트폰처럼 홈화면 두 개(EASY 좌측, HARD 우측)를 빈 공간 스와이프로 좌우 전환한다. **하단 캐릭터/상점/코인/기록/설정 다섯 메뉴는 항상 고정**. 그 위의 프로필·브랜드·음반·크레딧·기록·시작 버튼 전체가 페이지와 함께 슬라이드한다. 홈 전환 화살표나 설명 배너 없음.
+- **EASY**: 별 ★~★★★ 의 실제 플레이 준비된 채보만, 커다란 아날로그 LP 중앙 라벨에 곡명/별점 표기. LP 위에서 좌우 드래그하면 EASY 곡만 바뀌고 홈은 움직이지 않음. 바깥 빈 영역에서 드래그하면 홈 페이지가 바뀌고 곡은 움직이지 않음. 대표 2곡: 데스매치 EASY ★★★, 월광 소나타 도입부 EASY ★★★.
+- **HARD**: 별 ★★★★~★★★★★용 독립 전체 홈을 같은 레이아웃으로 만들되 시원한 블루/은색 CD, 잠금 아이콘/LOCKED, 버튼 disabled. 첫 HARD 앨범은 데스매치 EASY 첫 앨범의 제목/크레딧을 가져온 잠긴 시안 하나만 표시. 하드 해금 조건·새 곡은 미정. 기존 월광 HARD ★5 음원/채보/기록은 보존하고 홈 공개 플레이만 잠금.
+- **곡별 크레딧**: 직접 제작 데스매치의 필명은 반드시 **챨스**(찰스 아님), 제작 브랜드는 **한울**. UI는 `작사·작곡 챨스 / 제작 한울`. 클래식 월광은 `원작곡 L. van Beethoven / 제작 한울` — 클래식 원작을 챨스 작곡으로 잘못 표기하지 않음. LP에는 음반 제목/별점, 아래에는 간결한 곡 설명·크레딧. 곡 선택 시 BEST SCORE/MAX COMBO/PLAY COUNT 전환.
+- **실제 코드**: V13은 GitHub에 그대로 두고 배포 마지막에 `overrides/home-v14/home-v14.js`, `home-v14.css`, `install_home_v14.py`를 적용한다. V14를 쓰는 HTML은 V13 로딩 태그를 V14로 교체하며 main.js/audio/charts/records/5 tab logic을 수정하지 않음. 사전 백업 브랜치 `backup/pre-two-page-home-v14-2026-11-23`. 기존 고급 관리 설정 기능 유지.
+- **검증**: Chromium 390×844, 360×720, 360×640 해상도와 모바일 touchStart/Move/End 스와이프 입력에서 LP 곡 변경/홈 전환/복귀, 고정 nav 위치, 잠금 버튼, 상점, 설정 연동, JS 오류 없음 확인. 실제 Galaxy 사용자의 최종 승인 전.
+- **프로덕션 배포**: https://jongchan200-glitch.github.io/rhythm-game-lab/ , commit `50c2f7496c940f92cdc9a8e82b95d0dbbf720f67` GitHub Actions #73 https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45071244385 SUCCESS. 로그 `RHYTHM_HOME_V14_INSTALLED_TWO_SWIPE_PAGES_FIXED_FOOTER_CREDITS`, `V14_TWO_HOME_PAGES_FIXED_NAV_SWIPES_AND_CREDITS_VERIFIED`, 기존 V12/V13 검사도 PASS.
+- **백업**: Google Drive `이종찬 앱 개발/02_리듬 게임 (가칭)/90_최신 코드·실행 자료/V14_이지하드_2페이지_레코드CD_2026-11-23` 에 CSS/JS/설치/설명/스크린샷 업로드. 개발 상태는 해당 구글 문서 `04_리듬게임_현행개발_웹앱중심_인수인계_2026-11-22`에도 기재. 마지막 사용자 실기기 평가 완료 전 V14는 시안이며 HARD 해금/곡팩 정책 미확정.
+
+---
+
 # 2026-11-22 데스매치 V12 — 한 구간 연속 57초 리듬게임 실제 배포
 - 사용자 신규 지시: 기존 Moonlight의 여러 구간을 이어 붙인 편곡은 곡이 갑자기 바뀌는 짜깁기 느낌이 강해 불합격. 대신 구글 드라이브의 원곡 `데스매치_원본.wav`(220초, 48kHz 스테레오)을 가져다 EASY/HARD 중 적합한 모드 하나로 리듬게임을 실제 만들어 시험하고 싶음.
 - **원본**: 사용자 Google Drive 개인 원본 음원 https://drive.google.com/file/d/1VN49BEooqp8Vdi3Yp5S6PT2DiPfOP8Qp/view . 원본 WAV는 공개 GitHub에 올리지 않음. **새 게임용 음원**: 153.0~210.3초(2분33초~3분30.3초) 약 57.34초 원곡의 **한 구간을 연속 사용**, 0.35초 도입 페이드와 끝 2.1초 페이드. 중간 절단/점프/크로스페이드 연결 전혀 없음. 192 kbps MP3.
