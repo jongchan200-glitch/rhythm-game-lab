@@ -1,3 +1,13 @@
+# 2026-11-23 V17 — 오늘밤도 HARD 마지막 홀드 + 전곡 노트/플릭 그래픽 개선
+- **사용자 요청**: 「오늘밤도」 HARD 클립 마지막 '얘들아' 가사처럼 음이 오래 이어지는 곳에 이전 데스매치처럼 HOLD→RELEASE 1개를 시범 추가. 기존 ↑ 한 글자만 표시하던 FLICK과 허술해 보이는 일반 TAP 노트를 전체 통일된 프리미엄 게임 디자인으로 변경. 홀드는 음악적으로 맞는 곳에만 최소 적용.
+- **V17 실제 HARD 채보** `tonight_hard_v16.json`: 기존 230이벤트 중 t=62.6428초, lane1(두 번째), MIDI43, 원래 TAP 하나를 `kind:hold`/duration 2.4072초로 바꾸고 t=65.0500초 동일 레인에 `kind:release` 한 개 추가, 총 231이벤트. 나머지 229개 타이밍/레인/사운드 불변. HARD 음원 66.59초 무수정, EASY 오늘밤도 136개/데스매치 132개+V15 홀드/월광 두 곡 변형 없음. 마지막 실제 가사 음절과 완전히 일치하는지는 실기기 귀로 검증 전; 파형에서 63.5초 무렵 큰 소리가 잦아들며 잔향이 이어지는 악구를 사용한 시험 타이밍.
+- **Canvas 게임 노트 리디자인**: TAP/FLICK/HOLD 머리는 모두 동일한 너비/높이 26px 및 동일 판정 중심. TAP은 유광 다중 톤 그라데이션, 테두리와 속 하이라이트, 레인별 색. FLICK은 이전 단일 ↑ 문자 완전 제거하고 별도 위로 휘어오르는 2줄짜리 빛의 스트로크·잔광 3점과 표면 곡선으로 제스처 암시. HOLD는 발광 라인·중앙 코어와 하단까지 줄어드는 긴 리본 및 정확한 뗄 시점 밝은 끝선. 입력 패드도 유리 질감/눌림 피드백 개선, '↑ FLICK' → 'FLICK'+작은 휘어진 제스처 표시. 동일 입력 위치/채점 엔진 유지.
+- **코드/테스트**: `overrides/note-art-v17/{install_notes_v17.py,note-style-v17.css,README_KO.txt}`, 기존 V16 설치 및 V15 입력 엔진 뒤에 main.js의 렌더 영역에만 설치. 파일·차트 원본 비교 검사. Chromium 390×844/360×640 렌더 및 JS 오류 0. HARD 자동 시연 231/231 PERFECT. 실제 포인터 눌림 @62.6428→릴리즈 @65.05 성공, @63.3 조기해제 MISS. Score/Combo/기존 V7 EASY/HARD, 레코드 LP/CD, HARD 테스트 해제와 맨 아래 5메뉴 모두 유지. 현지 갤럭시 최종 실기기 검사 전.
+- **GitHub 성공 배포**: commit `8fe7a1e8c8b9b49bc481dc9e2eb05f1f241edac4`; GitHub Actions #76 https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45083812260 SUCCESS. 로그 `V17_SINGLE_HARD_VOCAL_HOLD_AND_229_OTHER_EVENTS_UNCHANGED` 및 `V17_SHARED_POLISHED_TAP_FLICK_HOLD_VISUALS_AND_FIVE_SONGS_VERIFIED`. 공개 https://jongchan200-glitch.github.io/rhythm-game-lab/ .
+- **복구/백업**: 브랜치 `backup/pre-note-art-hold-v17-2026-11-23` ; Google Drive https://drive.google.com/drive/folders/13dOKt6q5qYgyx3KxNtptygavoYlfR6g0 에 설치 파이썬, CSS, V17 하드 chart JSON, 배포 JS, README, 실화면 스크린샷을 저장. 상세 인수인계 문서 https://docs.google.com/document/d/1XPYwRH6-bN3D8I8uqIeHT0cyI3llB-EnloeY4BTv5qg/edit 도 갱신. 사용자 직접 듣고 마지막 홀드 위치를 수정할 수 있게 현 상태를 반드시 보존할 것.
+
+---
+
 # 2026-11-23 V16 — 오늘밤도 두 개의 독립 1분 음원 + HARD 테스트 해제
 - **요구/확정**: 4분 42.4초 원본 사용자 업로드 `오늘밤도.wav`에서 EASY/HARD를 **같은 부분 난이도만 변경하지 말고 서로 다른 실제 음악 구간으로** 약 1분씩 제작. 시작·끝은 악구 경계를 고려하고 시간 기준으로 갑자기 자르지 않음. 원곡이 길어도 멜로디를 임의로 여러 곳 콜라주하지 않음. HARD 홈은 테스트를 위해 해제.
 - **실제 별도 음원**: EASY `115.52~183.63s` (=68.11초, 실제 MP3 68.15초), HARD `183.57~250.16s` (=66.59초, 실제 66.64초). RMS/온셋/박자 분석에서 약 115.5/183.5/250.0초의 쉼표·섹션 경계를 찾아 각 1개 연속 구간으로 잘랐으며 짧게 페이드 마무리. 추정 BPM 129.6. 사용자의 실기기 귀로 최종 '음악 완결감' 검수 전.
