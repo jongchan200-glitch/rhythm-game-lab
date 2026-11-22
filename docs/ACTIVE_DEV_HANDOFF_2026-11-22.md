@@ -1,3 +1,16 @@
+# 2026-11-23 V16 — 오늘밤도 두 개의 독립 1분 음원 + HARD 테스트 해제
+- **요구/확정**: 4분 42.4초 원본 사용자 업로드 `오늘밤도.wav`에서 EASY/HARD를 **같은 부분 난이도만 변경하지 말고 서로 다른 실제 음악 구간으로** 약 1분씩 제작. 시작·끝은 악구 경계를 고려하고 시간 기준으로 갑자기 자르지 않음. 원곡이 길어도 멜로디를 임의로 여러 곳 콜라주하지 않음. HARD 홈은 테스트를 위해 해제.
+- **실제 별도 음원**: EASY `115.52~183.63s` (=68.11초, 실제 MP3 68.15초), HARD `183.57~250.16s` (=66.59초, 실제 66.64초). RMS/온셋/박자 분석에서 약 115.5/183.5/250.0초의 쉼표·섹션 경계를 찾아 각 1개 연속 구간으로 잘랐으며 짧게 페이드 마무리. 추정 BPM 129.6. 사용자의 실기기 귀로 최종 '음악 완결감' 검수 전.
+- **실제 채보**: EASY ★★★ `tonight_easy_v16` 136개(탭131·플릭5, 바깥 레인만 플릭), HARD ★★★★★ `tonight_hard_v16` 230개(탭187·플릭43, 전체 4레인 플릭·동시노트 10쌍). 20ms 이내 동시 2개 이하, 스펙트럼에서 이벤트별 MIDI/악기 태그 추정. **홀드·릴리즈는 어울림 확인이 어려워 신규 두 곡에는 억지로 넣지 않음**. 데스매치 V15의 한 홀드·릴리즈는 그대로.
+- **HARD 임시 해제**: 기존 V14 스마트폰식 EASY/HARD 두 홈과 고정 하단바는 보존. EASY LP는 데스매치/월광 EASY/오늘밤도 EASY 총 3곡, HARD 블루 CD는 실제 플레이 가능한 **오늘밤도 HARD(첫 CD)** + **월광 HARD(두번째)**. 데스매치 HARD 차트는 아직 없어서 가짜 버튼을 넣지 않음. CD 위 스와이프로 HARD 곡, 밖의 여백 스와이프로 홈 페이지 전환. HARD 미리듣기/시작/자동 시연·곡별 최고점/콤보/횟수 실제 연결. 크레딧은 작사·작곡 **챨스**, 제작 **한울**. 향후 정식 출시에선 해금 조건 별도 결정.
+- **엔진 보존**: 부가 패치만 배포. `overrides/tonight-v16/part-001.b64`~`part-012.b64` → ZIP sha256 `4933650f282922f6ea340678a4ed9443ead9191231bd011d24ba9fd7cca4a8b8` → assets/audio MP3 + assets/charts JSON 두 개씩 생성. `install_tonight_v16.py`가 V15 빌드 완료 뒤 manifest 신규 두 트랙 삽입, home-v14.js 일부 UI 텍스트·잠금·곡 크레딧 교체, `tonight-home-v16.js/css` 연결. `main.js`/기존 세 곡/기록 저장 키/V15 홀드 유지. manifest.version을 V15로 유지해 기기별 저장된 커스텀 채보 호환성을 해치지 않음. V14 JS 로더 URL `?v16` 캐시 무효화.
+- **TEST 검증**: 기존 모든 V12~V15 검사 통과 + GitHub Actions #75 `SUCCESS` https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45080855978 . 로그 `TODAYNIGHT_V16_INSTALLED_TWO_INDEPENDENT_EXCERPTS_AND_UNLOCKED_HARD`, `V16_CHART_AUDIO_VERIFIED easy 136 68.11 secs`, `V16_CHART_AUDIO_VERIFIED hard 230 66.59 secs`, `V16_TWO_MUSICAL_EXCERPTS_LP_AND_UNLOCKED_HARD_CAROUSEL_VERIFIED`.
+- **브라우저 테스트**: Chromium 390x844 및 360x640. LP 3곡 스와이프/선택, HARD 홈 진입, CD에서 월광 HARD/오늘밤도 HARD 스와이프, 하단바 위치 고정, HARD 시작이 올바른 트랙을 연주, JS 오류 없음. 모의 오디오 타임라인 자동 시연 136/136 및 230/230 모두 판정 완료. 갤럭시 실폰 귀·터치·실제 난이도 최종 검수 필요.
+- **라이브/복원/백업**: https://jongchan200-glitch.github.io/rhythm-game-lab/ , 코드 커밋 `6bca992a252f9b5f363d319e3713afccc9f78470`; 선행 백업 브랜치 `backup/pre-tonight-v16-2026-11-23`; Drive 폴더 https://drive.google.com/drive/folders/1yjCesDH9RRtowVcmLUPSTPD5VXMGERtE (편집 MP3/채보/소스/화면/ZIP·파트). 구글 인수인계 `04_리듬게임_현행개발_웹앱중심_인수인계_2026-11-22`에 동일 내용 최신 추가.
+- **필수 운영 원칙**: 곡 제목/시작/끝이 흥미롭고 자연스러운지는 사용자 직접 플레이/청취 피드백으로 최종 조정하며, 정식 완료 승인 전 Codex 이관 금지.
+
+---
+
 # 2026-11-23 V15 — 데스매치 홀드 1개 + 손 떼는 릴리즈 판정 실제 배포
 - **사용자 원칙**: 홀드·릴리즈는 난이도를 위해 억지로 늘리지 않음. 음악에 어울리는 구간이 있을 때만 사용. 데스매치 57초 중 실제 스펙트로그램과 채보 131개를 분석해 26.3~28.0초 0레인 저음 펄스 지속 구간에만 1개 시험 추가.
 - 26.3082초 **0레인, MIDI 54 (bass)** 원래 탭을 `kind:'hold',duration:1.672`로 변경, 27.980초 같은 레인 `kind:'release',startT:26.308` 추가. 총 132개 이벤트. 이 외 **기존 130개 노트의 내용·음원은 변경 없음**.
