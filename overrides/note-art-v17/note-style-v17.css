@@ -1,0 +1,20 @@
+/* V17: premium rhythm pad surface, without changing tap coordinates or layout. */
+#keyboard .key{
+  border-radius:15px;
+  background:linear-gradient(155deg,#334659 0%,#162839 48%,#0c1b2d 100%);
+  border:1px solid color-mix(in srgb,var(--c),#b2cad7 48%);
+  box-shadow:inset 0 1.5px 0 #eaf9ff34,inset 0 -7px 12px #040e1a71,
+    0 3px 0 #030811,0 0 17px color-mix(in srgb,var(--c),transparent 86%);
+  transition:transform .07s ease,box-shadow .08s ease,filter .08s ease;
+}
+#keyboard .key::before{top:0;left:12%;right:12%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--c),#fff8,var(--c),transparent)}
+#keyboard .key .glyph{color:#e8f5ff;font-size:21px;line-height:1;opacity:.9;filter:drop-shadow(0 0 8px var(--c))}
+#keyboard .key .keyname{font-weight:800;color:#dce9f1;font-size:10px;letter-spacing:.045em}
+#keyboard .key .sub{position:relative;color:#9bafbd;font-size:9px!important;font-weight:850;letter-spacing:.11em;min-height:13px;line-height:13px;display:flex;align-items:center;justify-content:center;gap:4px}
+#keyboard .key.flickAllowed .sub{color:#a0f7ee;text-shadow:0 0 12px #63ffed60}
+#keyboard .key.flickAllowed .sub::before{
+  content:'';display:block;width:8px;height:10px;flex:none;transform:rotate(30deg);
+  border-left:2px solid #79fff1;border-top:1px solid #b7fff9;
+  border-radius:80% 24% 30% 20%;box-shadow:-1px -1px 6px #54f4e38c;
+}
+#keyboard .key.pressed{transform:translateY(2px) scale(.975);filter:brightness(1.2);box-shadow:inset 0 2px 12px #ffffff46,0 1px 0 #030811,0 0 22px color-mix(in srgb,var(--c),transparent 60%)}

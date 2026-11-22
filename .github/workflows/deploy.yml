@@ -363,6 +363,62 @@ jobs:
           assert len(old['notes'])==132 and sum(n['kind']=='hold' for n in old['notes'])==1
           print('V16_TWO_MUSICAL_EXCERPTS_LP_AND_UNLOCKED_HARD_CAROUSEL_VERIFIED')
           PY
+          # V17: ONE user-requested lyrical ending hold in '오늘밤도' HARD,
+          # and a shared, beautiful note/gesture render style across all modes.
+          # Keep all audio tracks, taps, timing and other charts unchanged.
+          cp _site/assets/charts/tonight_hard_v16.json /tmp/tonight-hard-pre-v17.json
+          cp overrides/note-art-v17/note-style-v17.css _site/scripts/note-style-v17.css
+          echo 'f282cb0d290dd1ca4aee65f48758b57f3b01fc82a2792e50c643e2e3bcbdc42c  _site/scripts/note-style-v17.css' | sha256sum -c -
+          echo '8198e979e8d29ad9a37413a6a9e818e55cc77431d3af6a130fced6a3ffcbb469  overrides/note-art-v17/install_notes_v17.py' | sha256sum -c -
+          python3 overrides/note-art-v17/install_notes_v17.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/hold-v15.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          site=Path('_site')
+          old=json.loads(Path('/tmp/tonight-hard-pre-v17.json').read_text(encoding='utf8'))
+          ch=json.loads((site/'assets/charts/tonight_hard_v16.json').read_text(encoding='utf8'))
+          n0,n=old['notes'],ch['notes']
+          assert len(n0)==230 and len(n)==231
+          h=[x for x in n if x['kind']=='hold']
+          rel=[x for x in n if x['kind']=='release']
+          assert len(h)==len(rel)==1
+          h,r=h[0],rel[0]
+          assert abs(h['t']-62.6428)<.001 and h['lane']==1 and h['pitch']==43
+          assert abs(h['duration']-2.4072)<.001
+          assert abs(r['t']-65.05)<.001 and r['lane']==1 and abs(r['startT']-h['t'])<.001
+          def key(x):return (x['t'],x['lane'],x['pitch'])
+          a={key(x):x for x in n0}
+          b={key(x):x for x in n if x['kind']!='release'}
+          assert set(a)==set(b) and len(a)==len(b)==230
+          for k,x in a.items():
+              y=b[k].copy()
+              if abs(x['t']-62.6428)<.001 and x['lane']==1:
+                  assert x['kind']=='tap' and y['kind']=='hold'
+                  y.pop('kind',None);y.pop('duration',None);y.pop('holdVersion',None)
+                  z=x.copy();z.pop('kind',None)
+                  assert y==z
+              else:assert x==y,(k,x,y)
+          js=(site/'scripts/main.js').read_text(encoding='utf8')
+          html=(site/'index.html').read_text(encoding='utf8')
+          assert 'note-style-v17.css?v17' in html
+          assert 'two swept, fading curves' in js and 'Reflected lacquer' in js
+          assert "fillText('↑'" not in js
+          assert "textContent=allowed?'FLICK':'TAP'" in js
+          assert "kind:['tap','flick','hold','release']" in js
+          assert all(x in html for x in ('home-v14.js?v16','hold-v15.js?v15','tonight-home-v16.js?v16'))
+          m=json.loads((site/'assets/manifest.json').read_text(encoding='utf8'))
+          assert m['version']=='2.4.0-v15-hold-release-playtest'
+          ready=[t for t in m['tracks'] if t.get('status')=='ready']
+          assert [t['id'] for t in ready]==['deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5','tonight_easy_v16','tonight_hard_v16']
+          death=json.loads((site/'assets/charts/deathmatch_easy_v12.json').read_text(encoding='utf8'))
+          easy=json.loads((site/'assets/charts/tonight_easy_v16.json').read_text(encoding='utf8'))
+          assert len(death['notes'])==132 and len(easy['notes'])==136
+          assert sum(x['kind']=='hold' for x in death['notes'])==1
+          print('V17_SINGLE_HARD_VOCAL_HOLD_AND_229_OTHER_EVENTS_UNCHANGED')
+          print('V17_SHARED_POLISHED_TAP_FLICK_HOLD_VISUALS_AND_FIVE_SONGS_VERIFIED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
