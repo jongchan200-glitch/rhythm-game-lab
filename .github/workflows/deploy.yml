@@ -222,6 +222,36 @@ jobs:
           assert 'rh-home-active' in (site/'scripts/home-v13.js').read_text(encoding='utf8')
           print('V13_HOME_FIVE_TABS_MUSIC_CAROUSEL_ASSETS_VERIFIED')
           PY
+          # V14: smartphone-style EASY/HARD home page swipe. The footer stays fixed.
+          # Vinyl swipe changes EASY music only; HARD starts locked and uses a blue CD.
+          cp overrides/home-v14/home-v14.css _site/scripts/home-v14.css
+          cp overrides/home-v14/home-v14.js _site/scripts/home-v14.js
+          echo 'c8b0b186e97523af7c4e80da22548ba1440dd3efc5d65c8b52e3312b0c0be6f6  _site/scripts/home-v14.css' | sha256sum -c -
+          echo 'bf841b43c9d2e1febf30973411f8fd9146a2b079aded3c03b83cefb7f693e39d  _site/scripts/home-v14.js' | sha256sum -c -
+          python3 overrides/home-v14/install_home_v14.py
+          node --check _site/scripts/home-v14.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          site=Path('_site')
+          s=(site/'index.html').read_text(encoding='utf8')
+          js=(site/'scripts/home-v14.js').read_text(encoding='utf8')
+          css=(site/'scripts/home-v14.css').read_text(encoding='utf8')
+          assert s.count('scripts/home-v14.js?v14')==1 and s.count('scripts/home-v14.css?v14')==1
+          assert 'home-v13.js?v13' not in s and 'home-v13.css?v13' not in s
+          assert 'scripts/main.js?v12' in s and 'easy-v7-addon.js?v11' in s
+          assert all(x in js for x in ('rhEasyPage','rhHardPage','rhFixedFooter','rhRecordZone','rhPageTrack'))
+          assert not any(x in js for x in ('id="rhPrev"','id="rhNext"','rh-swipe-hint'))
+          assert 'hard.inert=activePage!==1' in js
+          assert 'data-rh-panel' in js and '작사·작곡' in js and '챨스' in js and '한울' in js
+          assert 'L. van Beethoven' in js
+          assert 'rh-page-track' in css and 'rh-compact-disc' in css and 'rh-vinyl' in css
+          m=json.loads((site/'assets/manifest.json').read_text(encoding='utf8'))
+          ready=[t for t in m['tracks'] if t.get('status')=='ready']
+          assert [t['id'] for t in ready]==['deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5']
+          assert [t['difficulty'] for t in ready]==[3,3,5]
+          print('V14_TWO_HOME_PAGES_FIXED_NAV_SWIPES_AND_CREDITS_VERIFIED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
