@@ -27,7 +27,9 @@ def apply(source: str) -> str:
         const v9Fill = document.createElement('div');
         v9Fill.className = 'v9HealthFill';
         v9Meter.appendChild(v9Fill);
-        hud.insertAdjacentElement('afterend', v9Meter);
+        // Place inside the existing HUD instead of adding a new layout row.
+        // Absolute positioning keeps the original four-lane playfield height.
+        hud.appendChild(v9Meter);
       }
     }
     if (v9Meter) {
