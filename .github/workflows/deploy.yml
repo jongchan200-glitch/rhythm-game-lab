@@ -72,7 +72,7 @@ jobs:
           # EASY V7 is a separate preview. Production EASY/HARD remain untouched.
           mkdir -p /tmp/rhythm-easy-v7
           cat overrides/easy-v7/patch.zip.b64 | tr -d '\n\r' | base64 --decode > /tmp/rhythm-easy-v7.zip
-          echo '8a2db41fd5ef2bcc97eda8efa817f88b3a4c288938d979c7b4967ea5492a60b4  /tmp/rhythm-easy-v7.zip' | sha256sum -c -
+          echo 'd7503f4d0f0ec3af7eded76dfa0eabe696022e085f1089562e187edb96f1c75e  /tmp/rhythm-easy-v7.zip' | sha256sum -c -
           unzip -q /tmp/rhythm-easy-v7.zip -d /tmp/rhythm-easy-v7
           mkdir -p _site/preview/easy-v7/scripts _site/preview/easy-v7/assets/charts _site/preview/easy-v7/assets/icons
           cp _site/index.html _site/preview/easy-v7/index.html
@@ -101,13 +101,13 @@ jobs:
           m['tracks']=[t for t in m['tracks'] if t.get('id')=='moonlight_intro_rock_v4_3' and t.get('status')=='ready']
           assert len(m['tracks'])==1
           t=m['tracks'][0]
-          t['audio']='../../assets/audio/moonlight-easy-piano-mix-v5.mp3'
+          t['audio']='../../assets/audio/moonlight-easy-dynamic-v6.mp3'
           t['chart']='assets/charts/moonlight-easy.json'
           t['subtitle']='SIGNATURE PIANO · EASY ★★★ · V7 TEST'
           (d/'assets/manifest.json').write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')
           ch=json.loads((d/'assets/charts/moonlight-easy.json').read_text())
           assert len(ch['notes'])==334, 'Preview must use approved 334-note EASY chart'
-          assert Path('_site/assets/audio/moonlight-easy-piano-mix-v5.mp3').is_file()
+          assert Path('_site/assets/audio/moonlight-easy-dynamic-v6.mp3').is_file()
           PY
           test -f _site/preview/easy-v7/scripts/easy-v7-addon.js
           test -f _site/preview/easy-v7/assets/manifest.json
