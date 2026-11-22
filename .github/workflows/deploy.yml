@@ -195,6 +195,33 @@ jobs:
           assert 'scripts/main.js?v12' in Path('_site/index.html').read_text(encoding='utf8')
           print('DEATHMATCH_V12_PUBLISHED_AND_ORIGINAL_TRACKS_PRESERVED')
           PY
+          # V13: quiet Hell Fall-structured home, full-width song carousel,
+          # five bottom destinations and existing settings/advanced tools retained.
+          cp overrides/home-v13/home-v13.css _site/scripts/home-v13.css
+          cp overrides/home-v13/home-v13.js _site/scripts/home-v13.js
+          echo '543137b0de4a63e69ef298e544a31ec63c36d167ac2123a2f078f3e2a8978b8c  _site/scripts/home-v13.css' | sha256sum -c -
+          echo '626cdd9b008f4c0e1302f3750aff7dc2784c3a105e939d022b62296e3590b8b6  _site/scripts/home-v13.js' | sha256sum -c -
+          python3 overrides/home-v13/install_home.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          site=Path('_site')
+          html=(site/'index.html').read_text(encoding='utf8')
+          js=(site/'scripts/home-v13.js').read_text(encoding='utf8')
+          assert html.count('scripts/home-v13.js?v13')==1
+          assert html.count('scripts/home-v13.css?v13')==1
+          assert 'scripts/main.js?v12' in html
+          assert 'easy-v7-addon.js?v11' in html
+          assert all(x in js for x in ('data-rh-panel','rhWallet','rhPlay','rhDemo','rhPrev','rhNext','rhAdvanced'))
+          assert all(x in js for x in ("character:'캐릭터'","shop:'상점'","coin:'코인'","records:'기록'","settings:'설정'"))
+          m=json.loads((site/'assets/manifest.json').read_text(encoding='utf8'))
+          ready=[t for t in m['tracks'] if t.get('status')=='ready']
+          assert len(ready)==3
+          assert [t['difficulty'] for t in ready]==[3,3,5]
+          assert [t['id'] for t in ready]==['deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5']
+          assert 'rh-home-active' in (site/'scripts/home-v13.js').read_text(encoding='utf8')
+          print('V13_HOME_FIVE_TABS_MUSIC_CAROUSEL_ASSETS_VERIFIED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
