@@ -116,11 +116,16 @@ def patch_main():
 def patch_addon():
     s=ADDON.read_text(encoding="utf8")
     # V7 has its own success handler and must also forward the note's sound tag.
-    count=s.count("playHit(n.pitch,n.kind)")
-    assert count>=1, f"Expected V7 user-hit code to call playHit(n.pitch,n.kind); got {count}"
-    s=s.replace("playHit(n.pitch,n.kind)","playHit(n.sound||n.pitch,n.kind)")
+    # V7 replaces registerSuccess completely, so the original main.js
+    # sound call is not executed for EASY. Add it only on a real valid tap.
+    # Do not play notes on auto-demo or for a missed/duplicate input.
+    needle="  registerSuccess = function(n, delta, auto=false){\n    if(n.state"
+    replacement="  registerSuccess = function(n, delta, auto=false){\n    if(!auto && n.state==='pending')playHit(n.sound||n.pitch,n.kind);\n    if(n.state"
+    assert s.count(needle)==1, "Unexpected V7 success override"
+    assert "playHit(" not in s, "V7 now has a separate sound call; inspect to avoid duplicate audio"
+    s=s.replace(needle,replacement,1)
     ADDON.write_text(s,encoding="utf8")
-    print("V11_EASY_SOUND_TAG_CALLS_PATCHED",count)
+    print("V11_EASY_SOUND_TAG_CALLS_PATCHED",1)
 
 if __name__=="__main__":
     tag_charts()
