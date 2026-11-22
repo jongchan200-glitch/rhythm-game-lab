@@ -1,3 +1,15 @@
+# 2026-11-23 V15 — 데스매치 홀드 1개 + 손 떼는 릴리즈 판정 실제 배포
+- **사용자 원칙**: 홀드·릴리즈는 난이도를 위해 억지로 늘리지 않음. 음악에 어울리는 구간이 있을 때만 사용. 데스매치 57초 중 실제 스펙트로그램과 채보 131개를 분석해 26.3~28.0초 0레인 저음 펄스 지속 구간에만 1개 시험 추가.
+- 26.3082초 **0레인, MIDI 54 (bass)** 원래 탭을 `kind:'hold',duration:1.672`로 변경, 27.980초 같은 레인 `kind:'release',startT:26.308` 추가. 총 132개 이벤트. 이 외 **기존 130개 노트의 내용·음원은 변경 없음**.
+- 루트 `main.js`의 `validateNotes` 구형 판정기가 tap/flick 이외 노트 종류를 전부 tap으로 변환했던 문제를 해결. `hold`/`release` 시간/레인/페어 관계 유지·검증. 하늘색 HOLD 헤드와 릴리즈까지 이어지는 줄을 그리는 렌더링 추가.
+- `hold-v15.js`는 기존 게임의 최종 V7 EASY 판정기와 함께 작동. pointerdown으로 홀드 시작, pointerup으로 release 성공/조기 release MISS; 키보드 D/F/J/K도 동일. V7 퍼펙트/그레이트/굿/배드 및 에너지 변화·콤보·점수는 기존 콜백을 재사용하고, 자동 시연에서 누르는 구간 동안 키를 계속 눌린 모양으로 표시. 릴리즈에는 중복 피치 효과음 차단.
+- 구현 파일: `overrides/hold-v15/{hold-v15.js,hold-v15.css,install_hold_v15.py,README_KO.txt}` + deploy workflow. 사전 정상 브랜치 `backup/pre-deathmatch-hold-v15-2026-11-23`. 기존 V14 두 홈, 5개 고정 탭 및 하드 잠금, 기존 두 월광 곡, 로컬 기록 저장 key, 원본 오디오 보존. 차트 override는 오래된 구판이 새 홀드 시안을 가리지 않게 manifest.version V15로 변경하되 localStorage 자체 삭제는 없음.
+- **배포 검증 SUCCESS**: commit `2e2653e65241a9dae5d5825e1ad431d3a7ab2bef`, GitHub Actions #74 https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45073421312 . 실제 로그 `HOLD_V15_CHART_VERIFIED 132 press 26.308 release 27.98`, `HOLD_V15_ENGINE_AND_RENDER_VERIFIED`, `V15_DEATHMATCH_ONE_HOLD_RELEASE_AND_EXISTING_130_NOTES_PRESERVED`. 기존 V12/V14 검증도 통과.
+- 로컬 Chromium+V7 원본 확장판 결합 시험에서 눌림/정시 해제(성공), 조기 해제 MISS, 자동 시연 시작+종료 확인. 실제 갤럭시 터치감/노트 음악성 사용자 검수 전이며 필요 없으면 V15 오버라이드를 롤백할 것. 라이브 https://jongchan200-glitch.github.io/rhythm-game-lab/ .
+- Google Drive `이종찬 앱 개발/02_리듬 게임 (가칭)/90_최신 코드·실행 자료/V15_데스매치_홀드릴리즈_2026-11-23` 에 코드, 차트, 설명과 화면 스냅샷 보존.
+
+---
+
 # 2026-11-23 V14 실제 배포 — EASY 레코드 / 잠긴 HARD CD 두 독립 홈
 - **최신 사용자 최종 확정 홈 규칙**: 스마트폰처럼 홈화면 두 개(EASY 좌측, HARD 우측)를 빈 공간 스와이프로 좌우 전환한다. **하단 캐릭터/상점/코인/기록/설정 다섯 메뉴는 항상 고정**. 그 위의 프로필·브랜드·음반·크레딧·기록·시작 버튼 전체가 페이지와 함께 슬라이드한다. 홈 전환 화살표나 설명 배너 없음.
 - **EASY**: 별 ★~★★★ 의 실제 플레이 준비된 채보만, 커다란 아날로그 LP 중앙 라벨에 곡명/별점 표기. LP 위에서 좌우 드래그하면 EASY 곡만 바뀌고 홈은 움직이지 않음. 바깥 빈 영역에서 드래그하면 홈 페이지가 바뀌고 곡은 움직이지 않음. 대표 2곡: 데스매치 EASY ★★★, 월광 소나타 도입부 EASY ★★★.
