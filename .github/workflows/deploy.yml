@@ -103,8 +103,8 @@ jobs:
           head='</style>'
           script='<script defer="" src="scripts/main.js"></script>'
           assert head in s and script in s
-          s=s.replace(head,head+'<link rel="stylesheet" href="scripts/easy-v7-theme.css"/><link rel="stylesheet" href="scripts/energy-meter.css?v9"/>')
-          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v9"></script>')
+          s=s.replace(head,head+'<link rel="stylesheet" href="scripts/easy-v7-theme.css"/><link rel="stylesheet" href="scripts/energy-meter.css?v10"/>')
+          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v10"></script>')
           s=s.replace('src="scripts/main.js"','src="scripts/main.js?v8"')
           s=s.replace('href="scripts/easy-v7-theme.css"','href="scripts/easy-v7-theme.css?v8"')
           p.write_text(s,encoding='utf-8')
@@ -135,8 +135,8 @@ jobs:
           s=p.read_text(encoding='utf-8')
           script='<script defer="" src="scripts/main.js"></script>'
           assert s.count('</style>')==1 and s.count(script)==1
-          s=s.replace('</style>','</style><link id="v7Theme" rel="stylesheet" href="scripts/easy-v7-theme.css" disabled/><link rel="stylesheet" href="scripts/energy-meter.css?v9"/>',1)
-          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v9"></script>',1)
+          s=s.replace('</style>','</style><link id="v7Theme" rel="stylesheet" href="scripts/easy-v7-theme.css" disabled/><link rel="stylesheet" href="scripts/energy-meter.css?v10"/>',1)
+          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v10"></script>',1)
           s=s.replace('src="scripts/main.js"','src="scripts/main.js?v8"',1)
           s=s.replace('href="scripts/easy-v7-theme.css"','href="scripts/easy-v7-theme.css?v8"',1)
           p.write_text(s,encoding='utf-8')
@@ -155,10 +155,15 @@ jobs:
           preview=Path('_site/preview/easy-v7/scripts/easy-v7-addon.js').read_text(encoding='utf-8')
           html=Path('_site/index.html').read_text(encoding='utf-8')
           assert root.count("id = 'v9HealthMeter'")==1 and preview.count("id = 'v9HealthMeter'")==1
+          assert "hud.appendChild(v9Meter)" in root and "hud.appendChild(v9Meter)" in preview
+          assert "insertAdjacentElement('afterend', v9Meter)" not in root
+          meter_css=Path('_site/scripts/energy-meter.css').read_text(encoding='utf-8')
+          assert "position: absolute" in meter_css and "flex: 0 0 5px" not in meter_css
+          assert "_site/preview/easy-v7/scripts/energy-meter.css" in str(Path('_site/preview/easy-v7/scripts/energy-meter.css'))
           assert "meter.hidden=!easy" in root
-          assert 'energy-meter.css?v9' in html
-          assert 'easy-v7-addon.js?v9' in html
-          print('V9_HEALTH_BAR_INTEGRATION_VERIFIED')
+          assert 'energy-meter.css?v10' in html
+          assert 'easy-v7-addon.js?v10' in html
+          print('V10_HUD_OVERLAY_NO_REFLOW_VERIFIED')
           PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
