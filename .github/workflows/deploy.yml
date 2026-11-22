@@ -252,6 +252,58 @@ jobs:
           assert [t['difficulty'] for t in ready]==[3,3,5]
           print('V14_TWO_HOME_PAGES_FIXED_NAV_SWIPES_AND_CREDITS_VERIFIED')
           PY
+          # V15: ONE sustained bass phrase in user's Deathmatch.
+          # No other song, chart, homepage, account or audio is modified.
+          cp _site/assets/charts/deathmatch_easy_v12.json /tmp/deathmatch-pre-hold-v15.json
+          cp overrides/hold-v15/hold-v15.js _site/scripts/hold-v15.js
+          cp overrides/hold-v15/hold-v15.css _site/scripts/hold-v15.css
+          echo '45cf4ba0f5e02f5c695aca007253fa884443b5c444ed4341e8bb278d3d5a0b80  _site/scripts/hold-v15.js' | sha256sum -c -
+          echo 'dfacedcb5a62ab323d1d5789d56777b69685efcab3ed5c16a091f770f9168570  _site/scripts/hold-v15.css' | sha256sum -c -
+          python3 overrides/hold-v15/install_hold_v15.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/hold-v15.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          site=Path('_site')
+          ch_old=json.loads(Path('/tmp/deathmatch-pre-hold-v15.json').read_text(encoding='utf8'))
+          ch=json.loads((site/'assets/charts/deathmatch_easy_v12.json').read_text(encoding='utf8'))
+          old,new=ch_old['notes'],ch['notes']
+          assert len(old)==131 and len(new)==132
+          assert ch['holdSchemaVersion']==1 and ch['soundSchemaVersion']==1
+          hold=[n for n in new if n['kind']=='hold']
+          end=[n for n in new if n['kind']=='release']
+          assert len(hold)==len(end)==1
+          h,r=hold[0],end[0]
+          assert abs(h['t']-26.3082)<.003 and h['lane']==0 and h['pitch']==54
+          assert abs(h['duration']-1.672)<.003
+          assert r['lane']==h['lane'] and abs(r['t']-27.980)<.005 and abs(r['startT']-26.308)<.003
+          assert r['sound']['midi']==h['sound']['midi']==54
+          assert all(n['kind'] in ('tap','flick','hold','release') for n in new)
+          old_by={(n['t'],n['lane'],n['pitch']):n for n in old}
+          new_by={(n['t'],n['lane'],n['pitch']):n for n in new if n['kind']!='release'}
+          assert set(old_by)==set(new_by)
+          for key,n in old_by.items():
+              newer=new_by[key].copy()
+              if n['t']==h['t'] and n['lane']==h['lane']:
+                  assert n['kind']=='tap' and newer['kind']=='hold'
+                  newer.pop('kind',None);newer.pop('duration',None);newer.pop('holdVersion',None)
+                  prior=n.copy();prior.pop('kind',None)
+                  assert newer==prior,(key,newer,prior)
+              else:assert newer==n,(key,newer,n)
+          s=(site/'index.html').read_text(encoding='utf8')
+          assert s.count('scripts/hold-v15.js?v15')==1 and s.count('scripts/hold-v15.css?v15')==1
+          assert 'scripts/home-v14.js?v14' in s and 'scripts/main.js?v12' in s
+          main=(site/'scripts/main.js').read_text(encoding='utf8')
+          runtime=(site/'scripts/hold-v15.js').read_text(encoding='utf8')
+          assert "kind:['tap','flick','hold','release']" in main
+          assert "ctx.fillText('HOLD'" in main
+          assert all(x in runtime for x in ('pointerup','pointerdown','registerSuccess(end','registerMiss(end)','processNotes=function'))
+          m=json.loads((site/'assets/manifest.json').read_text(encoding='utf8'))
+          assert m['version']=='2.4.0-v15-hold-release-playtest'
+          assert [n['id'] for n in m['tracks'] if n['status']=='ready']==['deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5']
+          print('V15_DEATHMATCH_ONE_HOLD_RELEASE_AND_EXISTING_130_NOTES_PRESERVED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site

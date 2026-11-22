@@ -1,0 +1,3 @@
+/* A held key should stay visibly active while the finger remains down.
+   No independent gameplay state or layout changes. */
+.key {touch-action:none}
