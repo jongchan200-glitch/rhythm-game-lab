@@ -82,6 +82,7 @@ jobs:
           python3 overrides/short-v8/build_short_v8.py
           # V9: show the actual health as a quiet 5px bar; no numbers or labels.
           python3 overrides/easy-v7/add_energy_bar.py /tmp/rhythm-easy-v7/easy-v7-addon.js
+          python3 overrides/note-sound-v11/probe.py
           test -s _site/assets/audio/moonlight-easy-short-v8.mp3
           test -s _site/assets/audio/moonlight-hard-short-v8.mp3
           mkdir -p _site/preview/easy-v7/scripts _site/preview/easy-v7/assets/charts _site/preview/easy-v7/assets/icons
