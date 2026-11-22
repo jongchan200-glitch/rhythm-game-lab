@@ -1,3 +1,16 @@
+# 2026-11-23 V18 — EASY 5~6 / HARD 18~20 금화 노트 + HARD 에너지바 복구
+- **사용자 최종 정정 발화가 최우선**: 금화 노트의 개수는 EASY **곡당 5~6개**, HARD **곡당 18~20개**. 앞서 음성이 끊기며 전곡 18~20개로 잘못 전달된 것을 수정. 기존 TAP 위에 작은 코인 아이콘을 붙이는 게 아니라 **금색 입체 코인 자체가 별개 노트처럼 내려옴**. 실제 채보 수와 일반 TAP 입력 타이밍·점수 계산은 안 바뀜.
+- **실 배치**: 데스매치 EASY 6, 월광 EASY 5, 오늘밤도 EASY 6, 월광 HARD 18, 오늘밤도 HARD 18. 각 곡 원래 TAP 시점 중 충분히 떨어진 자리에 runtime에서만 `n.coin=true`로 표시. Gold coin Canvas는 곡선으로 기울인 두툼한 타원 3D 금화, 골드 테두리와 하이라이트, 일반 레인 컬러의 노트 몸체가 아예 없음. 다른 종류 노트와 기존 V17 그래픽은 무변경.
+- **정확한 획득 정책**: 플레이어가 직접 금화 TAP을 **PERFECT** 했을 때만 +1. GREAT/GOOD/BAD/MISS/자동 시연은 0. 금화가 판정선에서 튀어올라 690ms 회전·곡선 비행으로 상단 게임 코인지갑에 날아감. **도착 순간** 원장 갱신과 숫자 +1, 작은 지갑 충격/반짝임. 비행 전 숫자 그대로 유지. 페이지 종료 시 비행 중 성공분은 1회 정산, 중복 지급 차단.
+- **실제 저장과 연결**: 새 키 `rhythm_lab_coins_v1`으로 코인 잔액 로컬 저장. 게임 상단 HUD 골드 지갑과 EASY/HARD 홈 코인 표시, 코인 패널 보유액 모두 동기화. 코인 패널에 실제 수집 방법 반영. 상점 아이템 구매, 보상형 광고, 현금 결제 기능은 아직 미연동/비활성. 기존 `moonlight_demo_records_v1` 기록 키와 manifest.version·개인 채보 오버라이드 키/데이터 보존.
+- **HARD 에너지바의 진짜 원인 해결**: V7 `easy-v7-addon.js`에는 4·5성 health 규칙이 모두 정의됐지만 `isEasy()` 조건으로 HARD에서는 프로세스와 바 자체를 숨겼음. V18 addon 패치로 HARD에도 grade/nearest/registerSuccess/registerMiss/initGame/processNotes/finishGame 에너지 로직을 적용, `v9HealthMeter.hidden=false` 및 HUD 상단 얇은 바 노출. HARD 5성은 PERFECT +0.3, GREAT +0.1, GOOD 0, BAD -18, MISS -30; HARD 4성은 PERFECT +0.5, GREAT +0.2, BAD -13, MISS -22. 0에서 GAME OVER. 기존 EASY 독립 timeline/테마/스크러버는 HARD에서 비활성 그대로.
+- **작은 오랜 버그 보정**: 이전 V7+V11에서 정상 판정음이 이중 재생되던 경우 정상 성공 시 1회만 재생하도록 수정(원래 엔진 `origSuccess`를 이용). BAD는 건너뛴 원래 호출 대신 1회만 재생. 노래 음원·차트는 수정 없음.
+- **로컬 테스트**: Chromium 390×844에서 5개 곡별 금화 개수/에너지바 실제 표시, PERFECT 누른 즉시 코인 0→비행 뒤 1, GREAT 코인 0, 자동 시연 코인 0, HOM E 지갑과 게임 지갑 1 동기화, HARD MISS 순서 100→70→40→10→0 및 GAME OVER, JS errors 0. 노트 스크린샷도 보존. Galaxy 실폰은 사용자 검수 필요.
+- **GitHub SUCCESS**: commit `6fed07ec45fd378558605f411e48249b9ad63357`, Actions #77 https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45085679813 성공. V12→V17 기존 검증 + V18 차트 5종 변형 없음 `cmp` + 새 에너지/3D 코인/저장 검사 모두 통과. 추가 파일 `overrides/coin-v18/{coin-v18.js,coin-v18.css,install_coin_v18.py,README_KO.txt}`, V17 뒤에 빌드 적용. 이전 백업 브랜치 `backup/pre-coins-and-hard-energy-v18-2026-11-23`.
+- **Drive 자료**: https://drive.google.com/drive/folders/1BxOlKK9DRDu3LwZ9J5R4hLaCq25G_CJe . 통합 개발 상세 인수인계 https://docs.google.com/document/d/1XPYwRH6-bN3D8I8uqIeHT0cyI3llB-EnloeY4BTv5qg/edit . 실제 앱 https://jongchan200-glitch.github.io/rhythm-game-lab/ . 사용자 최종 승인 전 Codex 이관 금지.
+
+---
+
 # 2026-11-23 V17 — 오늘밤도 HARD 마지막 홀드 + 전곡 노트/플릭 그래픽 개선
 - **사용자 요청**: 「오늘밤도」 HARD 클립 마지막 '얘들아' 가사처럼 음이 오래 이어지는 곳에 이전 데스매치처럼 HOLD→RELEASE 1개를 시범 추가. 기존 ↑ 한 글자만 표시하던 FLICK과 허술해 보이는 일반 TAP 노트를 전체 통일된 프리미엄 게임 디자인으로 변경. 홀드는 음악적으로 맞는 곳에만 최소 적용.
 - **V17 실제 HARD 채보** `tonight_hard_v16.json`: 기존 230이벤트 중 t=62.6428초, lane1(두 번째), MIDI43, 원래 TAP 하나를 `kind:hold`/duration 2.4072초로 바꾸고 t=65.0500초 동일 레인에 `kind:release` 한 개 추가, 총 231이벤트. 나머지 229개 타이밍/레인/사운드 불변. HARD 음원 66.59초 무수정, EASY 오늘밤도 136개/데스매치 132개+V15 홀드/월광 두 곡 변형 없음. 마지막 실제 가사 음절과 완전히 일치하는지는 실기기 귀로 검증 전; 파형에서 63.5초 무렵 큰 소리가 잦아들며 잔향이 이어지는 악구를 사용한 시험 타이밍.
