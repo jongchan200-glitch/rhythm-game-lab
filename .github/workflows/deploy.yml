@@ -80,6 +80,8 @@ jobs:
           unzip -q /tmp/rhythm-easy-v7.zip -d /tmp/rhythm-easy-v7
           # V8 short arrangement, beatmap synchronization and approved energy rebalance.
           python3 overrides/short-v8/build_short_v8.py
+          # V9: show the actual health as a quiet 5px bar; no numbers or labels.
+          python3 overrides/easy-v7/add_energy_bar.py /tmp/rhythm-easy-v7/easy-v7-addon.js
           test -s _site/assets/audio/moonlight-easy-short-v8.mp3
           test -s _site/assets/audio/moonlight-hard-short-v8.mp3
           mkdir -p _site/preview/easy-v7/scripts _site/preview/easy-v7/assets/charts _site/preview/easy-v7/assets/icons
@@ -90,6 +92,7 @@ jobs:
           cp _site/assets/icons/* _site/preview/easy-v7/assets/icons/
           cp /tmp/rhythm-easy-v7/easy-v7-addon.js _site/preview/easy-v7/scripts/easy-v7-addon.js
           cp /tmp/rhythm-easy-v7/easy-v7-theme.css _site/preview/easy-v7/scripts/easy-v7-theme.css
+          cp overrides/easy-v7/energy-meter.css _site/preview/easy-v7/scripts/energy-meter.css
           cp /tmp/rhythm-easy-v7/README_TEST.txt _site/preview/easy-v7/README_TEST.txt
           python3 - <<'PY'
           from pathlib import Path
@@ -100,8 +103,8 @@ jobs:
           head='</style>'
           script='<script defer="" src="scripts/main.js"></script>'
           assert head in s and script in s
-          s=s.replace(head,head+'<link rel="stylesheet" href="scripts/easy-v7-theme.css"/>')
-          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v8"></script>')
+          s=s.replace(head,head+'<link rel="stylesheet" href="scripts/easy-v7-theme.css"/><link rel="stylesheet" href="scripts/energy-meter.css?v9"/>')
+          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v9"></script>')
           s=s.replace('src="scripts/main.js"','src="scripts/main.js?v8"')
           s=s.replace('href="scripts/easy-v7-theme.css"','href="scripts/easy-v7-theme.css?v8"')
           p.write_text(s,encoding='utf-8')
@@ -123,6 +126,7 @@ jobs:
           test -f _site/preview/easy-v7/assets/manifest.json
           # Main shortcut URL: apply V7 only to EASY while keeping the existing HARD engine.
           cp /tmp/rhythm-easy-v7/easy-v7-theme.css _site/scripts/easy-v7-theme.css
+          cp overrides/easy-v7/energy-meter.css _site/scripts/energy-meter.css
           python3 overrides/easy-v7/root_adapter_patch.py /tmp/rhythm-easy-v7/easy-v7-addon.js _site/scripts/easy-v7-addon.js
           python3 - <<'PY'
           from pathlib import Path
@@ -131,8 +135,8 @@ jobs:
           s=p.read_text(encoding='utf-8')
           script='<script defer="" src="scripts/main.js"></script>'
           assert s.count('</style>')==1 and s.count(script)==1
-          s=s.replace('</style>','</style><link id="v7Theme" rel="stylesheet" href="scripts/easy-v7-theme.css" disabled/>',1)
-          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v8"></script>',1)
+          s=s.replace('</style>','</style><link id="v7Theme" rel="stylesheet" href="scripts/easy-v7-theme.css" disabled/><link rel="stylesheet" href="scripts/energy-meter.css?v9"/>',1)
+          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v9"></script>',1)
           s=s.replace('src="scripts/main.js"','src="scripts/main.js?v8"',1)
           s=s.replace('href="scripts/easy-v7-theme.css"','href="scripts/easy-v7-theme.css?v8"',1)
           p.write_text(s,encoding='utf-8')
@@ -143,6 +147,19 @@ jobs:
           PY
           test -s _site/scripts/easy-v7-addon.js
           test -s _site/scripts/easy-v7-theme.css
+          test -s _site/scripts/energy-meter.css
+          test -s _site/preview/easy-v7/scripts/energy-meter.css
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path('_site/scripts/easy-v7-addon.js').read_text(encoding='utf-8')
+          preview=Path('_site/preview/easy-v7/scripts/easy-v7-addon.js').read_text(encoding='utf-8')
+          html=Path('_site/index.html').read_text(encoding='utf-8')
+          assert root.count("id = 'v9HealthMeter'")==1 and preview.count("id = 'v9HealthMeter'")==1
+          assert "meter.hidden=!easy" in root
+          assert 'energy-meter.css?v9' in html
+          assert 'easy-v7-addon.js?v9' in html
+          print('V9_HEALTH_BAR_INTEGRATION_VERIFIED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
