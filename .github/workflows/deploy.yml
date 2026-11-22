@@ -82,6 +82,7 @@ jobs:
           python3 overrides/short-v8/build_short_v8.py
           # V9: show the actual health as a quiet 5px bar; no numbers or labels.
           python3 overrides/easy-v7/add_energy_bar.py /tmp/rhythm-easy-v7/easy-v7-addon.js
+          python3 overrides/note-sound-v11/apply_note_sound.py
           python3 overrides/note-sound-v11/probe.py
           test -s _site/assets/audio/moonlight-easy-short-v8.mp3
           test -s _site/assets/audio/moonlight-hard-short-v8.mp3
@@ -105,13 +106,13 @@ jobs:
           script='<script defer="" src="scripts/main.js"></script>'
           assert head in s and script in s
           s=s.replace(head,head+'<link rel="stylesheet" href="scripts/easy-v7-theme.css"/><link rel="stylesheet" href="scripts/energy-meter.css?v10"/>')
-          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v10"></script>')
-          s=s.replace('src="scripts/main.js"','src="scripts/main.js?v8"')
+          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v11"></script>')
+          s=s.replace('src="scripts/main.js"','src="scripts/main.js?v11"')
           s=s.replace('href="scripts/easy-v7-theme.css"','href="scripts/easy-v7-theme.css?v8"')
           p.write_text(s,encoding='utf-8')
           src=Path('_site/assets/manifest.json')
           m=json.loads(src.read_text(encoding='utf-8'))
-          m['version']='2.1.0-easy-v8-preview'
+          m['version']='2.2.0-easy-v11-preview'
           m['tracks']=[t for t in m['tracks'] if t.get('id')=='moonlight_intro_rock_v4_3' and t.get('status')=='ready']
           assert len(m['tracks'])==1
           t=m['tracks'][0]
@@ -137,8 +138,8 @@ jobs:
           script='<script defer="" src="scripts/main.js"></script>'
           assert s.count('</style>')==1 and s.count(script)==1
           s=s.replace('</style>','</style><link id="v7Theme" rel="stylesheet" href="scripts/easy-v7-theme.css" disabled/><link rel="stylesheet" href="scripts/energy-meter.css?v10"/>',1)
-          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v10"></script>',1)
-          s=s.replace('src="scripts/main.js"','src="scripts/main.js?v8"',1)
+          s=s.replace(script,script+'<script defer src="scripts/easy-v7-addon.js?v11"></script>',1)
+          s=s.replace('src="scripts/main.js"','src="scripts/main.js?v11"',1)
           s=s.replace('href="scripts/easy-v7-theme.css"','href="scripts/easy-v7-theme.css?v8"',1)
           p.write_text(s,encoding='utf-8')
           m=json.loads(Path('_site/assets/manifest.json').read_text(encoding='utf-8'))
@@ -152,6 +153,7 @@ jobs:
           test -s _site/preview/easy-v7/scripts/energy-meter.css
           python3 - <<'PY'
           from pathlib import Path
+          import json
           root=Path('_site/scripts/easy-v7-addon.js').read_text(encoding='utf-8')
           preview=Path('_site/preview/easy-v7/scripts/easy-v7-addon.js').read_text(encoding='utf-8')
           html=Path('_site/index.html').read_text(encoding='utf-8')
@@ -163,8 +165,17 @@ jobs:
           assert "_site/preview/easy-v7/scripts/energy-meter.css" in str(Path('_site/preview/easy-v7/scripts/energy-meter.css'))
           assert "meter.hidden=!easy" in root
           assert 'energy-meter.css?v10' in html
-          assert 'easy-v7-addon.js?v10' in html
+          assert 'easy-v7-addon.js?v11' in html
+          assert 'main.js?v11' in html
+          assert Path('_site/scripts/main.js').read_text().count("function playHit(sound,kind)")==1
+          assert 'playHit(n.sound||n.pitch,n.kind)' in Path('_site/scripts/main.js').read_text()
+          for mode in ['easy','hard']:
+              ch=json.loads(Path('_site/assets/charts/moonlight-'+mode+'.json').read_text())
+              assert ch['soundSchemaVersion']==1 and ch['notes']
+              assert all(n['sound']['midi']==n['pitch'] for n in ch['notes'])
+              assert all(len({n['pitch'] for n in ch['notes'] if n['lane']==lane})>=2 for lane in range(4))
           print('V10_HUD_OVERLAY_NO_REFLOW_VERIFIED')
+          print('V11_SOUND_TAGS_AND_NOTE_PITCH_VERIFIED')
           PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
