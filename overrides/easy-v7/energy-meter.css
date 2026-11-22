@@ -1,0 +1,38 @@
+/* V9 -- unobtrusive, visual-only energy meter for EASY mode. */
+#v9HealthMeter {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 5px;
+  flex: 0 0 5px;
+  margin: 0 0 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgba(10, 23, 31, 0.68);
+  box-shadow: inset 0 0 0 1px rgba(190, 225, 224, 0.15);
+}
+#v9HealthMeter[hidden] { display: none !important; }
+#v9HealthMeter > .v9HealthFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #12b8aa, #61fff0);
+  box-shadow: 0 0 9px rgba(44, 232, 215, 0.38);
+  transition: width 180ms ease-out, background 180ms ease-out;
+  will-change: width;
+}
+#v9HealthMeter[data-level="warning"] > .v9HealthFill {
+  background: linear-gradient(90deg, #d57927, #ffc066);
+  box-shadow: 0 0 9px rgba(251, 167, 61, 0.38);
+}
+#v9HealthMeter[data-level="danger"] > .v9HealthFill {
+  background: linear-gradient(90deg, #e34152, #ff7e73);
+  box-shadow: 0 0 9px rgba(255, 88, 95, 0.38);
+}
+@media (prefers-reduced-motion: reduce) {
+  #v9HealthMeter > .v9HealthFill { transition: none; }
+}
