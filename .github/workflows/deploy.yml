@@ -474,6 +474,64 @@ jobs:
           print('V18_EASY_FIVE_SIX_HARD_EIGHTEEN_TWENTY_GOLD_COIN_NOTES_VERIFIED')
           print('V18_PERFECT_ONLY_FLIGHT_WALLET_PERSISTENCE_AND_HARD_ENERGY_VERIFIED')
           PY
+          # V19: Independent 56s EASY and 52s HARD excerpts from
+          # the same 3m57.2s original '우리 꽤 잘살았네..wav', no re-used song audio.
+          mkdir -p /tmp/pre-well-lived-v19-charts
+          cp _site/assets/charts/*.json /tmp/pre-well-lived-v19-charts/
+          cat overrides/well-lived-v19/parts/part-*.b64 | tr -d '\n\r' | base64 --decode > /tmp/well-lived-v19.zip
+          echo 'f55a4fd5d070e16eff94512d8080d936b5222e5dd7e0de02fc60e0cc65e75653  /tmp/well-lived-v19.zip' | sha256sum -c -
+          mkdir -p /tmp/well-lived-v19
+          unzip -q /tmp/well-lived-v19.zip -d /tmp/well-lived-v19
+          python3 overrides/well-lived-v19/install_well_lived_v19.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/home-v14.js
+          node --check _site/scripts/tonight-home-v16.js
+          node --check _site/scripts/coin-v18.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib,subprocess
+          site=Path('_site')
+          m=json.loads((site/'assets/manifest.json').read_text(encoding='utf-8'))
+          ready=[t for t in m['tracks'] if t.get('status')=='ready']
+          ids=[t['id'] for t in ready]
+          assert len(ids)==7 and ids==[
+             'deathmatch_one_take_v12','moonlight_intro_rock_v4_3','moonlight_epic_rock_v2_5',
+             'tonight_easy_v16','tonight_hard_v16','well_lived_easy_v19','well_lived_hard_v19'],ids
+          assert m['version']=='2.4.0-v15-hold-release-playtest'
+          for t,n,source,duration in [
+              (ready[5],98,[53.14,109.15],56.01),
+              (ready[6],167,[154.23,206.68],52.45)]:
+              audio=site/t['audio']
+              chart=site/t['chart']
+              assert audio.stat().st_size>1200000 and chart.is_file()
+              c=json.loads(chart.read_text(encoding='utf8'))
+              assert c['sourceSliceSeconds']==source and c['difficulty']==t['difficulty']
+              assert len(c['notes'])==n
+              assert all(v['kind'] in ('tap','flick') and 0<=v['lane']<4 for v in c['notes'])
+              assert all(v['sound']['midi']==v['pitch'] for v in c['notes'])
+              if t['difficulty']==3:assert all(v['lane'] in (0,3) for v in c['notes'] if v['kind']=='flick')
+              for i in range(len(c['notes'])-2):
+                  assert c['notes'][i+2]['t']-c['notes'][i]['t']>=.023-1e-7
+              sec=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',str(audio)]).decode().strip())
+              assert abs(sec-duration)<.08,(t['id'],sec)
+              print('V19_CLIP_CHART_VERIFIED',t['id'],n,round(sec,2),'secs')
+          for chart in Path('/tmp/pre-well-lived-v19-charts').glob('*.json'):
+              assert hashlib.sha256((site/'assets/charts'/chart.name).read_bytes()).digest()==hashlib.sha256(chart.read_bytes()).digest(),chart.name
+          html=(site/'index.html').read_text(encoding='utf8')
+          assert 'scripts/home-v14.js?v19' in html and 'scripts/tonight-home-v16.js?v19' in html
+          assert 'scripts/coin-v18.js?v18' in html and 'scripts/main.js?v18' in html
+          h=(site/'scripts/home-v14.js').read_text(encoding='utf8')
+          hard=(site/'scripts/tonight-home-v16.js').read_text(encoding='utf8')
+          assert 'well_lived_easy_v19' in h and 'well_lived_hard_v19' in h
+          assert 'well_lived_hard_v19:0' in hard and 'rhHardPlay' in hard
+          assert 'rhythm_lab_coins_v1' in (site/'scripts/coin-v18.js').read_text(encoding='utf8')
+          death=json.loads((site/'assets/charts/deathmatch_easy_v12.json').read_text(encoding='utf8'))
+          today_hard=json.loads((site/'assets/charts/tonight_hard_v16.json').read_text(encoding='utf8'))
+          assert len(death['notes'])==132 and len(today_hard['notes'])==231
+          assert sum(n['kind']=='hold' for n in death['notes'])==1
+          assert sum(n['kind']=='hold' for n in today_hard['notes'])==1
+          print('V19_SEVEN_PLAYABLE_TRACKS_TWO_SEPARATE_EXCERPTS_AND_EXISTING_V18_WALLET_HEALTH_VERIFIED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
