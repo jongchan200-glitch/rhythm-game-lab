@@ -1,3 +1,14 @@
+# 2026-11-23 V21 — 우리 꽤 잘살았네 버전 2 HARD: 반복 A×8 B×6 C×4
+- **사용자 요청/결정**: 게임 노트가 너무 무작위로 바뀌면 숙련감이 없으므로, 음악 리믹스의 반복되는 동기처럼 **정확히 동일한 손동작·비트 패턴이 곡 전체에 계속 재등장**하게 하자. 멜로디를 따라가는 특색 있는 구간은 허용하되 비트를 따라가며 4~8마디 단위 반복을 적극 사용. 기존 V20 HARD는 보존하고 새로운 HARD **「우리 꽤 잘살았네 버전 2」** CD 앨범 한 개를 새로 추가.
+- **V21 오디오/채보**: 오디오는 V20 사용자 WAV 원곡 중 실제 끝까지 이어지는 151.20~237.20초(86초) MP3를 변경 없이 재사용. 신규 song ID well_lived_hard_repeat_v21, chart assets/charts/well_lived_hard_repeat_v21.json. 기존 7개 트랙 그대로 + V2 1개 = **총 8개** ready. HARD 5성, 240판정(탭200/플릭40), 4레인, 끝 4비트는 여운을 위해 밀도를 줄임.
+- **학습형 2마디 패턴**: 음원 실제 beat 155개(약107.67 BPM)에서 8비트≈4.45초를 1개 모티브로 사용. 차례는 **A×4→B×4→A×4→B×2→C×4→4비트 종결**. A 8회, B 6회, C 4회. 동일 글자의 반복마다 실제 상대비트/레인/노트 종류(탭·플릭) 순서 완전히 동일. A/B 각각 12판정/2마디, C는 17판정/2마디(양손 동시노트 2쌍·플릭 3). 마지막 C는 원곡 후반 고조 구간. 각각 MIDI와 악기 태그는 V20 해당 시각 가장 가까운 오디오 분석 채보에서 사용. **음원 편곡이 아니라 채보 패턴 재구성**임. 새 홀드 강제 배치 없음.
+- **UX**: HARD 첫 번째 CD에 V2, 두 번째 기존 우리 꽤 잘살았네 HARD, 세 번째 오늘밤도 HARD, 네 번째 월광 HARD. 중앙 글자 '버전 2' 줄바꿈 방지 공백 적용. HARD 잠금 테스트 해제, 시작/자동시연 활성, 네 곡 좌우 스와이프, EASY LP/아래 다섯 메뉴 기존 유지. 신규 ID 독립 기록. 금화는 해시 기준 20개, PERFECT 직접 입력에서만 지급하고 HOLD/EASY/HARD 에너지 규칙, 사용자 localStorage/점수 키 보존.
+- **QA**: 기존 V20 컴파일 사이트에 실제 patch 설치 후 Chromium 390×844/360×640, 8곡 catalog/HARD 첫 CD V2/JS 오류0, 자동 시연 가상 오디오 시계 240/240 PERFECT, MAX COMBO 240, 33,000점, HARD 에너지 표시, 금화 20개·자동보상0. 사용자 갤럭시 실기기 및 음악적 손맛은 최종 검수 전. 차트 SHA256 27b667f8c6db1ffa0fa90d8f0797b3cc81b0c808ddc92373f4aedbdb9a2d6d1d. beat grid와 생성 코드로 원본 JSON 바이트 동일 재생성 검증.
+- **배포 SUCCESS**: commit 69d271a845486e1a9e09e4b7f8098fb1133b76b1, Actions #81 https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45169976536 . CI V21_REPEAT_MOTIFS_IDENTICAL_A8_B6_CLIMAX_C4_240_NOTES 및 V21_NEW_SEPARATE_HARD_V2_CD_EIGHT_SONGS_AND_V18_COINS_ENERGY_PRESERVED, 이전 V12~V20 전체 검사와 구곡 7개 chart 해시 비교 통과.
+- **재현/백업**: overrides/repeat-hard-v21/{install_repeat_hard_v21.py,well_lived_hard_repeat_v21.json.gz.b64,build_repeat_v21.py,beat_grid_v21.json,README_KO.txt}. V20 전판 복원 GitHub backup/pre-repeat-v21-2026-11-23. 최신 Drive https://drive.google.com/drive/folders/1yoTam91yx7PEXrH9FxCWMK6z_dzhqlkG . 인수인계 Google Doc https://docs.google.com/document/d/1XPYwRH6-bN3D8I8uqIeHT0cyI3llB-EnloeY4BTv5qg/edit . 라이브 https://jongchan200-glitch.github.io/rhythm-game-lab/ . 사용자 최종 승인 전 Codex 이관 금지.
+
+---
+
 # 2026-11-23 V20 — 우리 꽤 잘살았네 같은 원곡 절정~실제 엔딩 86초 재편집
 - **사용자 피드백 최우선**: 기존 V19의 EASY 56.01초(원곡 53.14~109.15)와 HARD 52.45초(154.23~206.68)는 실제 플레이에서 시작/끝이 갑자기 잘려 이상하다. 앞으로 **'1분 고정' 폐기**, 약 1:20·1:30·1:40, 필요하면 2분 이내로 자연스러운 음악적 완결성 우선. 후렴 고음과 클라이맥스부터 원곡의 실제 마지막까지 한 연속 부분이 좋으면 **EASY/HARD가 같은 음원을 공유해도 됨**.
 - **V20 오디오 재편집**: 사용자 업로드 WAV 전체 237.20초 중 **151.20~237.20초**, 즉 2:31.2부터 원곡 실제 마지막 3:57.2까지 정확히 **86초 (1분26초)**. 원본 후반 강세와 235~237초 실제 자연스럽게 끝나는 fade 구간 포함. 여러 부분 콜라주 없음. 처음 0.16초만 짧은 페이드인. 실 MP3 duration 86.047초. 절정 첫 가사 음절의 정확한 시작 여부는 사람 귀 미검증이므로 **사용자 실기기 승인 전의 시험 후보**임.
