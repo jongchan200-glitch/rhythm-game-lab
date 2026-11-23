@@ -675,6 +675,51 @@ jobs:
           print('V21_REPEAT_MOTIFS_IDENTICAL_A8_B6_CLIMAX_C4_240_NOTES')
           print('V21_NEW_SEPARATE_HARD_V2_CD_EIGHT_SONGS_AND_V18_COINS_ENERGY_PRESERVED')
           PY
+          # V22: swipe-to-hear automatic album preview on LP and CD.
+          # Do not alter V21 drums V2, any chart/audio, 8-track catalog or saves.
+          cp _site/assets/manifest.json /tmp/pre-autopreview-v22-manifest.json
+          mkdir -p /tmp/pre-autopreview-v22-charts /tmp/pre-autopreview-v22-audio
+          cp _site/assets/charts/*.json /tmp/pre-autopreview-v22-charts/
+          cp _site/assets/audio/*.mp3 /tmp/pre-autopreview-v22-audio/
+          cp overrides/album-preview-v22/album-autoplay-v22.js _site/scripts/album-autoplay-v22.js
+          echo '2ce11350a7b3ae84ac9fc89a0d2b9e82c9ffa9ff33bccd9af76bfea33806edf5  _site/scripts/album-autoplay-v22.js' | sha256sum -c -
+          echo 'e26873c9cd556f1403d89c20d63425dbc1affc16898fa75e6ff848409a0417cc  overrides/album-preview-v22/install_album_autopreview_v22.py' | sha256sum -c -
+          python3 overrides/album-preview-v22/install_album_autopreview_v22.py
+          node --check _site/scripts/album-autoplay-v22.js
+          node --check _site/scripts/home-v14.js
+          node --check _site/scripts/tonight-home-v16.js
+          node --check _site/scripts/main.js
+          cmp _site/assets/manifest.json /tmp/pre-autopreview-v22-manifest.json
+          for f in /tmp/pre-autopreview-v22-charts/*.json; do cmp "$f" "_site/assets/charts/$(basename "$f")"; done
+          for f in /tmp/pre-autopreview-v22-audio/*.mp3; do cmp "$f" "_site/assets/audio/$(basename "$f")"; done
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          s=Path('_site')
+          m=json.loads((s/'assets/manifest.json').read_text(encoding='utf8'))
+          tracks=[x for x in m['tracks'] if x.get('status')=='ready']
+          assert len(tracks)==8
+          assert tracks[-1]['id']=='well_lived_hard_repeat_v21'
+          assert tracks[-1]['title']=='우리 꽤 잘살았네 · 버전 2'
+          assert tracks[-1]['chart']=='assets/charts/well_lived_hard_repeat_v21.json'
+          assert tracks[-1]['audio']=='assets/audio/well_lived_climax_v20.mp3'
+          assert len(json.loads((s/tracks[-1]['chart']).read_text())['notes'])==240
+          h=(s/'index.html').read_text(encoding='utf8')
+          lp=(s/'scripts/home-v14.js').read_text(encoding='utf8')
+          cd=(s/'scripts/tonight-home-v16.js').read_text(encoding='utf8')
+          js=(s/'scripts/album-autoplay-v22.js').read_text(encoding='utf8')
+          assert 'scripts/home-v14.js?v22' in h and 'scripts/tonight-home-v16.js?v22' in h
+          assert h.count('scripts/album-autoplay-v22.js?v22')==1
+          assert all(x in h for x in ('main.js?v18','coin-v18.js?v18','hold-v15.js?v15'))
+          assert "RhythmAlbumPreviewV22?.playSong(next.dataset.song)" in lp
+          assert "RhythmAlbumPreviewV22?.playSong(b.dataset.song)" in cd
+          assert 'well_lived_hard_repeat_v21:0' in cd
+          assert "RhythmAlbumPreviewV22?.toggle" in lp and "RhythmAlbumPreviewV22?.toggle" in cd
+          assert all(x in js for x in ("well_lived_hard_repeat_v21","new Audio(","sound.play()","fade(old.sound,0,210","RhythmAlbumPreviewV22","pagehide","visibilitychange"))
+          assert 'rhythm_lab_coins_v1' in (s/'scripts/coin-v18.js').read_text()
+          print('V22_LP_CD_SWIPE_AUTOPREVIEW_AND_BROWSER_USER_GESTURE_CODE_VERIFIED')
+          print('V22_EXISTING_V21_EIGHT_SONGS_240_NOTE_DRUM_V2_ALL_AUDIO_CHART_WALLET_UNCHANGED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
