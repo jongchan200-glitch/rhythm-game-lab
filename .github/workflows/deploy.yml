@@ -612,6 +612,69 @@ jobs:
           print('V20_REPLACED_ONLY_TWO_V19_SHORT_CLIPS_WITH_SAME_86S_NATURAL_ENDING')
           print('V20_SEVEN_EXISTING_SONG_IDS_ALL_ORIGINAL_CHARTS_WALLET_HARD_ENERGY_PRESERVED')
           PY
+          # V21: additional learnable repeated-pattern HARD V2 version of the
+          # same complete 86-second audio. Original 7 tracks are untouched.
+          cp _site/assets/manifest.json /tmp/pre-repeat-v21-manifest.json
+          mkdir -p /tmp/pre-repeat-v21-charts
+          cp _site/assets/charts/*.json /tmp/pre-repeat-v21-charts/
+          python3 overrides/repeat-hard-v21/install_repeat_hard_v21.py
+          node --check _site/scripts/tonight-home-v16.js
+          node --check _site/scripts/coin-v18.js
+          node --check _site/scripts/main.js
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from collections import Counter,defaultdict
+          site=Path('_site')
+          before=json.loads(Path('/tmp/pre-repeat-v21-manifest.json').read_text(encoding='utf-8'))
+          after=json.loads((site/'assets/manifest.json').read_text(encoding='utf-8'))
+          br=[x for x in before['tracks'] if x.get('status')=='ready']
+          ar=[x for x in after['tracks'] if x.get('status')=='ready']
+          assert len(br)==7 and len(ar)==8 and ar[:7]==br
+          assert br[6]['id']=='well_lived_hard_v19'
+          assert after['version']==before['version']=='2.4.0-v15-hold-release-playtest'
+          assert [x['id'] for x in ar][-1]=='well_lived_hard_repeat_v21'
+          v2=ar[-1]
+          assert v2['title']=='우리 꽤 잘살았네 · 버전 2'
+          assert v2['difficulty']==5 and v2['duration']==86 and v2['base']==30000
+          assert v2['audio']=='assets/audio/well_lived_climax_v20.mp3'
+          assert v2['chart']=='assets/charts/well_lived_hard_repeat_v21.json'
+          assert (site/v2['audio']).is_file()
+          p=site/v2['chart']
+          assert hashlib.sha256(p.read_bytes()).hexdigest()=='27b667f8c6db1ffa0fa90d8f0797b3cc81b0c808ddc92373f4aedbdb9a2d6d1d'
+          chart=json.loads(p.read_text(encoding='utf-8'))
+          ns=chart['notes']
+          assert len(ns)==240
+          assert Counter(n['kind'] for n in ns)=={'tap':200,'flick':40}
+          assert chart['repeatStructure']=='AAAABBBBAAAABBCCCC'
+          assert chart['motifs']=={'A':12,'B':12,'C':17}
+          assert Counter(s['motif'] for s in chart['motifSections'])=={'A':8,'B':6,'C':4}
+          assert all(0<=n['lane']<4 and n['kind'] in ('tap','flick') and n['pitch']==n['sound']['midi'] for n in ns)
+          for i,n in enumerate(ns[:-2]):assert ns[i+2]['t']-n['t']>=.020
+          beats=json.loads(Path('overrides/repeat-hard-v21/beat_grid_v21.json').read_text(encoding='utf-8'))['beats']
+          groups=defaultdict(set)
+          counts=Counter()
+          for i,s in enumerate(chart['motifSections']):
+              lo,hi=beats[3+i*8],beats[3+(i+1)*8]
+              signature=tuple((n['lane'],n['kind']) for n in ns if lo-.0001<=n['t']<hi-.0001)
+              assert len(signature)==chart['motifs'][s['motif']]
+              groups[s['motif']].add(signature)
+              counts[s['motif']]+=1
+          assert all(len(sigs)==1 for sigs in groups.values()),{k:len(v) for k,v in groups.items()}
+          assert counts=={'A':8,'B':6,'C':4}
+          for original in Path('/tmp/pre-repeat-v21-charts').glob('*.json'):
+              new=site/'assets/charts'/original.name
+              assert hashlib.sha256(original.read_bytes()).digest()==hashlib.sha256(new.read_bytes()).digest(),original
+          page=(site/'index.html').read_text(encoding='utf-8')
+          hard=(site/'scripts/tonight-home-v16.js').read_text(encoding='utf-8')
+          assert 'scripts/tonight-home-v16.js?v21' in page
+          assert 'scripts/coin-v18.js?v18' in page and 'scripts/main.js?v18' in page
+          assert 'well_lived_hard_repeat_v21:0' in hard
+          assert "well_lived_hard_repeat_v21:'우리 꽤 잘살았네 버전" in hard
+          assert 'HARD MODE' in (site/'scripts/home-v14.js').read_text(encoding='utf-8')
+          print('V21_REPEAT_MOTIFS_IDENTICAL_A8_B6_CLIMAX_C4_240_NOTES')
+          print('V21_NEW_SEPARATE_HARD_V2_CD_EIGHT_SONGS_AND_V18_COINS_ENERGY_PRESERVED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
