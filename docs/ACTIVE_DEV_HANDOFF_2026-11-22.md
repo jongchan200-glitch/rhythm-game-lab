@@ -1,3 +1,16 @@
+# 2026-11-23 V22 — LP·CD 좌우 넘기기 자동 음악 미리듣기
+- **사용자 결정**: 기존 V21 「우리 꽤 잘살았네 · 버전 2」 HARD CD를 그대로 유지하고, EASY LP 또는 HARD CD를 옆으로 넘기는 **그 순간 버튼 누르지 않아도 음악이 흘러나오도록** 변경. 기존 V21은 이미 별도 CD 1개 및 반복 A×8/B×6/C×4, 240노트 채보가 성공 배포된 상태였으므로 이 버전에서 재추가/덮어쓰기 금지.
+- **V21 보존**: `well_lived_hard_repeat_v21`은 HARD CD 첫번째(01/04), 기존 `well_lived_hard_v19`이 두번째(02/04), 오늘밤도 HARD 세번째, 월광 HARD 네번째. EASY 4곡까지 **총 8곡**. V21 `well_lived_hard_repeat_v21.json` 240 판정(탭200/플릭40), 음원 `well_lived_climax_v20.mp3` 86초, V18 금화 20개, HARD 에너지 로직, 기록/코인 로컬저장 모두 보존.
+- **스와이프 음원**: 기존 home-v14.js의 LP changeSong() 이벤트와 tonight-home-v16.js의 HARD changeHard() 이벤트에서 catalog의 실제 songBtn.click() 후 `window.RhythmAlbumPreviewV22.playSong(songId)` 호출. HARD CD 스와이프는 원래 음악 제목만 교체했으나 V22는 실제 곡 선택도 그 즉시 반영. 화면 전환(EASY↔HARD) 시 선택한 곡의 별도 프리뷰가 중단됨.
+- **브라우저 정책/음악 자연스러움**: 진짜 터치 pointerup / 방향키 keydown의 동기 호출에서 새 `Audio.play()` 실행하여 모바일 오디오 사용자의 실제 제스처를 활용. 게임 재생에 쓰이는 core audio와 별도 브라우징용 Audio. 이전 곡 210ms fade-out, 다음 곡 300ms fade-in, 22초 자동 미리듣기 후 550ms fade-out, 음악 볼륨 슬라이더 연동. V21 버전2는 드럼이 뚜렷해지는 **8.15초** 부근부터 미리듣기하되 실제 게임은 여전히 86초 전체 재생. 미리듣기 버튼은 재생/중지 보조용으로 유지하되 필수 버튼 아님. 재생상태 텍스트와 LP/CD 회전 표시.
+- **중단 조건**: 시작/자동 시연/페이지 EASY-HARD 전환/브라우저 백그라운드 전환/페이지 종료 시 미리듣기 정지. 브라우저의 정책이 play()를 막을 경우 '한 번 눌러 주세요' 메시지를 표시하고 버튼으로 재생 가능. 실제 갤럭시 사용 전 허용 여부 최종 검수 필요.
+- **코드**: `overrides/album-preview-v22/install_album_autopreview_v22.py`, `album-autoplay-v22.js`, `README_KO.txt`. 빌드 마지막에 LP/CD 홈 JS 일부만 패치하고 index.html 스크립트 캐시만 ?v22로 갱신. `main.js`, `coin-v18.js`, `hold-v15.js`, 8곡의 manifest/전곡 WAV→MP3/채보 JSON에는 손대지 않음. 원래 저장 키 모두 보존.
+- **테스트**: Chromium 390×844 실제 HTML/CSS + 가상 Audio를 통한 UI 이벤트 테스트: 8곡 catalog, EASY LP → 월광 선택 및 자동 재생, EASY→HARD 전환 시 프리뷰 종료, HARD CD 01/04 V2↔02/04 원곡 왕복 스와이프 선택/자동 재생, HARD 시작 시 preview 정지·에너지바 표시·V2 금화 20개 및 V21 원본 240 노트 유지, JS errors 0. 로컬/파일 URL 브라우징이 이 환경의 관리자 네트워크 정책에 막혀 실제 MP3 출력을 확인한 테스트라고 주장 금지. 실제 갤럭시 검수 필요.
+- **배포**: GitHub `80de22234ef582de8af8d40f6024cb35e6a2ed01` / Pages Actions #82 SUCCESS https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45171991848 . 로그 `V22_LP_CD_AUTOPREVIEW_SWIPES_CROSSFADE_WITH_EXISTING_V21_V2_INTACT`, `V22_EXISTING_V21_EIGHT_SONGS_240_NOTE_DRUM_V2_ALL_AUDIO_CHART_WALLET_UNCHANGED`. QA에서 manifest byte-for-byte cmp, 기존 모든 8 chart JSON과 전체 MP3 byte cmp 통과.
+- **안전 복원**: 사전 V21 branch `backup/pre-drum-v2-autopreview-v21-2026-11-23`. Drive 파일 `이종찬 앱 개발/02_리듬 게임 (가칭)/90_최신 코드·실행 자료/V22_앨범스와이프_자동미리듣기_2026-11-23` 및 구글 Doc https://docs.google.com/document/d/1XPYwRH6-bN3D8I8uqIeHT0cyI3llB-EnloeY4BTv5qg/edit . 공개 https://jongchan200-glitch.github.io/rhythm-game-lab/ . 사용자 완료 승인 전 Codex 이관 금지.
+
+---
+
 # 2026-11-23 V21 — 우리 꽤 잘살았네 버전 2 HARD: 반복 A×8 B×6 C×4
 - **사용자 요청/결정**: 게임 노트가 너무 무작위로 바뀌면 숙련감이 없으므로, 음악 리믹스의 반복되는 동기처럼 **정확히 동일한 손동작·비트 패턴이 곡 전체에 계속 재등장**하게 하자. 멜로디를 따라가는 특색 있는 구간은 허용하되 비트를 따라가며 4~8마디 단위 반복을 적극 사용. 기존 V20 HARD는 보존하고 새로운 HARD **「우리 꽤 잘살았네 버전 2」** CD 앨범 한 개를 새로 추가.
 - **V21 오디오/채보**: 오디오는 V20 사용자 WAV 원곡 중 실제 끝까지 이어지는 151.20~237.20초(86초) MP3를 변경 없이 재사용. 신규 song ID well_lived_hard_repeat_v21, chart assets/charts/well_lived_hard_repeat_v21.json. 기존 7개 트랙 그대로 + V2 1개 = **총 8개** ready. HARD 5성, 240판정(탭200/플릭40), 4레인, 끝 4비트는 여운을 위해 밀도를 줄임.
