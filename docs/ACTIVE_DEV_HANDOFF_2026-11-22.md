@@ -1,3 +1,15 @@
+# 2026-11-23 V19 — 우리 꽤 잘살았네 EASY / HARD 독립 편집곡
+- **사용자 발화**: '이것도 2가지 버전' — 업로드 `우리 꽤 잘살았네..wav`(3:57.2/48k stereo)를 앞서 「오늘밤도」와 똑같은 원칙으로 **EASY/HARD 각각 별도 원곡 구간 1회 연속 편집+채보**. 같은 부분의 난이도만 변경하면 안 됨. 자연스러운 소리 감쇠 구간을 끝으로 사용하며 시간 맞춘 소절 중간 자르기 금지. 사람 귀 최종 음악 구간 검수는 남음.
+- **EASY ★★★** `well_lived_easy_v19`: 원곡 53.14–109.15초, 56.01초 연속 컷, 192kbps mp3 실 56.06초. 98노트(92 TAP+6 FLICK, 2 동시노트 페어). LP 홈에서 네 번째 앨범, 코인 자동 5개. 원래 4레인 위치와 V18 PERFECT 지급 규칙 보존.
+- **HARD ★★★★★** `well_lived_hard_v19`: 원곡 154.23–206.68초, 52.45초 연속 컷, 실 mp3 52.48초. 167노트(125 TAP+42 FLICK, 11 동시노트 페어), 강한 원본 onset/중간박을 따라 채보. HARD 첫 번째 CD, 나머지 오늘밤도 HARD/월광 HARD 그대로 선택. 코인 자동 20개, V18 5성 HARD 에너지바/감점 보존.
+- **음악 분석**: 0.1초 RMS smoothing에서 53.2/108.9 및 154.3/206.5초 저음량 전환 지점과 약 108.17BPM 비트 추정. 원곡 여러 곳 이어붙이기 없음, 각 끝의 마지막 0.78초만 완만히 페이드. 실제 후렴/가사 시점과 정확한 청감 결말은 기기에서 사람 귀로 검증 전. 신규 HOLD는 억지로 추가하지 않음.
+- **기술**: 5 READY → 7 READY곡으로 manifest 확장, 버전 문자열 V15 유지, 원래 다섯 곡의 MP3/JSON byte-for-byte 보존. `overrides/well-lived-v19/{build_music_v19.py,install_well_lived_v19.py,README_KO.txt,parts/part-001.b64~part-010.b64}` . 분할 재조립 ZIP SHA256 `f55a4fd5d070e16eff94512d8080d936b5222e5dd7e0de02fc60e0cc65e75653`. 쉬움 LP `home-v14.js` 와 어려움 CD `tonight-home-v16.js` 메타데이터/곡 순서/곡 돌아감만 수정, HTML 캐시 `?v19`. 전체 기록/코인 localStorage 기존 키와 노트 렌더/에너지 엔진 전혀 손대지 않음.
+- **크레딧**: 새로운 WAV는 사용자 제공 음원으로 임시 표시하고, 실제 작사/작곡 권리자 미확인 상태를 명시; 챨스(다른 곡 크레딧)로 단정하지 않음. 게임 제작 한울 표기는 기존과 일치.
+- **QA**: Chromium 390×844 시험에서 LP `04/04` 새 곡 클릭→`current.id=well_lived_easy_v19`, notes 98, coin selected 5. HARD 홈 `01/03` 새 CD에서 시작→`current.id=well_lived_hard_v19`, notes 167, coin selected 20, `v9HealthMeter.hidden=false`. JS errors 0. 기존 데스매치 V15 홀드와 오늘밤도 V17 홀드 유지. GitHub Actions #78 https://github.com/jongchan200-glitch/rhythm-game-lab/actions/runs/45111496697 **SUCCESS**, CI 새 MP3/JSON·7곡·원본 다섯 채보 해시 비교 통과.
+- **링크**: 라이브 https://jongchan200-glitch.github.io/rhythm-game-lab/ , 배포 코드 커밋 `6fb2b0aa1ba05c174f99d1634c0de663b787d913`, 사전 백업 `backup/pre-well-lived-two-versions-v19-2026-11-23`, Google Drive 코드/편집음원/채보/화면 https://drive.google.com/drive/folders/11fhtkhV4xVF1OkvyJafS0WdPyW-5U1tB . 전작과 마찬가지로 사용자 실기기 검수 후 수정, 최종 승인 전 Codex 전달 금지.
+
+---
+
 # 2026-11-23 V18 — EASY 5~6 / HARD 18~20 금화 노트 + HARD 에너지바 복구
 - **사용자 최종 정정 발화가 최우선**: 금화 노트의 개수는 EASY **곡당 5~6개**, HARD **곡당 18~20개**. 앞서 음성이 끊기며 전곡 18~20개로 잘못 전달된 것을 수정. 기존 TAP 위에 작은 코인 아이콘을 붙이는 게 아니라 **금색 입체 코인 자체가 별개 노트처럼 내려옴**. 실제 채보 수와 일반 TAP 입력 타이밍·점수 계산은 안 바뀜.
 - **실 배치**: 데스매치 EASY 6, 월광 EASY 5, 오늘밤도 EASY 6, 월광 HARD 18, 오늘밤도 HARD 18. 각 곡 원래 TAP 시점 중 충분히 떨어진 자리에 runtime에서만 `n.coin=true`로 표시. Gold coin Canvas는 곡선으로 기울인 두툼한 타원 3D 금화, 골드 테두리와 하이라이트, 일반 레인 컬러의 노트 몸체가 아예 없음. 다른 종류 노트와 기존 V17 그래픽은 무변경.
