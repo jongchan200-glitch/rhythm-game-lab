@@ -532,6 +532,82 @@ jobs:
           assert sum(n['kind']=='hold' for n in today_hard['notes'])==1
           print('V19_SEVEN_PLAYABLE_TRACKS_TWO_SEPARATE_EXCERPTS_AND_EXISTING_V18_WALLET_HEALTH_VERIFIED')
           PY
+          # V20 RECUT requested after actual V19 mobile beta feedback:
+          # 56.01s/52.45s truncated starts and endings felt wrong.
+          # One full naturally ending climax from 151.20 to 237.20s (86.0s)
+          # shared by EASY/HARD; difficulty differs through 140 / 246 events.
+          # Reuse the two existing V19 track IDs; no loss of local records or coins.
+          cp _site/assets/manifest.json /tmp/v19-manifest-for-v20.json
+          mkdir -p /tmp/v19-original-charts-for-v20
+          cp _site/assets/charts/*.json /tmp/v19-original-charts-for-v20/
+          cat overrides/climax-v20/parts/part-*.b64 | tr -d '\n\r' | base64 --decode > /tmp/well-lived-v20.zip
+          echo 'f8aa755818bc2617b4fc706a4ea8eeeaef81485ceabc01072180f24c45c87f6a  /tmp/well-lived-v20.zip' | sha256sum -c -
+          mkdir -p /tmp/well-lived-v20
+          unzip -q /tmp/well-lived-v20.zip -d /tmp/well-lived-v20
+          echo '67adbbd33837f97cb5c4f66a057ebff18f2fdf0e176bc47bf3343f77ba3bc820  /tmp/well-lived-v20/assets/audio/well_lived_climax_v20.mp3' | sha256sum -c -
+          python3 overrides/climax-v20/install_climax_v20.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/home-v14.js
+          node --check _site/scripts/tonight-home-v16.js
+          node --check _site/scripts/coin-v18.js
+          python3 - <<'PY'
+          import json,hashlib,subprocess
+          from pathlib import Path
+          site=Path('_site')
+          before=json.loads(Path('/tmp/v19-manifest-for-v20.json').read_text(encoding='utf8'))
+          after=json.loads((site/'assets/manifest.json').read_text(encoding='utf8'))
+          oldready=[t for t in before['tracks'] if t.get('status')=='ready']
+          newready=[t for t in after['tracks'] if t.get('status')=='ready']
+          assert len(oldready)==len(newready)==7
+          assert [x['id'] for x in oldready]==[x['id'] for x in newready]
+          assert oldready[:5]==newready[:5]
+          assert before['version']==after['version']=='2.4.0-v15-hold-release-playtest'
+          for mode,count,kindflick,expected_coins in [('easy',140,7,5),('hard',246,45,20)]:
+              t=next(t for t in newready if t['id']==f'well_lived_{mode}_v19')
+              assert t['duration']==86.0 and t['bpm']==107.67
+              assert t['audio']=='assets/audio/well_lived_climax_v20.mp3'
+              assert t['chart']==f'assets/charts/well_lived_{mode}_v20.json'
+              c=json.loads((site/t['chart']).read_text(encoding='utf8'))
+              assert c['sourceSliceSeconds']==[151.2,237.2]
+              assert c['difficulty']==t['difficulty']
+              notes=c['notes']
+              assert len(notes)==count
+              assert sum(n['kind']=='flick' for n in notes)==kindflick
+              assert all(n['kind'] in ('tap','flick') and 0<=n['lane']<=3 for n in notes)
+              assert all(n['pitch']==n['sound']['midi'] for n in notes)
+              if mode=='easy':assert all(n['lane'] in (0,3) for n in notes if n['kind']=='flick')
+              assert all(.8<n['t']<84.8 for n in notes)
+              for i,n in enumerate(notes[:-2]):
+                  assert notes[i+2]['t']-n['t']>=.02-1e-7
+              text=t['id']
+              h=2166136261
+              for ch in text:
+                  h=(h^ord(ch))*16777619 & 0xffffffff
+              gold=(5+h%2) if mode=='easy' else (18+h%3)
+              assert gold==expected_coins,(text,gold)
+              print('V20_SHARED_CLIMAX_CHART',text,len(notes),'events','flick',kindflick,'gold',gold)
+          clip=site/'assets/audio/well_lived_climax_v20.mp3'
+          sec=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',str(clip)]).decode().strip())
+          assert abs(sec-86.0)<.08,sec
+          assert hashlib.sha256(clip.read_bytes()).hexdigest()=='67adbbd33837f97cb5c4f66a057ebff18f2fdf0e176bc47bf3343f77ba3bc820'
+          for prev in Path('/tmp/v19-original-charts-for-v20').glob('*.json'):
+              now=site/'assets/charts'/prev.name
+              assert hashlib.sha256(now.read_bytes()).digest()==hashlib.sha256(prev.read_bytes()).digest(),prev.name
+          assert (site/'assets/audio/well_lived_easy_v19.mp3').is_file() and (site/'assets/audio/well_lived_hard_v19.mp3').is_file()
+          html=(site/'index.html').read_text(encoding='utf8')
+          assert 'scripts/home-v14.js?v20' in html
+          assert 'scripts/tonight-home-v16.js?v20' in html
+          assert 'scripts/home-v14.js?v19' not in html
+          assert 'scripts/coin-v18.js?v18' in html and 'scripts/main.js?v18' in html
+          hs=(site/'scripts/home-v14.js').read_text(encoding='utf8')
+          hc=(site/'scripts/tonight-home-v16.js').read_text(encoding='utf8')
+          assert 'well_lived_easy_v19' in hs and '1분 26초' in hs
+          assert 'well_lived_hard_v19' in hc and '1분 26초' in hc
+          assert 'rhHardPlay' in hc and 'well_lived_hard_v19:0' in hc
+          assert 'rhythm_lab_coins_v1' in (site/'scripts/coin-v18.js').read_text(encoding='utf8')
+          print('V20_REPLACED_ONLY_TWO_V19_SHORT_CLIPS_WITH_SAME_86S_NATURAL_ENDING')
+          print('V20_SEVEN_EXISTING_SONG_IDS_ALL_ORIGINAL_CHARTS_WALLET_HARD_ENERGY_PRESERVED')
+          PY
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
