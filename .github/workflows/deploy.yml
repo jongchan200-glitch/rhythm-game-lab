@@ -767,6 +767,39 @@ jobs:
           python3 -m http.server 8766 --bind 127.0.0.1 --directory _site > /tmp/v26-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/hard-holds-v26/qa_v26.mjs
+      - name: Set up Python for actual drum separation
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: V27 separate real drums with Demucs (no synthetic fallback)
+        shell: bash
+        env:
+          OMP_NUM_THREADS: '2'
+          MKL_NUM_THREADS: '2'
+        run: |
+          set -euo pipefail
+          python -m venv /tmp/rhythm-demucs-v27
+          /tmp/rhythm-demucs-v27/bin/pip install --quiet torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          /tmp/rhythm-demucs-v27/bin/pip install --quiet 'numpy<2' scipy soundfile demucs==4.0.1
+          mkdir -p /tmp/rhythm-stem-v27
+          ffmpeg -y -hide_banner -loglevel error -i _site/assets/audio/well_lived_climax_v20.mp3 -ac 2 -ar 44100 -c:a pcm_f32le /tmp/rhythm-stem-v27/well_lived.wav
+          /tmp/rhythm-demucs-v27/bin/python -m demucs -n htdemucs --two-stems drums --float32 --clip-mode clamp --shifts 0 -d cpu -j 2 -o /tmp/rhythm-stem-v27/separated /tmp/rhythm-stem-v27/well_lived.wav
+          /tmp/rhythm-demucs-v27/bin/python overrides/stem-keysound-v27/build_stem_keysounds.py
+          python overrides/stem-keysound-v27/install_v27.py
+          node --check _site/scripts/drum-keysound-v24.js
+          node --check _site/scripts/home-v14.js
+          python -m http.server 8767 --bind 127.0.0.1 --directory _site > /tmp/v27-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/stem-keysound-v27/qa_v27.mjs
+      - name: Retain V27 listening comparison and metrics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v27-real-drum-comparison
+          path: |
+            _site/assets/keysound-stem-v27/*.mp3
+            _site/assets/keysound-stem-v27/map.json
+          if-no-files-found: ignore
       - name: Retain V23 mobile screenshots
         if: always()
         uses: actions/upload-artifact@v4
