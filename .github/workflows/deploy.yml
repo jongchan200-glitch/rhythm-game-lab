@@ -791,6 +791,17 @@ jobs:
           python -m http.server 8767 --bind 127.0.0.1 --directory _site > /tmp/v27-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/stem-keysound-v27/qa_v27.mjs
+      - name: V28 add drum-only V3 continuous two-stem audio clock
+        shell: bash
+        run: |
+          set -euo pipefail
+          /tmp/rhythm-demucs-v27/bin/python overrides/drum-v3-v28/build_v3.py
+          python overrides/drum-v3-v28/install_v3.py
+          node --check _site/scripts/continuous-drums-v28.js
+          node --check _site/scripts/drum-keysound-v24.js
+          python -m http.server 8768 --bind 127.0.0.1 --directory _site > /tmp/v28-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/drum-v3-v28/qa_v28.mjs
       - name: Retain V27 listening comparison and metrics
         if: always()
         uses: actions/upload-artifact@v4
