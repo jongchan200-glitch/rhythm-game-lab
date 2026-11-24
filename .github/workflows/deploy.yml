@@ -812,6 +812,16 @@ jobs:
           python -m http.server 8769 --bind 127.0.0.1 --directory _site > /tmp/v29-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/drum-mute-v29/qa_v29.mjs
+      - name: V30 selective drum ownership and actual audio comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          /tmp/rhythm-demucs-v27/bin/python overrides/drum-selective-v30/build_v30.py
+          python overrides/drum-selective-v30/install_v30.py
+          node --check _site/scripts/continuous-drums-v28.js
+          python -m http.server 8770 --bind 127.0.0.1 --directory _site > /tmp/v30-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/drum-selective-v30/qa_v30.mjs
       - name: Retain V27 listening comparison and metrics
         if: always()
         uses: actions/upload-artifact@v4
