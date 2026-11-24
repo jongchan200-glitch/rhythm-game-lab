@@ -19,7 +19,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -736,6 +736,7 @@ jobs:
           /tmp/rhythm-v24-venv/bin/pip -q install numpy scipy
           /tmp/rhythm-v24-venv/bin/python overrides/drum-keysound-v24/build_keysounds.py
           python3 overrides/drum-keysound-v24/install_keysounds.py
+          python3 overrides/autoplay-sound-v25/install_autoplay_v25.py
           node --check _site/scripts/main.js
           node --check _site/scripts/drum-keysound-v24.js
           cmp _site/assets/manifest.json /tmp/pre-autopreview-v22-manifest.json
@@ -750,6 +751,7 @@ jobs:
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/mobile-v23/qa_mobile_v23.mjs
           node overrides/drum-keysound-v24/qa_keysounds.mjs
+          node overrides/autoplay-sound-v25/qa_autoplay_v25.mjs
       - name: Retain V23 mobile screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -763,6 +765,13 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site
+      - name: Allow Pages artifact metadata to settle
+        run: sleep 12
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Retry Pages deployment if first attempt failed
+        if: steps.deployment.outcome == 'failure'
+        id: deployment_retry
         uses: actions/deploy-pages@v4
