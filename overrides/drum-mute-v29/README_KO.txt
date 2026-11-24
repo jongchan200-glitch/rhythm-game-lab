@@ -1,0 +1,1 @@
+V29: V3의 박자/281개 채보 그대로. 미입력, MISS, BAD 드럼 채널 0%(이전12%), 첫 노트 이전도 0. Demucs no_drums 반주 + 드럼 지배 주파수에 제한적 잔여음 감쇠. 실제 드럼 stem 동일. AnalyserNode로 실제 무입력 파형 RMS와 성공시 RMS 대조. 비교 화면 drum-check-v29.html. 원본 반주에 분리 잔여음 가능. 다른 9곡/저장/채보/manifest 보존.
