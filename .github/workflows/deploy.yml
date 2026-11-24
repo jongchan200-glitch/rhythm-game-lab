@@ -752,6 +752,21 @@ jobs:
           node overrides/mobile-v23/qa_mobile_v23.mjs
           node overrides/drum-keysound-v24/qa_keysounds.mjs
           node overrides/autoplay-sound-v25/qa_autoplay_v25.mjs
+      - name: V26 build separate HARD and reclassify unchanged V2 as normal
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 overrides/hard-holds-v26/build_hard_chart.py
+          /tmp/rhythm-v24-venv/bin/python overrides/hard-holds-v26/build_hard_keysounds.py
+          python3 overrides/hard-holds-v26/install_v26.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/easy-v7-addon.js
+          node --check _site/scripts/drum-keysound-v24.js
+          node --check _site/scripts/home-v14.js
+          node --check _site/scripts/tonight-home-v16.js
+          python3 -m http.server 8766 --bind 127.0.0.1 --directory _site > /tmp/v26-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/hard-holds-v26/qa_v26.mjs
       - name: Retain V23 mobile screenshots
         if: always()
         uses: actions/upload-artifact@v4
