@@ -720,6 +720,14 @@ jobs:
           print('V22_LP_CD_SWIPE_AUTOPREVIEW_AND_BROWSER_USER_GESTURE_CODE_VERIFIED')
           print('V22_EXISTING_V21_EIGHT_SONGS_240_NOTE_DRUM_V2_ALL_AUDIO_CHART_WALLET_UNCHANGED')
           PY
+          # V23: mobile UI and audio-only gain fix, after V22 integrity checks.
+          python3 overrides/mobile-v23/install_mobile_v23.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/home-v14.js
+          node --check _site/scripts/mobile-v23.js
+          cmp _site/assets/manifest.json /tmp/pre-autopreview-v22-manifest.json
+          for f in /tmp/pre-autopreview-v22-charts/*.json; do cmp "$f" "_site/assets/charts/$(basename "$f")"; done
+          for f in /tmp/pre-autopreview-v22-audio/*.mp3; do cmp "$f" "_site/assets/audio/$(basename "$f")"; done
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
