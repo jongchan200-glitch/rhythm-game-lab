@@ -822,6 +822,17 @@ jobs:
           python -m http.server 8770 --bind 127.0.0.1 --directory _site > /tmp/v30-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/drum-selective-v30/qa_v30.mjs
+      - name: V31 PC physical keyboard taps and flicks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python overrides/pc-keys-v31/install_v31.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/hold-v15.js
+          node --check _site/scripts/pc-keys-v31.js
+          python -m http.server 8771 --bind 127.0.0.1 --directory _site > /tmp/v31-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/pc-keys-v31/qa_v31.mjs
       - name: Retain V27 listening comparison and metrics
         if: always()
         uses: actions/upload-artifact@v4
