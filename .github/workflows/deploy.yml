@@ -728,6 +728,21 @@ jobs:
           cmp _site/assets/manifest.json /tmp/pre-autopreview-v22-manifest.json
           for f in /tmp/pre-autopreview-v22-charts/*.json; do cmp "$f" "_site/assets/charts/$(basename "$f")"; done
           for f in /tmp/pre-autopreview-v22-audio/*.mp3; do cmp "$f" "_site/assets/audio/$(basename "$f")"; done
+      - name: V23 real Chrome mobile screenshots and audio regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock playwright
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory _site > /tmp/v23-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/mobile-v23/qa_mobile_v23.mjs
+      - name: Retain V23 mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v23-mobile-qa
+          path: /tmp/v23-mobile-qa/
+          if-no-files-found: ignore
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site
