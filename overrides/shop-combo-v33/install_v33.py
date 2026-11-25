@@ -32,7 +32,7 @@ p.write_text(t,'utf8')
 p=s/'index.html';t=p.read_text('utf8')
 t,n=re.subn(r'(scripts/coin-v18\.js)(?:\?v\d+)?',r'\1?v33',t);assert n==1
 assert t.count('</head>')==1 and t.count('</body>')==1
-t=t.replace('</head>','<link rel="stylesheet" href="scripts/shop-v33.css?v33"/></head>').replace('</body>','<script defer src="scripts/shop-v33.js?v33"></script></body>')
+t=t.replace('</head>','<link rel="stylesheet" href="scripts/shop-v33.css?v331"/></head>').replace('</body>','<script defer src="scripts/shop-v33.js?v331"></script></body>')
 p.write_text(t,'utf8')
 assert before=={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in protected}
 print('V33_APPROVED_ART_CROPPED_EXISTING_MUSIC_CHARTS_UNCHANGED')

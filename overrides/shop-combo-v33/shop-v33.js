@@ -129,24 +129,39 @@ home.addEventListener('click',e=>{if(e.target.closest('[data-rh-panel="shop"]'))
 new MutationObserver(()=>{if(overlay.hidden)closeShop()}).observe(overlay,{attributes:true,attributeFilter:['hidden']});
 refreshSlots();
 window.RhythmShopV33={version:33,snapshot:()=>clone()};
-// Combo is a presentation-only observer on the real HUD counter; no alternate scoring.
+// V33.1: mirror the actual engine combo synchronously; no second scoring system.
 const counter=$('combo'),field=$('field');
 if(counter&&field){
  const display=el('div','v33-combo');display.setAttribute('aria-hidden','true');display.hidden=true;
  const num=el('strong','','0'),word=el('span','','COMBO');display.append(num,word);field.append(display);
  let previous=-1,animation=null;
  function update(){
-  const n=Number(counter.textContent.replace(/[^0-9]/g,''))||0;
-  if(!overlay.hidden||n<20){display.hidden=true;field.classList.remove('v33-combo-on');previous=n;animation?.cancel();return}
-  if(n===previous&&!display.hidden)return;previous=n;display.hidden=false;field.classList.add('v33-combo-on');
-  num.textContent=String(n);const step=Math.min(6,Math.floor(n/10)-2);display.style.setProperty('--v33-combo-size',Math.min(84,48+step*7)+'px');
-  const milestone=n===20||n%10===0;display.dataset.milestone=milestone?'1':'0';
+  const n=typeof combo==='number'?combo:Number(counter.textContent.replace(/[^0-9]/g,''))||0;
+  if(!overlay.hidden||!playing||n<20){
+   if(!display.hidden){display.hidden=true;field.classList.remove('v33-combo-on');animation?.cancel()}
+   previous=n;return;
+  }
+  if(n===previous&&!display.hidden)return;
+  const milestone=n%10===0||previous<20;
+  previous=n;display.hidden=false;field.classList.add('v33-combo-on');
+  num.textContent=String(n);
+  const tier=Math.min(5,Math.floor(n/10));
+  display.dataset.tier=String(tier);display.dataset.milestone=milestone?'1':'0';
+  display.style.setProperty('--v33-combo-size',({2:72,3:88,4:104,5:120})[tier]+'px');
   animation?.cancel();
-  if(display.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)animation=display.animate(milestone?[
-   {transform:'translateX(-50%) scale(.66)',opacity:.25},{transform:'translateX(-50%) scale(1.18)',opacity:1,offset:.30},{transform:'translateX(-50%) scale(1)',opacity:.82}
-  ]:[{transform:'translateX(-50%) scale(1.08)',opacity:.93},{transform:'translateX(-50%) scale(1)',opacity:.74}],{duration:milestone?480:170,easing:'cubic-bezier(.2,.8,.25,1)',fill:'forwards'});
+  if(display.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+   const peak=milestone?1.24+Math.min(5,tier)*.045:1.12;
+   animation=display.animate([
+    {transform:'translate(-50%, 0) scale('+(milestone?.78:1.04)+')',opacity:milestone?.55:.92},
+    {transform:'translate(-50%, '+(milestone?-18:-6)+'px) scale('+peak+')',opacity:1,offset:.30},
+    {transform:'translate(-50%, 0) scale(1)',opacity:.94}
+   ],{duration:milestone?490:170,easing:'cubic-bezier(.17,.82,.24,1)',fill:'forwards'});
+  }
  }
+ const priorHud=updateHud;
+ updateHud=function(...args){const result=priorHud.apply(this,args);update();return result};
  new MutationObserver(update).observe(counter,{childList:true,subtree:true,characterData:true});
- new MutationObserver(update).observe(overlay,{attributes:true,attributeFilter:['hidden']});update()
+ new MutationObserver(update).observe(overlay,{attributes:true,attributeFilter:['hidden']});
+ update();
 }
 })();

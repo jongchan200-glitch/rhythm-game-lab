@@ -34,9 +34,13 @@
 #rhHome .v33-buy:disabled{opacity:.55}
 #rhHome .v33-feedback{min-height:12px;color:#ffd2ca;font-size:12px}
 @media(max-height:680px){#rhHome .v33-slot{width:38px;height:38px}#rhHome .v33-rack{margin-bottom:5px}#rhHome .v33-header{min-height:45px}#rhHome .v33-bag{flex-basis:25%;min-height:86px}#rhHome .v33-grid{gap:6px}#rhHome .v33-shop h3{margin:8px 0 6px}}
+.app .field.v33-combo-on{overflow:visible}
 .field .v33-combo[hidden]{display:none!important}
 .field.v33-combo-on #bigCombo{visibility:hidden!important}
-.field .v33-combo{position:absolute;z-index:3;top:15%;left:50%;transform:translateX(-50%);pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.91;opacity:.78;color:#f9f0df;text-shadow:0 2px 2px #091625,0 0 10px #0a192b,0 0 17px #afc4d254;white-space:nowrap}
-.field .v33-combo strong{font-family:system-ui,sans-serif;font-weight:1000;font-size:clamp(32px,var(--v33-combo-size,48px),24vw);font-variant-numeric:tabular-nums;letter-spacing:-.07em}
-.field .v33-combo span{font-weight:950;font-size:clamp(15px,4.2vw,25px);letter-spacing:.16em;margin-top:5px}
-.field .v33-combo[data-milestone="1"]{color:#fff7df;text-shadow:0 2px 2px #0b1c2c,0 0 15px #d9c59a9e}
+.field .v33-combo{position:absolute;z-index:5;top:9%;left:50%;transform:translateX(-50%);pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.86;opacity:.94;color:#fff1d5;text-shadow:0 3px 5px #091625,0 0 18px #e8c98588,0 0 36px #f3d48b55;white-space:nowrap}
+.field .v33-combo strong{font-family:system-ui,sans-serif;font-weight:1000;font-size:clamp(42px,var(--v33-combo-size,72px),31vw);font-variant-numeric:tabular-nums;letter-spacing:-.065em}
+.field .v33-combo span{font-weight:950;font-size:clamp(15px,4.6vw,26px);letter-spacing:.18em;margin-top:6px}
+.field .v33-combo[data-tier="3"]{color:#ffe2a8;text-shadow:0 3px 5px #16111f,0 0 22px #ffb347aa,0 0 42px #ff9c2f77}
+.field .v33-combo[data-tier="4"]{color:#ffd4e6;text-shadow:0 3px 5px #170d1d,0 0 24px #ff6fb3bb,0 0 48px #ff54a888}
+.field .v33-combo[data-tier="5"]{color:#dff8ff;text-shadow:0 3px 5px #07131d,0 0 26px #67e8f9cc,0 0 54px #7dd3fc99}
+.field .v33-combo[data-milestone="1"]{filter:brightness(1.15) saturate(1.25)}
