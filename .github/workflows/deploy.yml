@@ -833,6 +833,23 @@ jobs:
           python -m http.server 8771 --bind 127.0.0.1 --directory _site > /tmp/v31-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/pc-keys-v31/qa_v31.mjs
+      - name: V32 Korean live home and gameplay skin
+        shell: bash
+        run: |
+          set -euo pipefail
+          python overrides/korean-ui-v32/install_v32.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/korean-v32.js
+          python -m http.server 8772 --bind 127.0.0.1 --directory _site > /tmp/v32-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/korean-ui-v32/qa_v32.mjs
+      - name: Retain V32 actual mobile UI screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v32-korean-ui-qa
+          path: /tmp/v32-ui-qa/
+          if-no-files-found: ignore
       - name: Retain V27 listening comparison and metrics
         if: always()
         uses: actions/upload-artifact@v4

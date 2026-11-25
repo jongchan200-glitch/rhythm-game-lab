@@ -1,0 +1,96 @@
+/* V32: Korean museum-goods inspired, live UI not a flattened screenshot. */
+:root{--k-ink:#10243d;--k-gold:#d4b479;--k-paper:#f5e8ce;--k-red:#913d37;--k-jade:#357b79;--k-oct:polygon(13% 0,87% 0,100% 24%,100% 76%,87% 100%,13% 100%,0 76%,0 24%)}
+#overlay.rh-home-active{background:#102238!important}
+#rhHome{background:#142942!important;--rh-text:#f4e4c3}
+#rhHome .rh-home-page{background:#eee0c7 url('../assets/korean-v32/paper.svg') center/100% 100% no-repeat!important;color:#10243d}
+#rhHome .rh-hard-page{background:#152b42 url('../assets/korean-v32/paper-hard.svg') center/100% 100% no-repeat!important;color:#f5e8ce}
+#rhHome .rh-home-page::before,#rhHome .rh-home-page::after{display:none!important}
+#rhHome .rh-head{height:58px;min-height:58px;padding:6px 14px;gap:8px}
+#rhHome .rh-profile{background:#102942;border:1px solid #d8b574;border-radius:30px;padding:4px 12px 4px 5px;box-shadow:0 2px 0 #b59154}
+#rhHome .rh-avatar{width:35px;height:35px;border-radius:12px;background:#b6cebd;color:#173f4c;border:1px solid #e9d39e;box-shadow:none}
+#rhHome .rh-wallet{background:#10253d;border:1px solid #dfc180;border-radius:22px;box-shadow:0 2px 0 #8f6b38;color:#f8e4ac}
+#rhHome .rh-wallet-icon{font-size:0;width:18px;height:18px;background:url('../assets/korean-v32/coin.svg') center/contain no-repeat}
+#rhHome .rh-brand{padding:4px 5px 0;flex:none;position:relative}
+#rhHome .rh-brand h1{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:clamp(25px,8vw,42px)!important;letter-spacing:-.045em;line-height:1.06;color:#f8edd6!important;text-shadow:0 2px 5px #14283a77!important}
+#rhHome .rh-brand h1 em{color:#efc986;font-style:italic}
+#rhHome .rh-kicker{font-size:9px;color:#f3dca7;letter-spacing:.28em}
+#rhHome .rh-brand::after{content:"";display:block;width:44%;height:3px;margin:7px auto 0;background:linear-gradient(90deg,transparent,#ac514b 15%,#ac514b 49%,#719eae 51%,#719eae 85%,transparent)}
+#rhHome .v23-mode,#rhHome .v23-title,#rhHome .rh-record-kicker,#rhHome .rh-song-sub,#rhHome .rh-preview,#rhHome .rh-hard-lock-title,#rhHome .rh-hard-status,#rhHome .rh-hard-placeholder,#rhHome .rh-main-play small{display:none!important}
+#rhHome .rh-showcase{container-type:size;justify-content:center;padding:5px 10px 0;gap:0;overflow:visible}
+#rhHome .rh-halo{display:none}
+#rhHome .rh-record-zone::before,#rhHome .rh-cd-stage::before{display:none}
+#rhHome .rh-vinyl,#rhHome .rh-compact-disc{width:min(85cqw,calc(100cqh - 45px),460px);height:auto;aspect-ratio:1;max-width:none;max-height:none;min-width:0;min-height:0;border:2px solid #d5b06d;box-shadow:0 0 0 2px #f4d7a4,0 5px 0 #9a713e,0 14px 22px #19253855;overflow:hidden}
+#rhHome .rh-vinyl{background:repeating-radial-gradient(circle,transparent 0 2px,#dce1e31b 2.5px,#080d16 3.5px,transparent 4.5px),conic-gradient(from 25deg,#141a27,#262d39 26deg,#5d5144 53deg,#151c28 75deg,#070c13 145deg,#534636 204deg,#141a25 236deg,#0a0e18 300deg,#141a27)}
+#rhHome .rh-compact-disc{background:repeating-radial-gradient(circle,transparent 0 3px,#fff4 3.5px,transparent 5px),conic-gradient(from 26deg,#759da7,#eee4c1,#a7c0be,#527985,#c4b3d0,#d7bc8d,#759da7)}
+#rhHome .rh-vinyl::before,#rhHome .rh-compact-disc::before{inset:1.5%;border:0;box-shadow:none;background:url('../assets/korean-v32/flowers.svg') center/100% 100% no-repeat;opacity:.95;mix-blend-mode:normal}
+#rhHome .rh-vinyl-label,#rhHome .rh-moonlight .rh-vinyl-label,#rhHome .rh-cd-printed{box-sizing:border-box;width:58%;height:58%;padding:9% 5%;flex:none;gap:4px;overflow:visible;background:url('../assets/korean-v32/waves.svg') center bottom/95% 28% no-repeat,linear-gradient(145deg,#294969,#142840)!important;border:2px solid #d9b46e;color:#f7e7c5;box-shadow:0 0 0 2px #0d1827,inset 0 0 0 2px #f5dfae22;isolation:isolate}
+#rhHome .rh-label-brand,#rhHome .rh-cd-printed span{font-size:clamp(6px,1.8vw,10px);color:#e9cd95;line-height:1.2;flex:none}
+#rhHome .rh-label-title,#rhHome .rh-cd-printed strong{width:100%;max-width:100%;max-height:none;min-height:0;flex:none;white-space:normal;word-break:keep-all;overflow-wrap:break-word;overflow:visible;line-height:1.16;letter-spacing:-.045em;color:#fff1d4;text-shadow:none;font-weight:850;font-family:'Noto Serif KR','Batang','Malgun Gothic',serif;text-align:center}
+#rhHome .rh-label-stars,#rhHome .rh-cd-printed small{color:#f2cb7e;font-size:clamp(11px,3.6vw,18px);letter-spacing:.08em;flex:none;line-height:1}
+#rhHome .rh-label-rule{background:#c9a666}
+#rhHome .rh-label-hole,#rhHome .rh-cd-printed i{display:none}
+#rhHome .k32-index{font-size:clamp(7px,1.6vw,10px);font-weight:750;letter-spacing:.07em;color:#e1c99d;line-height:1.1;flex:none}
+#rhHome .rh-record-info{margin:13px 0 3px;gap:0;max-width:100%;flex:none;min-height:22px}
+#rhHome .rh-credits,#rhHome .rh-credits b{color:#17314b;font-size:11px;font-weight:800;line-height:1.4}
+#rhHome .rh-hard-page .rh-credits,#rhHome .rh-hard-page .rh-credits b{color:#f7e2be}
+#rhHome .rh-credits{gap:3px 10px}
+#rhHome .rh-play-section{padding:4px 12px 10px}
+#rhHome .rh-stats{min-height:50px;background:#142d49 url('../assets/korean-v32/waves.svg') left bottom/68px 40px no-repeat;border:1.5px solid #d7b677;border-radius:17px;box-shadow:0 2px 0 #9e7741;gap:4px}
+#rhHome .rh-stat small{color:#ebd5ab;font-size:9px;letter-spacing:0}
+#rhHome .rh-stat b{color:#fff1ce;font-size:17px}
+#rhHome .rh-stat-divider{background:#d9b97a70}
+#rhHome .rh-main-play:not(:disabled),#rhHome .rh-hard-page .rh-main-play:not(:disabled){background:url('../assets/korean-v32/flowers.svg') center/100% 230% no-repeat,linear-gradient(130deg,#b25349,#7e2f34)!important;color:#fff0cd!important;border:2px solid #e0bd7b!important;border-radius:15px;box-shadow:0 3px 0 #996934,0 6px 10px #2c242235!important;min-height:55px}
+#rhHome .rh-main-play strong{font-size:18px;font-weight:850;letter-spacing:-.045em}
+#rhHome .rh-demo,#rhHome .rh-hard-demo{background:#246965 url('../assets/korean-v32/waves.svg') bottom/100% 40% no-repeat;color:#fff1ce;border:1.5px solid #d9b77a;border-radius:14px;box-shadow:0 3px 0 #99743e;min-height:52px}
+#rhHome .rh-fixed-footer{background:#142d49 url('../assets/korean-v32/waves.svg') center bottom/100px 50px repeat-x!important;border-top:2px solid #d2b272;padding:3px 8px calc(4px + env(safe-area-inset-bottom))}
+#rhHome .rh-nav{gap:0;padding:1px 0;margin:0}
+#rhHome .rh-nav button{min-height:62px;border:0;border-right:1px solid #e1c18b44;border-radius:0;background:transparent;color:#f8e5c3;gap:2px;font-size:11px!important}
+#rhHome .rh-nav button:last-child{border-right:0}
+#rhHome .rh-nav button .k32-icon{width:39px;height:39px;display:block;object-fit:contain;filter:drop-shadow(0 2px 2px #071522)}
+#rhHome .rh-drawer{background:linear-gradient(160deg,#1e3951,#13293f)}
+#rhHome .rh-info-card,#rhHome .rh-banner{background:#203d50;border-color:#c6ac7366}
+#rhHome .v23-done{background:linear-gradient(135deg,#ecd8ab,#c8a36b);color:#183146;border-color:#f4dfae;box-shadow:0 3px 0 #8f6b38}
+/* Gameplay: compact HUD, four unchanged equal lanes, no decorative header or footer. */
+body:not(:has(#overlay.rh-home-active:not([hidden]))){background:#0d2035!important}
+.app{display:flex!important;flex-direction:column;gap:4px!important;max-width:580px!important;height:100dvh!important;padding:calc(env(safe-area-inset-top) + 3px) 5px calc(env(safe-area-inset-bottom) + 4px)!important;min-height:0!important}
+.app .head{flex:none;min-height:34px;gap:3px}
+.app .head .brand strong{font-family:Georgia,serif;font-style:italic;letter-spacing:0;background:none!important;color:#f7e5c2!important;font-size:clamp(13px,3.7vw,20px)!important}
+.app .head .brand small{display:none!important}
+.app .headact .round{min-width:32px;min-height:32px;border:1px solid #c9ae79;background:#142c45;color:#f0dcb5;border-radius:9px}
+.app .head #openLab,.app .head #beatMode{display:none!important}
+.app .hud{flex:none;gap:4px;grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:7px}
+.app .stat{border:1px solid #c7ad77;border-radius:9px;background:#132b43;padding:3px 2px}
+.app .stat::after{display:none}
+.app .stat small{font-size:9px;color:#e8d1a1;letter-spacing:0}
+.app .stat b{font-size:16px;color:#f7efdb;margin:0;line-height:1.25}
+.app #v9HealthMeter{bottom:-7px;height:4px}
+.app .v7-timeline{flex:none;min-height:25px;gap:5px;padding:0}
+.app .v7-skip{height:23px;min-width:35px;font-size:10px;border-color:#947b51;background:#15324a}
+.app .v7-timeline-track{gap:0}
+.app #v7Seek{height:12px}
+.app .v7-timelabel{font-size:8px;line-height:1}
+.app .field{flex:1 1 0;min-height:100px;border:1px solid #516a85;border-radius:7px;box-shadow:none;background:#10243a;overflow:hidden}
+.app .field::before{box-shadow:none}
+.app .field::after{background:rgba(var(--health-tint,47,180,157),.025);box-shadow:none}
+.app .v7-preview-label{display:none!important}
+.app .v7-hit-band{top:94%!important;background:#f6deb41c;border-color:#f4d4a450;box-shadow:none}
+.app .v7-hit-band::after{background:#f7e4b6;box-shadow:0 0 8px #efd2a6}
+.app .keyboard{flex:none;gap:5px}
+.app #keyboard .key{height:clamp(58px,10.5dvh,83px);border:0!important;border-radius:0!important;clip-path:var(--k-oct);background:var(--k-light)!important;box-shadow:none!important;isolation:isolate;gap:1px;filter:none}
+.app #keyboard .key::before{content:"";position:absolute;inset:2px!important;height:auto!important;width:auto!important;clip-path:var(--k-oct);background:linear-gradient(155deg,var(--k-top),#14243d)!important;z-index:-1;box-shadow:none}
+.app #keyboard .key::after{content:"";position:absolute;inset:auto 9% 7%;width:82%;height:27%;border-radius:0;background:url('../assets/korean-v32/waves.svg') bottom/contain no-repeat;opacity:.46;filter:none;pointer-events:none}
+.app #keyboard .key:nth-child(1){--k-light:#edb9c4;--k-top:#946b7a;--c:#edb9c4}
+.app #keyboard .key:nth-child(2){--k-light:#f5dca0;--k-top:#8e7b54;--c:#f5dca0}
+.app #keyboard .key:nth-child(3){--k-light:#a9e0e5;--k-top:#4f8793;--c:#a9e0e5}
+.app #keyboard .key:nth-child(4){--k-light:#d4c2ee;--k-top:#796f9d;--c:#d4c2ee}
+.app #keyboard .key .glyph{display:none}
+.app #keyboard .key .keyname{font-size:10px;color:#fff1dc;letter-spacing:0}
+.app #keyboard .key .sub{font-size:0!important;min-height:0;line-height:1;opacity:1;color:var(--k-light);text-shadow:none}
+.app #keyboard .key.flickAllowed .sub::before{content:'⌃';display:block;transform:none;border:0;box-shadow:none;width:auto;height:auto;font:900 20px/1 system-ui;color:var(--k-light);text-shadow:0 0 5px var(--k-light)}
+.app #keyboard .key.pressed::before{background:linear-gradient(150deg,var(--k-light),var(--k-top))!important}
+.app #keyboard .key.pressed{transform:scale(.98)!important}
+.app #keyboard .pc-v31-keyhint{font-size:9px;right:10%;top:5px;color:#fff1dc}
+.app .bottom{display:none!important}
+.v18-game-wallet{background:#142c45;border-color:#d4b479;box-shadow:none;height:32px}
+.v18-coin-mark,.v18-flying-coin{font-size:0!important;transform:none;border:0!important;box-shadow:none!important;background:url('../assets/korean-v32/coin.svg') center/contain no-repeat!important}
+@media(max-height:680px){#rhHome .rh-head{height:49px;min-height:49px}#rhHome .rh-brand h1{font-size:26px!important}#rhHome .rh-brand::after{margin-top:4px}#rhHome .rh-vinyl,#rhHome .rh-compact-disc{width:min(83cqw,calc(100cqh - 36px),460px)}#rhHome .rh-record-info{margin:7px 0 0}#rhHome .rh-stats{min-height:42px;margin-bottom:6px}#rhHome .rh-main-play:not(:disabled),#rhHome .rh-hard-page .rh-main-play:not(:disabled),#rhHome .rh-demo{min-height:47px}#rhHome .rh-nav button{min-height:52px}#rhHome .rh-nav button .k32-icon{height:32px;width:32px}.app #keyboard .key{height:clamp(54px,10.5dvh,74px)}}
