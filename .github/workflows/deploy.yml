@@ -853,6 +853,15 @@ jobs:
           python -m http.server 8773 --bind 127.0.0.1 --directory _site > /tmp/v33-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/shop-combo-v33/qa_v33.mjs
+      - name: V34 Wings original music and haptic-only rhythm chart
+        shell: bash
+        run: |
+          set -euo pipefail
+          python overrides/wings-v34/install_v34.py
+          node --check _site/scripts/main.js
+          python -m http.server 8774 --bind 127.0.0.1 --directory _site > /tmp/v34-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/wings-v34/qa_v34.mjs
       - name: Retain V33 actual mobile screenshots
         if: always()
         uses: actions/upload-artifact@v4
