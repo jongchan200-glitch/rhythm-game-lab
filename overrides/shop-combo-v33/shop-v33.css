@@ -1,0 +1,42 @@
+/* V33 UI: no text beneath sale icons, no locked-slot placeholders. */
+#rhHome .v33-rack{display:flex;justify-content:center;gap:8px;margin:0 0 7px;flex:none}
+#rhHome .v33-slot{width:44px;height:44px;border:1px solid #9baca8;border-radius:7px;padding:2px;background:linear-gradient(145deg,#253e50,#101c2d);box-shadow:inset 0 2px 6px #081220b0;color:#e8e7df;overflow:hidden}
+#rhHome .v33-slot img{width:100%;height:100%;object-fit:contain;border-radius:4px;display:block}
+#rhHome .v33-shop{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;min-height:0;background:#10243a;color:#f3f2eb;overflow:hidden;padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom)}
+#rhHome .v33-shop[hidden],#rhHome .v33-detail[hidden],#rhHome .v33-tabs[hidden],#rhHome .v33-bag[hidden]{display:none!important}
+#rhHome .v33-header{display:flex;align-items:center;gap:9px;min-height:55px;flex:none;border-bottom:1px solid #60798b55}
+#rhHome .v33-header h2{font-size:22px;letter-spacing:-.05em;margin:0;color:#f4f1e8;flex:1}
+#rhHome .v33-back,#rhHome .v33-x{width:36px;height:36px;flex:none;border:1px solid #738a9b;background:#20374c;color:#faf7ee;border-radius:10px;font-size:26px;line-height:1}
+#rhHome .v33-wallet{display:flex;align-items:center;gap:5px;font-size:17px;color:#fff;font-variant-numeric:tabular-nums}
+#rhHome .v33-wallet img{width:24px;height:24px}
+#rhHome .v33-tabs{display:flex;gap:6px;flex:none;margin:10px 0 4px;padding:3px;background:#0b1b2d;border-radius:10px;border:1px solid #435b70}
+#rhHome .v33-tabs button{flex:1;min-height:36px;border:0;border-radius:7px;background:none;color:#b5c5d1;font-size:14px;font-weight:800}
+#rhHome .v33-tabs button[aria-pressed=true]{background:#35636c;color:#fff}
+#rhHome .v33-sale{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding-bottom:12px}
+#rhHome .v33-shop h3{font-size:14px;color:#e3e9e9;margin:12px 0 9px;font-weight:800}
+#rhHome .v33-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+#rhHome .v33-item{position:relative;aspect-ratio:1;display:grid;place-items:center;min-width:0;width:100%;border:1px solid #7794a4;border-radius:11px;background:#10243a;padding:3px;overflow:hidden}
+#rhHome .v33-item img{display:block;width:100%;height:100%;object-fit:contain;border-radius:7px;pointer-events:none}
+#rhHome .v33-item:active,#rhHome .v33-slot:active{filter:brightness(1.15);transform:scale(.97)}
+#rhHome .v33-bag{flex:0 0 27%;min-height:100px;max-height:220px;overflow:auto;border-top:1px solid #6f8b9b;padding:0 0 10px;background:#122a41;overscroll-behavior:contain}
+#rhHome .v33-bag-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+#rhHome .v33-quantity{position:absolute;bottom:4px;right:5px;background:#07192be0;border-radius:4px;padding:1px 4px;font-size:12px;font-weight:850;color:#fff}
+#rhHome .v33-empty{grid-column:1/-1;color:#adc0ca;font-size:12px;margin:10px 0}
+#rhHome .v33-unset{min-height:43px;align-self:center;border:1px solid #7f97a4;border-radius:8px;background:#1e3b50;color:#fff}
+#rhHome .v33-detail{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;background:#061321cc;padding:22px;backdrop-filter:blur(4px)}
+#rhHome .v33-dialog{position:relative;width:min(100%,310px);background:#1a364c;border:1px solid #9badb4;border-radius:17px;box-shadow:0 12px 40px #0008;padding:20px 17px 16px;display:flex;align-items:center;flex-direction:column;gap:9px;text-align:center}
+#rhHome .v33-x{position:absolute;right:9px;top:9px;font-size:23px}
+#rhHome .v33-preview{width:132px;height:132px;object-fit:contain;border-radius:12px;border:1px solid #8da4b2;margin-top:8px}
+#rhHome .v33-dialog h3{font-size:20px;margin:1px 0;color:#fff}
+#rhHome .v33-desc{font-size:13px;color:#e1e7e9;line-height:1.5;margin:0}
+#rhHome .v33-review{font-size:11px;color:#b4c4cd;margin:0;line-height:1.4}
+#rhHome .v33-buy{width:100%;min-height:45px;background:#36756f;color:#fff;border:1px solid #a9c7bd;border-radius:10px;font-size:15px;font-weight:850;margin-top:7px}
+#rhHome .v33-buy:disabled{opacity:.55}
+#rhHome .v33-feedback{min-height:12px;color:#ffd2ca;font-size:12px}
+@media(max-height:680px){#rhHome .v33-slot{width:38px;height:38px}#rhHome .v33-rack{margin-bottom:5px}#rhHome .v33-header{min-height:45px}#rhHome .v33-bag{flex-basis:25%;min-height:86px}#rhHome .v33-grid{gap:6px}#rhHome .v33-shop h3{margin:8px 0 6px}}
+.field .v33-combo[hidden]{display:none!important}
+.field.v33-combo-on #bigCombo{visibility:hidden!important}
+.field .v33-combo{position:absolute;z-index:3;top:15%;left:50%;transform:translateX(-50%);pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.91;opacity:.78;color:#f9f0df;text-shadow:0 2px 2px #091625,0 0 10px #0a192b,0 0 17px #afc4d254;white-space:nowrap}
+.field .v33-combo strong{font-family:system-ui,sans-serif;font-weight:1000;font-size:clamp(32px,var(--v33-combo-size,48px),24vw);font-variant-numeric:tabular-nums;letter-spacing:-.07em}
+.field .v33-combo span{font-weight:950;font-size:clamp(15px,4.2vw,25px);letter-spacing:.16em;margin-top:5px}
+.field .v33-combo[data-milestone="1"]{color:#fff7df;text-shadow:0 2px 2px #0b1c2c,0 0 15px #d9c59a9e}

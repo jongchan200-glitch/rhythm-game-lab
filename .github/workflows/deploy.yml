@@ -843,6 +843,23 @@ jobs:
           python -m http.server 8772 --bind 127.0.0.1 --directory _site > /tmp/v32-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/korean-ui-v32/qa_v32.mjs
+      - name: V33 approved item artwork, shop and large combo display
+        shell: bash
+        run: |
+          set -euo pipefail
+          python overrides/shop-combo-v33/install_v33.py
+          node --check _site/scripts/shop-v33.js
+          node --check _site/scripts/coin-v18.js
+          python -m http.server 8773 --bind 127.0.0.1 --directory _site > /tmp/v33-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/shop-combo-v33/qa_v33.mjs
+      - name: Retain V33 actual mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v33-shop-combo-qa
+          path: /tmp/v33-qa/
+          if-no-files-found: ignore
       - name: Retain V32 actual mobile UI screenshots
         if: always()
         uses: actions/upload-artifact@v4
