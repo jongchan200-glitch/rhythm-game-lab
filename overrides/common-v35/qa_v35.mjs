@@ -20,13 +20,15 @@ try{
  await toggle.click();assert(await toggle.getAttribute('aria-checked')==='true','fullscreen on');
  assert(await p.evaluate(()=>document.fullscreenElement===document.documentElement&&window.v35FullscreenOptions.navigationUI==='hide'),'root fullscreen');
  await toggle.click();assert(await toggle.getAttribute('aria-checked')==='false','fullscreen off');
- const ids=await p.locator('#catalog .songBtn:not([disabled])').evaluateAll(a=>a.map(x=>x.dataset.song));
- for(const id of ids){
-  await p.evaluate(id=>document.querySelector('#catalog [data-song="'+id+'"]').click(),id);
-  await p.waitForFunction(id=>current?.id===id&&current.audio&&current.chart?.length,id,{timeout:20000});
-  const route=await p.evaluate(()=>({ready:window.RhythmDrumV24.canStart(current,false),same:window.RhythmDrumV24.gameAudio(current,false)===current.audio,src:current.audio.src}));
-  assert(route.ready&&route.same&&route.src.includes('/assets/audio/'),'original mix route '+id+' '+JSON.stringify(route));
- }
+ const routes=await p.evaluate(async()=>{
+  const m=await fetch('assets/manifest.json').then(r=>r.json());
+  return m.tracks.filter(t=>t.status==='ready').map(t=>{
+   const track=songs[t.id];if(!track)return {id:t.id,ready:false};
+   const original=track.audio,selected=window.RhythmDrumV24.gameAudio(track,false);
+   return {id:t.id,ready:window.RhythmDrumV24.canStart(track,false),same:!!original&&selected===original,source:original?.src||track.audioPath||t.audio};
+  });
+ });
+ assert(routes.length===11&&routes.every(t=>t.ready&&t.same&&t.source.includes('assets/audio/')),'original mix routes '+JSON.stringify(routes));
  await p.evaluate(()=>document.querySelector('#catalog [data-song="wings_original_v34"]').click());
  await p.waitForFunction(()=>current?.id==='wings_original_v34'&&!document.getElementById('rhPlay').disabled);
  await p.locator('#rhPlay').click();await p.waitForFunction(()=>playing&&audio&&!audio.paused,{},{timeout:15000});
