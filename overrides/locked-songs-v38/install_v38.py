@@ -22,14 +22,34 @@ else:print('V38_MISSING_USER_WAV_AUDIO_AND_CHART_PENDING_NO_FAKE_SONG')
 for file in ['unlock-v38.js','unlock-v38.css']:shutil.copy2(root/file,site/'scripts'/file)
 coin=(site/'scripts/coin-v18.js').read_text('utf8')
 assert 'window.RhythmCoinV18={balance:()=>amount,selected:()=>notes.filter(n=>n.coin).length,purchase};' in coin, 'V33 transactional wallet required'
+# V38.2: One 100-coin test allowance only for an empty wallet. Never overwrite
+# an existing positive balance, grant twice, or introduce a second coin ledger.
+anchor="let amount=balance(),flightId=0;"
+assert coin.count(anchor)==1, 'expected original V18 wallet bootstrap'
+coin=coin.replace(anchor, """let amount=balance(),flightId=0;
+  const TEST_GRANT_KEY='rhythm_lab_test_100_grant_v382';
+  if(amount===0){
+    try{
+      if(localStorage.getItem(TEST_GRANT_KEY)!=='1'){
+        localStorage.setItem(KEY,'100');
+        localStorage.setItem(TEST_GRANT_KEY,'1');
+        amount=100;
+        console.info('V38_2_ONE_TIME_TEST_COINS_PLUS_100');
+      }
+    }catch(err){console.warn('V38.2 trial grant unavailable',err)}
+  }""",1)
+(site/'scripts/coin-v18.js').write_text(coin,'utf8')
+
 h=site/'index.html';text=h.read_text('utf8')
 assert text.count('</head>')==text.count('</body>')==1
+assert text.count('scripts/coin-v18.js?v33')==1, 'V33 coin script cache key required'
+text=text.replace('scripts/coin-v18.js?v33','scripts/coin-v18.js?v382',1)
 text=text.replace('</head>','<link rel="stylesheet" href="scripts/unlock-v38.css?v38"/></head>',1)
 text=text.replace('</body>','<script defer src="scripts/unlock-v38.js?v381"></script></body>',1)
 h.write_text(text,'utf8')
 assert m['tracks'][:len(old)]==old
 for key,value in hashes.items():
  if key!=str(manifest):assert hashlib.sha256(Path(key).read_bytes()).hexdigest()==value,key
-print('V38_USES_EXISTING_V33_TRANSACTIONAL_WALLET_WITH_NO_COIN_SCRIPT_MODIFICATIONS')
+print('V38_2_EXISTING_V33_WALLET_ONE_TIME_TEST_GIFT_100_IF_ZERO_ONLY_WITH_SAME_COIN_LEDGER')
 
 print('V38_DOOR_EASY_246_NOTES_95_7_BPM_90_432_SECONDS_LOCKED_30_COINS_AND_11_FREE_SONGS_PRESERVED')

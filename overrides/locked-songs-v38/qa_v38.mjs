@@ -16,7 +16,8 @@ try{
   const song=manifest.tracks.find(x=>x.id==='door_open_easy_v38');
   assert(song&&song.difficulty===3&&song.duration>90&&song.duration<91&&song.audio.endsWith('.mp3'));
   const pageHtml=await(await p.request.get('http://127.0.0.1:8778/')).text();
-  assert(pageHtml.includes('scripts/unlock-v38.js?v381'),'new JS cache key required');
+  assert(pageHtml.includes('scripts/unlock-v38.js?v381'),'unlock JS cache key required');
+  assert(pageHtml.includes('scripts/coin-v18.js?v382'),'new one-time test wallet cache key required');
   const chart=await (await p.request.get('http://127.0.0.1:8778/'+song.chart)).json();
   assert.equal(chart.notes.length,246);
   assert.equal(chart.bpm,95.7);
@@ -91,7 +92,29 @@ try{
   assert.equal(await p.evaluate(()=>window.RhythmShopV33.snapshot().owned.drink30),1,'shop inventory persists');
   assert.deepEqual(errors,[],'no browser runtime exceptions');
   await p.close();
+
+  // Real zero-balance user: get the one-time temporary allowance on entry.
+  const zero=await browser.newPage({viewport:{width,height},isMobile:true,hasTouch:true});
+  const zeroErrors=[];zero.on('pageerror',e=>zeroErrors.push(String(e)));
+  const zeroReady=async()=>{await zero.waitForFunction(()=>window.RhythmSongUnlockV38&&window.RhythmCoinV18&&document.querySelectorAll('#catalog .songBtn:not([disabled])').length===12,{},{timeout:30000});await zero.evaluate(()=>window.RhythmSongUnlockV38.ready)};
+  await zero.goto('http://127.0.0.1:8778/?v382',{waitUntil:'domcontentloaded'});await zeroReady();
+  assert.equal(await zero.evaluate(()=>window.RhythmCoinV18.balance()),100,'zero balance gains exactly 100 trial coins');
+  assert.equal(await zero.evaluate(()=>localStorage.getItem('rhythm_lab_coins_v1')),'100','allowance uses original wallet storage');
+  assert.equal(await zero.evaluate(()=>localStorage.getItem('rhythm_lab_test_100_grant_v382')),'1','grant marked once');
+  assert.equal((await zero.locator('#v18GameCoinNumber').textContent()).trim(),'100','display uses actual credited amount');
+  await zero.reload({waitUntil:'domcontentloaded'});await zeroReady();
+  assert.equal(await zero.evaluate(()=>window.RhythmCoinV18.balance()),100,'refresh does not duplicate gift');
+  assert(await zero.evaluate(()=>window.RhythmSongUnlockV38.buy('door_open_easy_v38')),'gift buys the 30-coin game unlock');
+  assert.equal(await zero.evaluate(()=>window.RhythmCoinV18.balance()),70,'100 - 30 = 70');
+  await zero.reload({waitUntil:'domcontentloaded'});await zeroReady();
+  assert.equal(await zero.evaluate(()=>window.RhythmCoinV18.balance()),70,'spent gift remains spent');
+  assert(await zero.evaluate(()=>window.RhythmSongUnlockV38.unlocked('door_open_easy_v38')),'gift unlock persisted');
+  await zero.evaluate(()=>localStorage.setItem('rhythm_lab_coins_v1','0'));
+  await zero.reload({waitUntil:'domcontentloaded'});await zeroReady();
+  assert.equal(await zero.evaluate(()=>window.RhythmCoinV18.balance()),0,'gift must NOT refill after coins are exhausted');
+  assert.deepEqual(zeroErrors,[],'no test wallet runtime errors');
+  await zero.close();
   console.log('V38_COIN_QA_PASS '+width+'x'+height+' insufficient 29/30, earned +1 (demo +0), unlock -30, shop -15, reload persistence, no duplicate billing, 90s chart gameplay');
  }
- console.log('V38_30_COIN_UNLOCK_AND_SINGLE_WALLET_TWO_MOBILE_VIEWPORTS_PASS');
+ console.log('V38_2_ONE_TIME_100_GIFT_IF_ZERO_PLUS_30_UNLOCK_SINGLE_WALLET_TWO_MOBILE_VIEWPORTS_PASS');
 }finally{await browser.close()}
