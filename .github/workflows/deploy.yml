@@ -883,6 +883,22 @@ jobs:
           python -m http.server 8776 --bind 127.0.0.1 --directory _site > /tmp/v36-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/music-v36/qa_v36.mjs
+      - name: V37 premium Korean LP gallery and AI art
+        shell: bash
+        run: |
+          set -euo pipefail
+          python overrides/music-v37/install_v37.py
+          node --check _site/scripts/music-v37.js
+          python -m http.server 8777 --bind 127.0.0.1 --directory _site > /tmp/v37-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/music-v37/qa_v37.mjs
+      - name: Retain V37 gallery screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v37-premium-lp-gallery-qa
+          path: /tmp/v37-qa/
+          if-no-files-found: ignore
       - name: Retain V36 actual music menu screenshots
         if: always()
         uses: actions/upload-artifact@v4
