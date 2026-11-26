@@ -66,7 +66,7 @@ const ht=$('rhHardTitle');if(ht)new MutationObserver(refresh).observe(ht,{childL
 window.addEventListener('storage',e=>{if(e.key===KEY){owned=read();refresh()}});
 async function load(){
  try{const r=await fetch('assets/v38-locks.json',{cache:'no-store'}),j=await r.json();if(!Array.isArray(j.tracks))throw Error('invalid locks');
-  for(const t of j.tracks){if(typeof t.id==='string'&&/^[\w-]{3,90}$/.test(t.id)&&Object.values(prices).includes(t.price))priceMap[t.id]=t.price}
+  for(const t of j.tracks){if(typeof t.id==='string'&&/^[\w-]{3,90}$/.test(t.id)&&(Object.values(prices).includes(t.price)||t.price===30))priceMap[t.id]=t.price}
  }catch(err){console.warn('V38 lock config unavailable',err)}
  refresh();
 }

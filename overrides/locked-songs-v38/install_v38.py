@@ -16,7 +16,7 @@ if audio.exists():
  assert 90.3<=duration<=90.55, duration
  shutil.copy2(audio,site/'assets/audio'/audio.name);shutil.copy2(chart,site/'assets/charts'/chart.name)
  m['tracks'].append({'id':'door_open_easy_v38','title':'문을 열어','subtitle':'원음 반복 채보 · 약 90초','composer':'Charles','difficulty':3,'ruleDifficulty':3,'bpm':j.get('bpm',120),'base':15000,'preRoll':0,'duration':duration,'audio':'assets/audio/'+audio.name,'chart':'assets/charts/'+chart.name,'color':'#e6c388','status':'ready','inputActions':4,'soundBank':'original-mix-quiet-hit'})
- config['tracks'].append({'id':'door_open_easy_v38','price':150});manifest.write_text(json.dumps(m,ensure_ascii=False,indent=2),'utf8')
+ config['tracks'].append({'id':'door_open_easy_v38','price':30});manifest.write_text(json.dumps(m,ensure_ascii=False,indent=2),'utf8')
 else:print('V38_MISSING_USER_WAV_AUDIO_AND_CHART_PENDING_NO_FAKE_SONG')
 (site/'assets/v38-locks.json').write_text(json.dumps(config,ensure_ascii=False,indent=2),'utf8')
 for file in ['unlock-v38.js','unlock-v38.css']:shutil.copy2(root/file,site/'scripts'/file)
@@ -32,4 +32,4 @@ for key,value in hashes.items():
  if key!=str(manifest):assert hashlib.sha256(Path(key).read_bytes()).hexdigest()==value,key
 print('V38_USES_EXISTING_V33_TRANSACTIONAL_WALLET_WITH_NO_COIN_SCRIPT_MODIFICATIONS')
 
-print('V38_DOOR_EASY_246_NOTES_95_7_BPM_90_432_SECONDS_LOCKED_150_COINS_AND_11_FREE_SONGS_PRESERVED')
+print('V38_DOOR_EASY_246_NOTES_95_7_BPM_90_432_SECONDS_LOCKED_30_COINS_AND_11_FREE_SONGS_PRESERVED')
