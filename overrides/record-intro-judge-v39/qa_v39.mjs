@@ -14,7 +14,7 @@ try{
    const chart=await(await p.request.get('http://127.0.0.1:8779/'+t.chart)).json();
    assert((chart.notes||chart)[0].t>=2.8,'minimum lead-in '+t.id);
   }
-  await p.locator('#rhEasyPage [data-rh-panel="shop"]').click();
+  await p.locator('[data-rh-panel="shop"]').click();
   const shell=p.locator('.v33-shop');
   assert.equal(await shell.locator('.v33-sale [data-item="judge2"]').count(),1);
   assert.equal(await shell.locator('.v33-sale [data-item="judge3"]').count(),1);
