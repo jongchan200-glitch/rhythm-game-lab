@@ -4,7 +4,7 @@ const browser=await chromium.launch({channel:'chrome',headless:true,args:['--no-
 try{
  for(const [width,height] of [[390,844],[360,640]]){
   const p=await browser.newPage({viewport:{width,height},isMobile:true,hasTouch:true});
-  const errors=[];p.on('pageerror',e=>errors.push(String(e)));
+  const errors=[];const consoles=[];const responses=[];p.on('pageerror',e=>errors.push(String(e)));p.on('console',m=>{if(m.type()==='error'||m.type()==='warning')consoles.push(m.type()+':'+m.text())});p.on('response',r=>{if(/manifest\.json|charts\//.test(r.url()))responses.push([r.status(),r.url().slice(-100)])});
   await p.addInitScript(()=>{localStorage.setItem('rhythm_lab_coins_v1','300')});
   await p.goto('http://127.0.0.1:8779/?v39',{waitUntil:'domcontentloaded'});
   try{
@@ -16,8 +16,8 @@ try{
     usable:document.querySelectorAll('#catalog .songBtn:not([disabled])').length,
     selected:document.querySelector('#catalog .songBtn.selected')?.dataset.song,
     scripts:[...document.scripts].map(x=>x.src).filter(x=>x.includes('v39')||x.includes('shop-v33')),
-    body:document.body?.textContent.slice(0,150),
-   }))),errors);throw err;
+    body:document.body?.innerText.slice(-2000),catalog:document.getElementById('catalog')?.innerHTML.slice(0,400),songs:typeof songs==='object'?Object.keys(songs).slice(0,20):null,manifestReady:typeof manifest!=='undefined',
+   }))),errors,consoles,responses.slice(-35));throw err;
   }
   const manifest=await(await p.request.get('http://127.0.0.1:8779/assets/manifest.json')).json();
   assert.equal(manifest.tracks.filter(t=>t.status==='ready').length,12);
