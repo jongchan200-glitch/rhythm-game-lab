@@ -1,0 +1,2977 @@
+{
+  "schemaVersion": 1,
+  "soundSchemaVersion": 1,
+  "source": "문을 열어.wav",
+  "sourceSliceSeconds": [
+    157.64,
+    248.04
+  ],
+  "difficulty": 3,
+  "bpm": 95.7,
+  "duration": 90.432,
+  "notesDesign": "Original stereo mix continuous. Audibly detected ~95.7 BPM beat grid; repeated two-bar A/B/C thumb motions. Six sparse bridge events removed; C has short 16th-note double taps. No synthetic instrument replaces the original mix.",
+  "motifs": {
+    "A": "two-bar thumb seesaw",
+    "B": "cross-hand alternating",
+    "C": "double-tap chorus"
+  },
+  "motifSections": {
+    "A": 12,
+    "B": 8,
+    "C": 16
+  },
+  "notes": [
+    {
+      "t": 0.16,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 0.4735,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 0.787,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 1.1004,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 1.4139,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 2.0409,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 2.3544,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 2.6678,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 2.9813,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 3.2948,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 3.6083,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 3.9218,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 4.5487,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 4.8622,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 5.1757,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 5.4892,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 5.8026,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 6.1161,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 6.4296,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 7.0566,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 7.37,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 7.6835,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 7.997,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 8.3105,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 8.6239,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 8.9374,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 9.5644,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 9.8779,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 10.1913,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 10.5048,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 10.8183,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 11.1318,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 11.4453,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 12.0722,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 12.3857,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 12.6992,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 13.0127,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 13.3261,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 13.6396,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 13.9531,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 14.5801,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 14.8935,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 15.207,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 15.5205,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 15.834,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 16.1475,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 16.4609,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 17.0879,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 17.4014,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 17.7149,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 18.0283,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 18.3418,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 18.6553,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 18.9688,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 19.5957,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 19.9092,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 20.2227,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 20.5362,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 20.8497,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 21.1631,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 21.4766,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 22.1036,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 22.4171,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 22.7305,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 23.044,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 23.3575,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 23.671,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 23.9845,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 24.6114,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 24.9249,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 25.2384,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 25.5518,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 25.8653,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 26.1788,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 26.4923,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 27.1192,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 27.4327,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 27.7462,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 28.0597,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 28.3732,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 28.6866,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 29.0001,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 29.6271,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 29.9406,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 30.254,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 30.5675,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 30.881,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 31.508,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 32.4484,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 32.7619,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 33.0754,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 33.3888,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 34.0158,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 34.9562,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 35.2697,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 35.5832,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 35.8967,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 36.5236,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 37.4641,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 37.7776,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 38.091,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 38.4045,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 38.718,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 39.0315,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 39.6584,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 39.9719,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 40.2854,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 40.5989,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 40.9124,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 41.2258,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 41.5393,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 42.1663,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 42.4797,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 42.7932,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 43.1067,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 43.4202,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 43.7337,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 44.0471,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 44.6741,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 44.9876,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 45.3011,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 45.6145,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 45.928,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 46.2415,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 46.555,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 47.1819,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 47.4954,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 47.8089,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 48.1224,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 48.4359,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 48.7493,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 49.0628,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 49.6898,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 50.0033,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 50.3167,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 50.6302,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 50.9437,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 51.1004,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 51.5707,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 51.8841,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 52.5111,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 52.8246,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 53.1381,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 53.4515,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 53.6083,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 54.0785,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 54.392,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 55.0189,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 55.3324,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 55.6459,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 55.9594,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 56.1161,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 56.5863,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 56.8998,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 57.5268,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 57.8403,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 58.1537,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 58.4672,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 58.6239,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 59.0942,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 59.4076,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 60.0346,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 60.3481,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 60.6616,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 60.975,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 61.1318,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 61.602,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 61.9155,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 62.5424,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 62.8559,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 63.1694,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 63.4829,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 63.6396,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 64.1098,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 64.4233,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 65.0503,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 65.3638,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 65.6772,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 65.9907,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 66.1475,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 66.6177,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 66.9312,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 67.5581,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 67.8716,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 68.1851,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 68.4986,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 68.6553,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 69.1255,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 69.439,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 70.066,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 70.3794,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 70.6929,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 71.0064,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 71.1631,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 71.6334,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 71.9468,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 72.5738,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 72.8873,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 73.2008,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 73.5142,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 73.671,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 74.1412,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 74.4547,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 75.0816,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 75.3951,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 75.7086,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 76.0221,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 76.1788,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 76.649,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 76.9625,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 77.5895,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 77.9029,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 78.2164,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 78.5299,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 78.6866,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 79.1569,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 79.4703,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 80.0973,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 80.4108,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 80.7243,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 81.0377,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 81.1945,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 81.6647,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 81.9782,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 82.6051,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 82.9186,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 83.2321,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 83.5456,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 83.7023,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 84.1725,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 84.486,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 85.113,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 85.4265,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 85.7399,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 86.0534,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 86.2102,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 86.6804,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 86.9939,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 87.6208,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 87.9343,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 88.2478,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 88.5613,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 88.718,
+      "lane": 2,
+      "kind": "tap",
+      "pitch": 42,
+      "sound": {
+        "instrument": "synth",
+        "midi": 42,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 89.1882,
+      "lane": 1,
+      "kind": "tap",
+      "pitch": 38,
+      "sound": {
+        "instrument": "synth",
+        "midi": 38,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 89.5017,
+      "lane": 0,
+      "kind": "tap",
+      "pitch": 36,
+      "sound": {
+        "instrument": "synth",
+        "midi": 36,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    },
+    {
+      "t": 90.1287,
+      "lane": 3,
+      "kind": "tap",
+      "pitch": 46,
+      "sound": {
+        "instrument": "synth",
+        "midi": 46,
+        "velocity": 0.62,
+        "length": 0.12
+      }
+    }
+  ]
+}

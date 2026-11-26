@@ -41,6 +41,8 @@ const stages=[19,20,21,29,30,31,39,40,41,49,50,51];
 let priorSize=0;
 for(const target of stages){
  const result=await p.evaluate(target=>{
+  // Synthetic milestone assertions must not race a stray game-finish frame between screenshots.
+  if(!playing||!document.getElementById('overlay').hidden){playing=true;document.getElementById('overlay').hidden=true;paused=true;}
   const a=notes.filter(n=>n.kind==='tap'&&n.state==='pending'&&!n.coin);
   const need=target-combo;
   if(need<0||a.length<need)throw Error('Unexpected QA state '+JSON.stringify({combo,need,available:a.length}));

@@ -8,10 +8,11 @@ config={'version':38,'tracks':[],'starPrices':{'1':50,'2':100,'3':150,'4':200,'5
 audio=root/'door_open_easy_v38.mp3';chart=root/'door_open_easy_v38.json'
 if audio.exists()!=chart.exists():raise RuntimeError('MP3 and chart required together')
 if audio.exists():
- j=json.loads(chart.read_text('utf8'));n=j['notes'];assert j['schemaVersion']==1 and 230<=len(n)<=260
+ j=json.loads(chart.read_text('utf8'));n=j['notes'];assert j['schemaVersion']==1 and len(n)==246 and abs(float(j.get('bpm',0))-95.7)<0.1
+ assert hashlib.sha256(audio.read_bytes()).hexdigest()=='b5e323dd641b49c658c9eca7d4f480d288ea0dbead60a749c2b5f0ea485b1255'
  assert all(0<=x['lane']<=3 and x['kind'] in ('tap','flick','hold') for x in n)
  duration=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(audio)],text=True).strip())
- assert 85<=duration<=95
+ assert 90.3<=duration<=90.55, duration
  shutil.copy2(audio,site/'assets/audio'/audio.name);shutil.copy2(chart,site/'assets/charts'/chart.name)
  m['tracks'].append({'id':'door_open_easy_v38','title':'문을 열어','subtitle':'원음 반복 채보 · 약 90초','composer':'Charles','difficulty':3,'ruleDifficulty':3,'bpm':j.get('bpm',120),'base':15000,'preRoll':0,'duration':duration,'audio':'assets/audio/'+audio.name,'chart':'assets/charts/'+chart.name,'color':'#e6c388','status':'ready','inputActions':4,'soundBank':'original-mix-quiet-hit'})
  config['tracks'].append({'id':'door_open_easy_v38','price':150});manifest.write_text(json.dumps(m,ensure_ascii=False,indent=2),'utf8')
@@ -29,3 +30,5 @@ assert m['tracks'][:len(old)]==old
 for key,value in hashes.items():
  if key!=str(manifest):assert hashlib.sha256(Path(key).read_bytes()).hexdigest()==value,key
 print('V38_USES_EXISTING_V33_TRANSACTIONAL_WALLET_WITH_NO_COIN_SCRIPT_MODIFICATIONS')
+
+print('V38_DOOR_EASY_246_NOTES_95_7_BPM_90_432_SECONDS_LOCKED_150_COINS_AND_11_FREE_SONGS_PRESERVED')

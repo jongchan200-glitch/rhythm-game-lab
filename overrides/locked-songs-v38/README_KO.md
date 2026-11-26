@@ -1,7 +1,9 @@
-# V38 잠금곡 개발
-
-코인 원장은 rhythm_lab_coins_v1 그대로 사용하고, V33이 이미 제공하는 purchase(cost,commit) 원자적 저장·롤백 로직을 재사용함. coin-v18.js는 변경하지 않음. 게임곡 영구 해금은 rhythm_lab_song_unlocks_v38에 저장. V37 원곡 MP3 소장 시험 상태 rhythm_lab_music_preview_v36은 절대 건드리지 않음. 기존 11곡은 무료 상태로 유지.
-
-★1/2/3/4/5 임시 가격 50/100/150/200/300. 새로운 곡의 준비된 MP3와 채보가 동시에 확인될 때만 manifest에 넣고 잠금. 입력/자동시연과 initGame을 이중 차단. 현재 사용자 문을 열어.wav 파일은 새 방/Drive에서 접근 불가하므로 허위 오디오/채보를 배포하지 않음. 필요 리소스: 본 폴더 door_open_easy_v38.mp3(연속 편집 85~95초), door_open_easy_v38.json(실제 음원 박자 측정 230~260노트). 파일을 추가하면 동일 설치 파이프라인에 자동 적용.
-
-QA는 fixture를 통해 공개곡 하나를 일시 잠금으로 취급해 차감·잠금 해제·재시작·기존 원곡 소장 데이터 분리를 검사. 기존 공개곡 자체를 실제 유료화하지 않음.
+# V38 — 문을 열어 신규곡 및 분리된 게임곡 해금
+- 원본: Google Drive https://drive.google.com/file/d/1pJGVukXr6Z5tKiheonmxym2U1DlIkNnI/view — 문을 열어.wav, 277.2초·53,236,240바이트·48kHz 스테레오.
+- 실제 편집: 원본 157.64~248.04초, 90.4초 연속 편집 후 입구 120ms/출구 1.90초 페이드. _site MP3 90.432초, 128kbps 스테레오, SHA256 b5e323dd641b49c658c9eca7d4f480d288ea0dbead60a749c2b5f0ea485b1255. 원본 전체는 공개 저장소에 업로드하지 않음.
+- 재생성 명령: ffmpeg -ss 157.64 -t 90.40 -i '문을 열어.wav' -af 'afade=t=in:st=0:d=0.12,afade=t=out:st=88.50:d=1.90' -ar 48000 -ac 2 -codec:a libmp3lame -b:a 128k door_open_easy_v38.mp3
+- 분석: 원본 구간별 STFT onset 및 비트 추정 약 95.7BPM(0.627초/박). 36마디·246 탭 판정. 2마디 반복 A(12마디)/B(8마디)/C(16마디), 후반 C는 16분음표 간격(0.157초) 손동작을 포함하고 중간 브리지 6개 음표 줄임. chart generator: build_door_v38.py.
+- 해금: 기존 무료 11곡 유지, 신규 EASY 별3 곡 ID door_open_easy_v38을 무료곡 다음 순서로 추가하고 150엽전 유료 해금. 잠긴 앨범 블러 및 잠금, 재접속 후 유지. 가격 표는 별1 50/별2 100/별3 150/별4 200/별5 300(임시).
+- 기존 V33 지갑 purchase(cost,commit)를 그대로 사용, rhythm_lab_coins_v1 원장 유지. 게임곡 해금은 rhythm_lab_song_unlocks_v38, 원곡 MP3 검수용 소장은 rhythm_lab_music_preview_v36로 완전 분리. 원곡 다운로드/실제 원곡 판매는 이번 변경에 포함하지 않음.
+- V35 원곡 연속재생·미세 타격음·진동 규칙과 하단 메뉴/홈/기존 점수·차트·저장값·이미지 변경하지 않음.
+- QA: Chrome 모바일 390×844, 360×640; 실제 배포 12곡, 246노트/95.7BPM, MP3 1MB 초과, 처음 150엽전 차감, 중복 차감 금지, 재접속 해금 유지, 원곡 MP3 소장 원장 무변경을 검사. Android/Google Play 실기기 출시 검수는 별도.
