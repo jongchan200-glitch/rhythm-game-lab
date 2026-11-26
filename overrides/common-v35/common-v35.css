@@ -1,0 +1,12 @@
+/* Test only: remove on native Android packaging. */
+#rhHome .v35-fullscreen{flex:0 0 auto;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;min-width:48px;min-height:44px;padding:2px 1px;border:0;background:transparent;color:#e8d3a3;text-shadow:0 1px 2px #102238;font:800 9px/1.15 system-ui;touch-action:manipulation;white-space:nowrap}
+#rhHome .v35-track{display:block;position:relative;width:30px;height:17px;border-radius:10px;background:#64748b;border:1px solid #d3b477;box-sizing:border-box;transition:background .15s}
+#rhHome .v35-track:after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#fff2d3;transition:transform .15s}
+#rhHome .v35-fullscreen[aria-checked="true"] .v35-track{background:#267970}
+#rhHome .v35-fullscreen[aria-checked="true"] .v35-track:after{transform:translateX(13px)}
+#rhHome .v35-fullscreen:focus-visible{outline:2px solid #d4b479;outline-offset:1px}
+html:fullscreen{background:#102238;overflow:hidden}
+html:fullscreen body{margin:0;min-height:100dvh;overflow:hidden}
+html:fullscreen .app{height:100dvh!important}
+html:fullscreen #overlay.rh-home-active{height:100dvh;max-height:100dvh}
+@media(max-width:360px){#rhHome .rh-head{gap:4px;padding-left:7px;padding-right:7px}#rhHome .v35-fullscreen{min-width:44px;font-size:8px}}
