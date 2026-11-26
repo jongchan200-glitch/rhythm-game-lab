@@ -862,6 +862,18 @@ jobs:
           python -m http.server 8774 --bind 127.0.0.1 --directory _site > /tmp/v34-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/wings-v34/qa_v34.mjs
+      - name: V35 all original mixes quiet hits graded vibration and fullscreen test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python overrides/common-v35/install_v35.py
+          node --check _site/scripts/main.js
+          node --check _site/scripts/common-v35.js
+          node --check _site/scripts/drum-keysound-v24.js
+          node --check _site/scripts/continuous-drums-v28.js
+          python -m http.server 8775 --bind 127.0.0.1 --directory _site > /tmp/v35-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/common-v35/qa_v35.mjs
       - name: Retain V33 actual mobile screenshots
         if: always()
         uses: actions/upload-artifact@v4
