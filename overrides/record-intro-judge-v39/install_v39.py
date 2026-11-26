@@ -60,10 +60,10 @@ rep("sec<=.175 ? ['GOOD',.55,55] :",
     "sec<=v39Windows().good ? ['GOOD',.55,55] :")
 assert a.count('dist=BAD_WINDOW')==1,a.count('dist=BAD_WINDOW')
 a=a.replace('dist=BAD_WINDOW','dist=v39Windows().bad')
-assert a.count('t+BAD_WINDOW')>=2,a.count('t+BAD_WINDOW')
-a=a.replace('t+BAD_WINDOW','t+v39Windows().bad')
 assert a.count('n.t+BAD_WINDOW')>=1,a.count('n.t+BAD_WINDOW')
 a=a.replace('n.t+BAD_WINDOW','n.t+v39Windows().bad')
+assert a.count('t+BAD_WINDOW')>=1,a.count('t+BAD_WINDOW')
+a=a.replace('t+BAD_WINDOW','t+v39Windows().bad')
 
 rep("field.style.setProperty('--hit-band',r.perfect+'px');",
     "const m=window.RhythmJudgementV39?.multiplier?.()||1;field.style.setProperty('--hit-band',(r.perfect*m)+'px');field.dataset.judgeItem=m===3?'triple':m===2?'double':'none';")
