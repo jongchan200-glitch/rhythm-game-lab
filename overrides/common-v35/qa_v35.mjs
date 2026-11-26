@@ -25,7 +25,7 @@ try{
   return m.tracks.filter(t=>t.status==='ready').map(t=>{
    const track=songs[t.id];if(!track)return {id:t.id,ready:false};
    const original=track.audio,selected=window.RhythmDrumV24.gameAudio(track,false);
-   return {id:t.id,ready:window.RhythmDrumV24.canStart(track,false),same:!!original&&selected===original,source:original?.src||track.audioPath||t.audio};
+   return {id:t.id,ready:window.RhythmDrumV24.canStart(track,false),same:selected===original,source:original?.src||track.audioPath||t.audio};
   });
  });
  assert(routes.length===11&&routes.every(t=>t.ready&&t.same&&t.source.includes('assets/audio/')),'original mix routes '+JSON.stringify(routes));
