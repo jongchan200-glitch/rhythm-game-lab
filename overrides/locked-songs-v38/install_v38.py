@@ -1,5 +1,5 @@
 from pathlib import Path
-import hashlib,json,shutil,subprocess
+import hashlib,json,shutil,subprocess,re
 site=Path('_site');root=Path('overrides/locked-songs-v38')
 manifest=site/'assets/manifest.json';m=json.loads(manifest.read_text('utf8'))
 old=list(m['tracks']);assert len([t for t in old if t.get('status')=='ready'])==11
@@ -42,8 +42,8 @@ coin=coin.replace(anchor, """let amount=balance(),flightId=0;
 
 h=site/'index.html';text=h.read_text('utf8')
 assert text.count('</head>')==text.count('</body>')==1
-assert text.count('scripts/coin-v18.js?v33')==1, 'V33 coin script cache key required'
-text=text.replace('scripts/coin-v18.js?v33','scripts/coin-v18.js?v382',1)
+text,n=re.subn(r'scripts/coin-v18\\.js(?:\\?v\\d+)?','scripts/coin-v18.js?v382',text)
+assert n==1, 'exactly one existing coin script reference required'
 text=text.replace('</head>','<link rel="stylesheet" href="scripts/unlock-v38.css?v38"/></head>',1)
 text=text.replace('</body>','<script defer src="scripts/unlock-v38.js?v381"></script></body>',1)
 h.write_text(text,'utf8')
