@@ -25,7 +25,7 @@ assert 'window.RhythmCoinV18={balance:()=>amount,selected:()=>notes.filter(n=>n.
 h=site/'index.html';text=h.read_text('utf8')
 assert text.count('</head>')==text.count('</body>')==1
 text=text.replace('</head>','<link rel="stylesheet" href="scripts/unlock-v38.css?v38"/></head>',1)
-text=text.replace('</body>','<script defer src="scripts/unlock-v38.js?v38"></script></body>',1)
+text=text.replace('</body>','<script defer src="scripts/unlock-v38.js?v381"></script></body>',1)
 h.write_text(text,'utf8')
 assert m['tracks'][:len(old)]==old
 for key,value in hashes.items():

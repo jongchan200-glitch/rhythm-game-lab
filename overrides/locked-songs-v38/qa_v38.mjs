@@ -15,6 +15,8 @@ try{
   assert.equal(manifest.tracks.filter(x=>x.status==='ready').length,12);
   const song=manifest.tracks.find(x=>x.id==='door_open_easy_v38');
   assert(song&&song.difficulty===3&&song.duration>90&&song.duration<91&&song.audio.endsWith('.mp3'));
+  const pageHtml=await(await p.request.get('http://127.0.0.1:8778/')).text();
+  assert(pageHtml.includes('scripts/unlock-v38.js?v381'),'new JS cache key required');
   const chart=await (await p.request.get('http://127.0.0.1:8778/'+song.chart)).json();
   assert.equal(chart.notes.length,246);
   assert.equal(chart.bpm,95.7);
