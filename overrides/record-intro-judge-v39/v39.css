@@ -1,0 +1,24 @@
+/* V39: a real, player-visible hit band reflects the exact item multiplier. */
+.app .field[data-judge-item="double"] .v7-hit-band{
+ background:rgba(255,74,97,.29)!important;border-top:2px solid #ff8a98!important;
+ border-bottom:2px solid #ff8a98!important;box-shadow:0 0 14px #fb395999,inset 0 0 13px #fc6c6188!important;
+}
+.app .field[data-judge-item="triple"] .v7-hit-band{
+ background:rgba(56,151,255,.34)!important;border-top:2px solid #8cd9ff!important;
+ border-bottom:2px solid #8cd9ff!important;box-shadow:0 0 20px #268dffb8,inset 0 0 18px #5bbfff92!important;
+}
+.app .field[data-judge-item="double"] .v7-hit-band::after{background:#ffd4db!important;box-shadow:0 0 12px #ff496e!important}
+.app .field[data-judge-item="triple"] .v7-hit-band::after{background:#d3f6ff!important;box-shadow:0 0 14px #37aaff!important}
+.v39-record-fx{position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);width:95%;z-index:30;pointer-events:none;text-align:center;color:#ffebae;filter:drop-shadow(0 5px 12px #00182a);isolation:isolate}
+.v39-record-fx[hidden]{display:none!important}
+.v39-record-glow{position:absolute;z-index:-1;inset:-55% -8%;background:radial-gradient(ellipse,#ffed8c7b 0%,#faac2535 30%,transparent 69%);filter:blur(7px)}
+.v39-record-fx[data-mode="combo"] .v39-record-glow{background:radial-gradient(ellipse,#52dbff7a 0%,#2783f935 35%,transparent 70%)}
+.v39-record-heading{font-size:clamp(19px,5.8vw,34px);font-weight:1000;letter-spacing:.035em;line-height:1.06;text-shadow:0 2px 0 #503f35,0 0 19px #ffe6b0}
+.v39-record-number{font-size:clamp(38px,11vw,73px);font-weight:1000;line-height:1.13;white-space:nowrap;letter-spacing:-.06em;color:#fffdfa;text-shadow:0 3px 0 #735f44,0 0 17px #ffc85a}
+.v39-record-fx[data-mode="combo"] .v39-record-number{text-shadow:0 3px 0 #245d79,0 0 20px #37cfff}
+.v39-record-sparks{position:absolute;inset:-80%;z-index:-1;background:repeating-conic-gradient(from 6deg,#fff5af88 0deg 3deg,transparent 4deg 29deg);mask-image:radial-gradient(circle,transparent 0 19%,black 26%,transparent 57%);opacity:0}
+.v39-burst{animation:v39Zoom 1.42s ease-out both}
+.v39-burst .v39-record-sparks{animation:v39Sparks 1.42s ease-out both}
+@keyframes v39Zoom{0%{opacity:0;scale:.4;filter:blur(9px)}16%{opacity:1;scale:1.18;filter:blur(0)}35%{scale:1}74%{opacity:1;scale:1}100%{opacity:0;scale:1.12}}
+@keyframes v39Sparks{0%{opacity:0;rotate:-30deg;scale:.4}22%{opacity:.7;rotate:0deg;scale:1}100%{opacity:0;rotate:36deg;scale:1.3}}
+@media(prefers-reduced-motion:reduce){.v39-burst,.v39-burst .v39-record-sparks{animation:none;opacity:1}}
