@@ -32,7 +32,7 @@ try{
  await p.locator('#rhPlay').click();await p.waitForFunction(()=>playing&&audio&&!audio.paused,{},{timeout:15000});
  const result=await p.evaluate(async()=>{
   audio.pause();initGame();paused=true;fxEnabled=true;fxVol=.8;hapticEnabled=true;
-  await ac.resume();
+  initAudio();if(!ac)throw Error("AudioContext unavailable");await ac.resume();
   window.v35Vibrations.length=0;
   const first=window.RhythmV35.diag.hits;
   const wanted=['PERFECT','GREAT','GOOD','BAD'],found={};
