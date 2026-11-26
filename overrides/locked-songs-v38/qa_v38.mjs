@@ -6,13 +6,14 @@ try{
   const p=await browser.newPage({viewport:{width,height},isMobile:true,hasTouch:true});
   const errors=[];p.on('pageerror',e=>errors.push(String(e)));
   await p.addInitScript(()=>{
-   localStorage.setItem('rhythm_lab_coins_v1','200');
+   if(!sessionStorage.getItem('v38-fixture-started')){localStorage.setItem('rhythm_lab_coins_v1','200');sessionStorage.setItem('v38-fixture-started','1')}
    const orig=fetch.bind(window);
    window.fetch=(u,o)=>String(u).includes('v38-locks.json')?Promise.resolve(new Response(JSON.stringify({tracks:[{id:'deathmatch_one_take_v12',price:150}]}),{status:200,headers:{'Content-Type':'application/json'}})):orig(u,o);
   });
   await p.goto('http://127.0.0.1:8778/?v38',{waitUntil:'domcontentloaded'});
   await p.waitForFunction(()=>window.RhythmSongUnlockV38&&window.RhythmCoinV18&&document.querySelectorAll('#catalog .songBtn:not([disabled])').length===11);
   await p.evaluate(()=>window.RhythmSongUnlockV38.ready);
+  await p.evaluate(()=>document.querySelector('#catalog .songBtn[data-song="deathmatch_one_take_v12"]').click());
   assert(await p.evaluate(()=>window.RhythmSongUnlockV38.locked('deathmatch_one_take_v12')));
   await p.locator('#rhPlay').click();
   assert(await p.locator('.v38-modal').isVisible());
