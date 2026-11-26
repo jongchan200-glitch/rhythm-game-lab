@@ -24,14 +24,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Ensure FFmpeg is available (avoid unnecessary apt update)
+      - name: Verify preinstalled FFmpeg (V38 no blocking apt install)
+        timeout-minutes: 2
         run: |
-          if command -v ffmpeg >/dev/null 2>&1 && command -v ffprobe >/dev/null 2>&1; then
-            ffmpeg -version | head -n 1
-          else
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq ffmpeg
-          fi
+          set -eu
+          command -v ffmpeg
+          command -v ffprobe
+          ffmpeg -version | head -n 1
+          ffprobe -version | head -n 1
       - name: Assemble website package
         shell: bash
         run: |
