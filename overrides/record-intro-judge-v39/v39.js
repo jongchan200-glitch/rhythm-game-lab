@@ -34,7 +34,9 @@ finishGame=function(...args){
  if(!playing||autoplay||!current||!baseline||baseline.id!==current.id)return originalFinish.apply(this,args);
  const wins=[];
  if(maxCombo>baseline.combo)wins.push(['NEW BEST COMBO!',maxCombo.toLocaleString('ko-KR')+' COMBO']);
- if(score>baseline.best)wins.push(['NEW HIGH SCORE!',score.toLocaleString('ko-KR')]);
+ const master=misses===0&&goods===0&&greats===0&&perfects===notes.length;
+ const finalScore=Math.min(current.base,Math.round(score))+(master?3000:0);
+ if(finalScore>baseline.best)wins.push(['NEW HIGH SCORE!',finalScore.toLocaleString('ko-KR')]);
  if(!wins.length)return originalFinish.apply(this,args);
  celebrating=true;playing=false;paused=true;
  const savedArgs=args;
