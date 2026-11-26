@@ -42,7 +42,7 @@ coin=coin.replace(anchor, """let amount=balance(),flightId=0;
 
 h=site/'index.html';text=h.read_text('utf8')
 assert text.count('</head>')==text.count('</body>')==1
-text,n=re.subn(r'scripts/coin-v18\\.js(?:\\?v\\d+)?','scripts/coin-v18.js?v382',text)
+text,n=re.subn(r'scripts/coin-v18\.js(?:\?v\d+)?','scripts/coin-v18.js?v382',text)
 assert n==1, 'exactly one existing coin script reference required'
 text=text.replace('</head>','<link rel="stylesheet" href="scripts/unlock-v38.css?v38"/></head>',1)
 text=text.replace('</body>','<script defer src="scripts/unlock-v38.js?v381"></script></body>',1)
