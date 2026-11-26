@@ -16,7 +16,9 @@ for rel in chart_paths:
  p=s/rel;chart=json.loads(p.read_text('utf8'))
  seq=chart['notes'] if isinstance(chart,dict) else chart
  assert seq and all('t' in n for n in seq)
- for n in seq:n['t']=round(float(n['t'])+lead,4)
+ for n in seq:
+  n['t']=round(float(n['t'])+lead,4)
+  if n.get('startT') is not None:n['startT']=round(float(n['startT'])+lead,4)
  if isinstance(chart,dict) and isinstance(chart.get('duration'),(int,float)):chart['duration']=round(chart['duration']+lead,4)
  p.write_text(json.dumps(chart,ensure_ascii=False,separators=(',',':')),'utf8')
 for rel in audio_paths:
@@ -40,6 +42,29 @@ def rep(old,new):
  a=a.replace(old,new,1)
 rep('function perfectSeconds(){return (getRules().perfect+24)/(2*speedPx());}',
     'function perfectSeconds(){return ((getRules().perfect+24)*(window.RhythmJudgementV39?.multiplier?.()||1))/(2*speedPx());}')
+# Keep the game's existing neutral GREAT/GOOD thresholds unchanged without equipment.
+# When PERFECT widens beyond them, shift GREAT/GOOD/MISS borders outward too.
+rep("const BAD_WINDOW = .242;",
+"""const BAD_WINDOW = .242;
+  function v39Windows(){
+    const p=perfectSeconds(),m=window.RhythmJudgementV39?.multiplier?.()||1;
+    if(m===1)return {perfect:p,great:.119,good:.175,bad:BAD_WINDOW};
+    const great=Math.max(.119,p+.045),good=Math.max(.175,great+.055);
+    return {perfect:p,great,good,bad:Math.max(BAD_WINDOW,good+.065)};
+  }""")
+rep("sec<=perfectSeconds() ? ['PERFECT',1,100] :",
+    "sec<=v39Windows().perfect ? ['PERFECT',1,100] :")
+rep("sec<=.119 ? ['GREAT',.88,88] :",
+    "sec<=v39Windows().great ? ['GREAT',.88,88] :")
+rep("sec<=.175 ? ['GOOD',.55,55] :",
+    "sec<=v39Windows().good ? ['GOOD',.55,55] :")
+assert a.count('dist=BAD_WINDOW')==1,a.count('dist=BAD_WINDOW')
+a=a.replace('dist=BAD_WINDOW','dist=v39Windows().bad')
+assert a.count('t+BAD_WINDOW')>=2,a.count('t+BAD_WINDOW')
+a=a.replace('t+BAD_WINDOW','t+v39Windows().bad')
+assert a.count('n.t+BAD_WINDOW')>=1,a.count('n.t+BAD_WINDOW')
+a=a.replace('n.t+BAD_WINDOW','n.t+v39Windows().bad')
+
 rep("field.style.setProperty('--hit-band',r.perfect+'px');",
     "const m=window.RhythmJudgementV39?.multiplier?.()||1;field.style.setProperty('--hit-band',(r.perfect*m)+'px');field.dataset.judgeItem=m===3?'triple':m===2?'double':'none';")
 rep("if(!isEasy())return;\n    const r=getRules();",
