@@ -42,6 +42,8 @@ rep('function perfectSeconds(){return (getRules().perfect+24)/(2*speedPx());}',
     'function perfectSeconds(){return ((getRules().perfect+24)*(window.RhythmJudgementV39?.multiplier?.()||1))/(2*speedPx());}')
 rep("field.style.setProperty('--hit-band',r.perfect+'px');",
     "const m=window.RhythmJudgementV39?.multiplier?.()||1;field.style.setProperty('--hit-band',(r.perfect*m)+'px');field.dataset.judgeItem=m===3?'triple':m===2?'double':'none';")
+rep("if(!isEasy())return;\n    const r=getRules();",
+    "if(!isEasy()&&(window.RhythmJudgementV39?.multiplier?.()||1)===1)return;\n    const r=getRules();")
 rep("band.style.display=ttl.style.display=easy?'':'none';",
     "band.style.display=(easy||(window.RhythmJudgementV39?.multiplier?.()||1)>1)?'':'none';ttl.style.display=easy?'':'none';")
 p.write_text(a,'utf8')
