@@ -32,13 +32,12 @@ function prompt(id){
  modal.hidden=false;no.focus();return true;
 }
 function buy(id){
- const cost=price(id),w=wallet();if(!locked(id)||!w?.spend||balance()<cost)return false;
- const old=localStorage.getItem(KEY),next={...owned,[id]:true};
- try{localStorage.setItem(KEY,JSON.stringify(next))}catch(_){return false}
- if(!w.spend(cost)){
-  try{if(old===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,old)}catch(_){}
-  return false;
- }
+ const cost=price(id),w=wallet();
+ if(!locked(id)||!w?.purchase||balance()<cost)return false;
+ const next={...owned,[id]:true};
+ // V33 purchase commits a local wallet debit with rollback if our licence write fails.
+ const ok=w.purchase(cost,()=>localStorage.setItem(KEY,JSON.stringify(next)));
+ if(!ok)return false;
  owned=next;refresh();return true;
 }
 yes.onclick=()=>{const id=pending;if(!id)return;if(buy(id))close();else{prompt(id);notice.textContent='저장 또는 잔액을 확인해 주세요.'}};

@@ -1,6 +1,6 @@
 # V38 잠금곡 개발
 
-코인 원장은 rhythm_lab_coins_v1 그대로 사용하면서 V18 spend()를 덧붙임. 게임곡 영구 해금은 rhythm_lab_song_unlocks_v38에 저장. V37 원곡 MP3 소장 시험 상태 rhythm_lab_music_preview_v36은 절대 건드리지 않음. 기존 11곡은 무료 상태로 유지.
+코인 원장은 rhythm_lab_coins_v1 그대로 사용하고, V33이 이미 제공하는 purchase(cost,commit) 원자적 저장·롤백 로직을 재사용함. coin-v18.js는 변경하지 않음. 게임곡 영구 해금은 rhythm_lab_song_unlocks_v38에 저장. V37 원곡 MP3 소장 시험 상태 rhythm_lab_music_preview_v36은 절대 건드리지 않음. 기존 11곡은 무료 상태로 유지.
 
 ★1/2/3/4/5 임시 가격 50/100/150/200/300. 새로운 곡의 준비된 MP3와 채보가 동시에 확인될 때만 manifest에 넣고 잠금. 입력/자동시연과 initGame을 이중 차단. 현재 사용자 문을 열어.wav 파일은 새 방/Drive에서 접근 불가하므로 허위 오디오/채보를 배포하지 않음. 필요 리소스: 본 폴더 door_open_easy_v38.mp3(연속 편집 85~95초), door_open_easy_v38.json(실제 음원 박자 측정 230~260노트). 파일을 추가하면 동일 설치 파이프라인에 자동 적용.
 

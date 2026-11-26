@@ -20,6 +20,8 @@ try{
   await p.locator('.v38-actions button').last().click();
   assert.equal(await p.evaluate(()=>window.RhythmCoinV18.balance()),50);
   assert(await p.evaluate(()=>window.RhythmSongUnlockV38.unlocked('deathmatch_one_take_v12')));
+  assert.equal(await p.evaluate(()=>window.RhythmSongUnlockV38.buy('deathmatch_one_take_v12')),false);
+  assert.equal(await p.evaluate(()=>window.RhythmCoinV18.balance()),50);
   assert.equal(await p.evaluate(()=>localStorage.getItem('rhythm_lab_music_preview_v36')),null);
   await p.reload({waitUntil:'domcontentloaded'});
   await p.waitForFunction(()=>window.RhythmSongUnlockV38&&window.RhythmCoinV18);

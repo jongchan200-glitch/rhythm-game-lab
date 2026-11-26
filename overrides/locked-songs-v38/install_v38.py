@@ -18,27 +18,14 @@ if audio.exists():
 else:print('V38_MISSING_USER_WAV_AUDIO_AND_CHART_PENDING_NO_FAKE_SONG')
 (site/'assets/v38-locks.json').write_text(json.dumps(config,ensure_ascii=False,indent=2),'utf8')
 for file in ['unlock-v38.js','unlock-v38.css']:shutil.copy2(root/file,site/'scripts'/file)
-coin=site/'scripts/coin-v18.js';s=coin.read_text('utf8')
-anchor="  window.RhythmCoinV18={balance:()=>amount,selected:()=>notes.filter(n=>n.coin).length};"
-replacement="""  function spend(cost){
-    if(!Number.isSafeInteger(cost)||cost<=0)return false;
-    const stored=balance();if(stored!==amount)amount=stored;
-    if(amount<cost){sync();return false}
-    const next=amount-cost;
-    try{localStorage.setItem(KEY,String(next));if(balance()!==next)throw Error('not saved')}
-    catch(_){sync();return false}
-    amount=next;sync();return true;
-  }
-  window.RhythmCoinV18={balance:()=>amount,selected:()=>notes.filter(n=>n.coin).length,spend};"""
-assert s.count(anchor)==1
-coin.write_text(s.replace(anchor,replacement),'utf8')
+coin=(site/'scripts/coin-v18.js').read_text('utf8')
+assert 'window.RhythmCoinV18={balance:()=>amount,selected:()=>notes.filter(n=>n.coin).length,purchase};' in coin, 'V33 transactional wallet required'
 h=site/'index.html';text=h.read_text('utf8')
 assert text.count('</head>')==text.count('</body>')==1
 text=text.replace('</head>','<link rel="stylesheet" href="scripts/unlock-v38.css?v38"/></head>',1)
 text=text.replace('</body>','<script defer src="scripts/unlock-v38.js?v38"></script></body>',1)
-text=text.replace('scripts/coin-v18.js?v18','scripts/coin-v18.js?v38',1)
 h.write_text(text,'utf8')
 assert m['tracks'][:len(old)]==old
 for key,value in hashes.items():
  if key!=str(manifest):assert hashlib.sha256(Path(key).read_bytes()).hexdigest()==value,key
-print('V38_GAME_UNLOCK_WALLET_SPEND_PERSISTENCE_AND_EXISTING_ASSETS_PRESERVED')
+print('V38_USES_EXISTING_V33_TRANSACTIONAL_WALLET_WITH_NO_COIN_SCRIPT_MODIFICATIONS')
