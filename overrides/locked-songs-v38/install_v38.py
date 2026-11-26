@@ -1,0 +1,44 @@
+from pathlib import Path
+import hashlib,json,shutil,subprocess
+site=Path('_site');root=Path('overrides/locked-songs-v38')
+manifest=site/'assets/manifest.json';m=json.loads(manifest.read_text('utf8'))
+old=list(m['tracks']);assert len([t for t in old if t.get('status')=='ready'])==11
+hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in (site/'assets').rglob('*') if p.is_file()}
+config={'version':38,'tracks':[],'starPrices':{'1':50,'2':100,'3':150,'4':200,'5':300}}
+audio=root/'door_open_easy_v38.mp3';chart=root/'door_open_easy_v38.json'
+if audio.exists()!=chart.exists():raise RuntimeError('MP3 and chart required together')
+if audio.exists():
+ j=json.loads(chart.read_text('utf8'));n=j['notes'];assert j['schemaVersion']==1 and 230<=len(n)<=260
+ assert all(0<=x['lane']<=3 and x['kind'] in ('tap','flick','hold') for x in n)
+ duration=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(audio)],text=True).strip())
+ assert 85<=duration<=95
+ shutil.copy2(audio,site/'assets/audio'/audio.name);shutil.copy2(chart,site/'assets/charts'/chart.name)
+ m['tracks'].append({'id':'door_open_easy_v38','title':'문을 열어','subtitle':'원음 반복 채보 · 약 90초','composer':'Charles','difficulty':3,'ruleDifficulty':3,'bpm':j.get('bpm',120),'base':15000,'preRoll':0,'duration':duration,'audio':'assets/audio/'+audio.name,'chart':'assets/charts/'+chart.name,'color':'#e6c388','status':'ready','inputActions':4,'soundBank':'original-mix-quiet-hit'})
+ config['tracks'].append({'id':'door_open_easy_v38','price':150});manifest.write_text(json.dumps(m,ensure_ascii=False,indent=2),'utf8')
+else:print('V38_MISSING_USER_WAV_AUDIO_AND_CHART_PENDING_NO_FAKE_SONG')
+(site/'assets/v38-locks.json').write_text(json.dumps(config,ensure_ascii=False,indent=2),'utf8')
+for file in ['unlock-v38.js','unlock-v38.css']:shutil.copy2(root/file,site/'scripts'/file)
+coin=site/'scripts/coin-v18.js';s=coin.read_text('utf8')
+anchor="  window.RhythmCoinV18={balance:()=>amount,selected:()=>notes.filter(n=>n.coin).length};"
+replacement="""  function spend(cost){
+    if(!Number.isSafeInteger(cost)||cost<=0)return false;
+    const stored=balance();if(stored!==amount)amount=stored;
+    if(amount<cost){sync();return false}
+    const next=amount-cost;
+    try{localStorage.setItem(KEY,String(next));if(balance()!==next)throw Error('not saved')}
+    catch(_){sync();return false}
+    amount=next;sync();return true;
+  }
+  window.RhythmCoinV18={balance:()=>amount,selected:()=>notes.filter(n=>n.coin).length,spend};"""
+assert s.count(anchor)==1
+coin.write_text(s.replace(anchor,replacement),'utf8')
+h=site/'index.html';text=h.read_text('utf8')
+assert text.count('</head>')==text.count('</body>')==1
+text=text.replace('</head>','<link rel="stylesheet" href="scripts/unlock-v38.css?v38"/></head>',1)
+text=text.replace('</body>','<script defer src="scripts/unlock-v38.js?v38"></script></body>',1)
+text=text.replace('scripts/coin-v18.js?v18','scripts/coin-v18.js?v38',1)
+h.write_text(text,'utf8')
+assert m['tracks'][:len(old)]==old
+for key,value in hashes.items():
+ if key!=str(manifest):assert hashlib.sha256(Path(key).read_bytes()).hexdigest()==value,key
+print('V38_GAME_UNLOCK_WALLET_SPEND_PERSISTENCE_AND_EXISTING_ASSETS_PRESERVED')

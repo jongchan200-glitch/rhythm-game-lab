@@ -892,6 +892,16 @@ jobs:
           python -m http.server 8777 --bind 127.0.0.1 --directory _site > /tmp/v37-http.log 2>&1 &
           trap 'kill $! 2>/dev/null || true' EXIT
           node overrides/music-v37/qa_v37.mjs
+      - name: V38 separate song unlocking and persistent coin debit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python overrides/locked-songs-v38/install_v38.py
+          node --check _site/scripts/coin-v18.js
+          node --check _site/scripts/unlock-v38.js
+          python -m http.server 8778 --bind 127.0.0.1 --directory _site > /tmp/v38-http.log 2>&1 &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          node overrides/locked-songs-v38/qa_v38.mjs
       - name: Retain V37 gallery screenshots
         if: always()
         uses: actions/upload-artifact@v4
