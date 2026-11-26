@@ -7,7 +7,18 @@ try{
   const errors=[];p.on('pageerror',e=>errors.push(String(e)));
   await p.addInitScript(()=>{localStorage.setItem('rhythm_lab_coins_v1','300')});
   await p.goto('http://127.0.0.1:8779/?v39',{waitUntil:'domcontentloaded'});
-  await p.waitForFunction(()=>window.RhythmJudgementV39&&window.RhythmShopV33&&document.querySelectorAll('#catalog .songBtn:not([disabled])').length===12,{},{timeout:30000});
+  try{
+   await p.waitForFunction(()=>window.RhythmJudgementV39&&window.RhythmShopV33&&document.querySelectorAll('#catalog .songBtn:not([disabled])').length===12,{},{timeout:14000});
+  }catch(err){
+   console.log('V39_BOOT_DIAG',JSON.stringify(await p.evaluate(()=>({
+    judge:!!window.RhythmJudgementV39,shop:!!window.RhythmShopV33,
+    total:document.querySelectorAll('#catalog .songBtn').length,
+    usable:document.querySelectorAll('#catalog .songBtn:not([disabled])').length,
+    selected:document.querySelector('#catalog .songBtn.selected')?.dataset.song,
+    scripts:[...document.scripts].map(x=>x.src).filter(x=>x.includes('v39')||x.includes('shop-v33')),
+    body:document.body?.textContent.slice(0,150),
+   }))),errors);throw err;
+  }
   const manifest=await(await p.request.get('http://127.0.0.1:8779/assets/manifest.json')).json();
   assert.equal(manifest.tracks.filter(t=>t.status==='ready').length,12);
   for(const t of manifest.tracks.filter(t=>t.status==='ready')){
