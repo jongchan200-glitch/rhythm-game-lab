@@ -11,6 +11,7 @@ if audio.exists():
  j=json.loads(chart.read_text('utf8'));n=j['notes'];assert j['schemaVersion']==1 and len(n)==246 and abs(float(j.get('bpm',0))-95.7)<0.1
  assert hashlib.sha256(audio.read_bytes()).hexdigest()=='b5e323dd641b49c658c9eca7d4f480d288ea0dbead60a749c2b5f0ea485b1255'
  assert all(0<=x['lane']<=3 and x['kind'] in ('tap','flick','hold') for x in n)
+ assert n[-1]['t']<=88.5 and j.get('beatsSource','').startswith('beat_grid_v38.json'), 'real beat-aligned V38 chart required'
  duration=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(audio)],text=True).strip())
  assert 90.3<=duration<=90.55, duration
  shutil.copy2(audio,site/'assets/audio'/audio.name);shutil.copy2(chart,site/'assets/charts'/chart.name)
